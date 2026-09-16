@@ -3,7 +3,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerControl : MonoBehaviour
 {
-    public float MoveSpeed = 5f;
+    public float MoveSpeed = 5f; // 歩く速度
+    public float RunSpeed = 10f;　// 走る速度
     void Start()
     {
         
@@ -14,6 +15,8 @@ public class PlayerControl : MonoBehaviour
     {
         float horizontal = 0f;
         float vertical = 0f;
+
+        float currentSpeed = MoveSpeed;
 
         // WASD移動
         if (Keyboard.current.aKey.isPressed)
@@ -36,6 +39,12 @@ public class PlayerControl : MonoBehaviour
             vertical = 1f;
         }
 
+        // Shiftを押したら走る
+        if(Keyboard.current.shiftKey.isPressed)
+        {
+            currentSpeed = RunSpeed;
+        }
+
         // Playerの向いている方向を基準にする
         Vector3 move =
             transform.forward * vertical +
@@ -48,7 +57,7 @@ public class PlayerControl : MonoBehaviour
         }
 
         // 移動
-        transform.position += move * MoveSpeed * Time.deltaTime;
+        transform.position += move * currentSpeed * Time.deltaTime;
 
     }
 }
