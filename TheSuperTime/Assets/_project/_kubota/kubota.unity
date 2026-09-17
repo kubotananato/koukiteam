@@ -513,7 +513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerControl
   MoveSpeed: 5
-  RunSpeed: 1
+  RunSpeed: 10
 --- !u!54 &1528063521
 Rigidbody:
   m_ObjectHideFlags: 0
