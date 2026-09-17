@@ -4,9 +4,11 @@ using UnityEngine.InputSystem;
 public class PlayerControl : MonoBehaviour
 {
     public float MoveSpeed = 5f; // 歩く速度
+    /*
     public float RunSpeed = 10f;　// 走る速度
 
     private float currentSpeed = 0f;
+    */
     void Start()
     {
         
@@ -40,6 +42,7 @@ public class PlayerControl : MonoBehaviour
             vertical = 1f;
         }
 
+        /*
         // Shiftを押したら走る
         if(Keyboard.current.shiftKey.isPressed)
         {
@@ -50,6 +53,7 @@ public class PlayerControl : MonoBehaviour
 
             currentSpeed = MoveSpeed;
         }
+        */
 
         // Playerの向いている方向を基準にする
         Vector3 move =
@@ -63,7 +67,17 @@ public class PlayerControl : MonoBehaviour
         }
 
         // 移動
-        transform.position += move * currentSpeed * Time.deltaTime;
+        transform.position += move * MoveSpeed * Time.deltaTime;
+
+        // 移動しているか判定して時間を遅くする
+        if(move.magnitude > 0f)
+        {
+            Time.timeScale = 1f;
+        }
+        else
+        {
+            Time.timeScale = 0.05f;
+        }
 
     }
 }
