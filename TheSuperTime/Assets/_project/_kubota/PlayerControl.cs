@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerControl : MonoBehaviour
 {
-    public float MoveSpeed = 5f; // 歩く速度
+    public float PmoveSpeed = 5f; // 歩く速度
     /*
     public float RunSpeed = 10f;　// 走る速度
 
@@ -67,7 +67,7 @@ public class PlayerControl : MonoBehaviour
         }
 
         // 移動
-        transform.position += move * MoveSpeed * Time.deltaTime;
+        transform.position += move * PmoveSpeed * Time.deltaTime;
 
         // 移動しているか判定して時間を遅くする
         if(move.magnitude > 0f)
