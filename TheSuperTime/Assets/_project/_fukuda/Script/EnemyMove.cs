@@ -2,32 +2,29 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+// 敵の動き
+// 指定の位置まで移動する
+// 移動しながら撃つor撃たない
+// 移動中に射程範囲内にプレイヤーが入ってきたら止まるor止まらない（後から）
+
 public class EnemyMove : MonoBehaviour
 {
-    [SerializeField]GameObject bulletPrefab;
-    int frameTimer = 0;
-    const int SHOT_SPAN = 50;
+    [SerializeField] Transform selfTransform;
+    [SerializeField] Transform targetTransform;
+
+    [SerializeField] Vector3 targetPosition = Vector3.zero;
 
     void Start()
     {
-        
+        // 目標地点と自分の座標の高さを合わせる（高さは変更しないため。）
+        targetPosition.y = transform.position.y;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        frameTimer++;
-        if(frameTimer >= SHOT_SPAN)
-        {
-            frameTimer = 0;
-            ShotOneBullet();
-        }
-    }
-
-    void ShotOneBullet()
-    {
-        GameObject obj = Instantiate(bulletPrefab);
-        if(obj == null) return;
-        Bullet bullet = obj.GetComponent<Bullet>();
+        // プレイヤーを見る
+        selfTransform.LookAt(targetTransform);
+        // 指定位置までの移動
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, 50.0f * Time.deltaTime);
     }
 }
