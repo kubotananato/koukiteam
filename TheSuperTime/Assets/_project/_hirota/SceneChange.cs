@@ -17,7 +17,7 @@ public class SceneCenge : MonoBehaviour
 
     public void LoadTargetScene()
     {
-        if (string.IsNullOrEmpty(targetScene))
+        if (!string.IsNullOrEmpty(targetScene))
         {
             SceneManager.LoadScene(targetScene);
         }

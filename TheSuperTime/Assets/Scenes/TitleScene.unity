@@ -530,7 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b45d6dedd46b79941a53ab17737c15d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneCenge
-  targetScene: TitleScene
+  targetScene: GameSelectScene
 --- !u!114 &1943145697300997279
 MonoBehaviour:
   m_ObjectHideFlags: 0
