@@ -68,9 +68,12 @@ public class PlayerControl : MonoBehaviour
 
         // 移動
         transform.position += move * PmoveSpeed * Time.deltaTime;
+        
 
-        // 移動しているか判定して時間を遅くする
-        if(move.magnitude > 0f)
+
+
+        // 移動しているかまたは左クリックを押している間を判定して時間を遅くする
+        if (move.magnitude > 0f || Mouse.current.leftButton.isPressed)
         {
             Time.timeScale = 1f;
         }
