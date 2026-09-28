@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 public class PlayerControl : MonoBehaviour
 {
     public float PmoveSpeed = 5f; // 歩く速度
+
+    public float NormalTimer = 0f;
+    public float NormalDuration = 0.2f;
     /*
     public float RunSpeed = 10f;　// 走る速度
 
@@ -70,16 +73,24 @@ public class PlayerControl : MonoBehaviour
         transform.position += move * PmoveSpeed * Time.deltaTime;
         
 
-
+        if(Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            NormalTimer = NormalDuration;
+        }
 
         // 移動しているかまたは左クリックを押している間を判定して時間を遅くする
-        if (move.magnitude > 0f || Mouse.current.leftButton.isPressed)
+        if (move.magnitude > 0f || NormalTimer > 0f)
         {
             Time.timeScale = 1f;
         }
         else
         {
             Time.timeScale = 0.05f;
+        }
+
+        if (NormalTimer > 0f)
+        {
+            NormalTimer -= Time.unscaledDeltaTime;
         }
 
     }
