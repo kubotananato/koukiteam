@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyMove : MonoBehaviour
+public class EnemyMove2 : MonoBehaviour
 {
     public float speed = 3f;           // 敵の移動速度
     public Transform player;           // プレイヤーを追跡させたい場合
