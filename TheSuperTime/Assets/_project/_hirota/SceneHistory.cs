@@ -1,16 +1,41 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class SceneHistory : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    ///アクセスのためのインスタンス
+    public static SceneHistory Instance { get; private set; }
+    //前のシーンの名前を保存する
+    public string PreviousSceneName { get; private set; } = "なし";
+    //今のシーンの名前を保存する
+    public string currentSceneName = "";
+
+    void Awake()
     {
-        
+        if(Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+        //現在のシーン
+        currentSceneName = SceneManager.GetActiveScene().name;
+
+        //シーンが変わったときに呼ばれる関数を登録
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnSceneLoaded(Scene Scene, LoadSceneMode mode)
     {
-        
+        //現在で保存していたものを前のシーンとして保存
+        PreviousSceneName = currentSceneName;
+        //現在のシーンを更新
+        currentSceneName = Scene.name;
+
     }
 }

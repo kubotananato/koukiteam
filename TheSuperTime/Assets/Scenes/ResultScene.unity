@@ -282,11 +282,11 @@ Transform:
   m_GameObject: {fileID: 259121689}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 449.31183, y: 334.8775, z: 2.69409}
+  m_LocalPosition: {x: 909.3118, y: 649.8775, z: 2.69409}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 403207148}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &259121691
 MonoBehaviour:
@@ -300,7 +300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b45d6dedd46b79941a53ab17737c15d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneCenge
-  targetScene: 
 --- !u!1 &260181227
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,7 +469,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 260181228}
-  - {fileID: 878280433}
   m_Father: {fileID: 1583158262}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -522,16 +520,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 878280434}
+      - m_Target: {fileID: 259121691}
         m_TargetAssemblyTypeName: SceneCenge, Assembly-CSharp
         m_MethodName: LoadTargetScene
-        m_Mode: 1
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: TitleScene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &266556971
@@ -659,13 +657,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1167298908}
         m_TargetAssemblyTypeName: SceneCenge, Assembly-CSharp
         m_MethodName: LoadTargetScene
-        m_Mode: 1
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: GameSelectScene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &313890184
@@ -738,7 +736,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 231683693}
-  - {fileID: 259121690}
   m_Father: {fileID: 1583158262}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -789,7 +786,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 403207150}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 259121691}
+        m_TargetAssemblyTypeName: SceneCenge, Assembly-CSharp
+        m_MethodName: LoadPreviousScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &403207150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -955,51 +964,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &878280432
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 878280433}
-  - component: {fileID: 878280434}
-  m_Layer: 0
-  m_Name: SceneManeger (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &878280433
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 878280432}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -550.6882, y: 334.8775, z: 2.69409}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 266556969}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &878280434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 878280432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b45d6dedd46b79941a53ab17737c15d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneCenge
-  targetScene: TitleScene
 --- !u!1 &1167298906
 GameObject:
   m_ObjectHideFlags: 0
@@ -1044,7 +1008,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b45d6dedd46b79941a53ab17737c15d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneCenge
-  targetScene: GameSelectScene
 --- !u!1 &1370797092
 GameObject:
   m_ObjectHideFlags: 0
@@ -1566,3 +1529,4 @@ SceneRoots:
   - {fileID: 699472465}
   - {fileID: 1370797096}
   - {fileID: 1406619949}
+  - {fileID: 259121690}
