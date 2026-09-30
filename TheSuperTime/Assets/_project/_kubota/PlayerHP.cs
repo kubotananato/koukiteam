@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerHP : MonoBehaviour
 {
     public float PlayerHp = 1;
+    public bool isDead = false;
 
     void Start()
     {
@@ -13,4 +14,24 @@ public class PlayerHP : MonoBehaviour
     {
         
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if(isDead)
+        {
+            return;
+        }
+
+        if(collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("敵に攻撃された");
+            PlayerHp -= 1;
+
+            if (PlayerHp <= 0)
+            {
+                isDead = true;
+            }
+        }
+    }
+
 }
