@@ -8,6 +8,8 @@ public class EnemyShot : MonoBehaviour
     int frameTimer = 0;
     const int SHOT_SPAN = 50;
 
+    public bool canShot = false;
+
     void Start()
     {
         
@@ -15,6 +17,9 @@ public class EnemyShot : MonoBehaviour
 
     void FixedUpdate()
     {
+        // とりあえず仮で目標地点まで到達→撃つの流れ
+        if (!canShot) return;
+
         frameTimer++;
         if(frameTimer >= SHOT_SPAN)
         {
