@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyRightPop
       objectReference: {fileID: 0}
+    - target: {fileID: 3154651514201954291, guid: f86ac7bbb4a36d7418682b1efe823ac8, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5008148063891161797, guid: f86ac7bbb4a36d7418682b1efe823ac8, type: 3}
       propertyPath: playerTransform
       value: 
@@ -206,7 +210,7 @@ GameObject:
   - component: {fileID: 28720422}
   m_Layer: 0
   m_Name: ground
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -317,6 +321,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyKimePos1
       objectReference: {fileID: 0}
+    - target: {fileID: 3154651514201954291, guid: f86ac7bbb4a36d7418682b1efe823ac8, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5008148063891161797, guid: f86ac7bbb4a36d7418682b1efe823ac8, type: 3}
       propertyPath: isStayPosition
       value: 1
@@ -382,6 +390,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f86ac7bbb4a36d7418682b1efe823ac8, type: 3}
+--- !u!20 &166550381 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5591561872033523438, guid: 03016eb2094dd47499218f29ee26e995, type: 3}
+  m_PrefabInstance: {fileID: 8831007273236914346}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &348837279
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,7 +409,7 @@ GameObject:
   - component: {fileID: 348837281}
   m_Layer: 0
   m_Name: Cube (3)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -508,7 +521,7 @@ GameObject:
   - component: {fileID: 671188287}
   m_Layer: 0
   m_Name: Cube (4)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -618,6 +631,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyKimePos2
       objectReference: {fileID: 0}
+    - target: {fileID: 3154651514201954291, guid: f86ac7bbb4a36d7418682b1efe823ac8, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5008148063891161797, guid: f86ac7bbb4a36d7418682b1efe823ac8, type: 3}
       propertyPath: isStayPosition
       value: 1
@@ -697,7 +714,7 @@ GameObject:
   - component: {fileID: 831384803}
   m_Layer: 0
   m_Name: wall2
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -809,7 +826,7 @@ GameObject:
   - component: {fileID: 893537125}
   m_Layer: 0
   m_Name: wall4
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -921,7 +938,7 @@ GameObject:
   - component: {fileID: 919538640}
   m_Layer: 0
   m_Name: wall3
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1143,6 +1160,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyLeftPop
       objectReference: {fileID: 0}
+    - target: {fileID: 3154651514201954291, guid: f86ac7bbb4a36d7418682b1efe823ac8, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5008148063891161797, guid: f86ac7bbb4a36d7418682b1efe823ac8, type: 3}
       propertyPath: playerTransform
       value: 
@@ -1292,7 +1313,7 @@ GameObject:
   - component: {fileID: 1280623881}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1404,7 +1425,7 @@ GameObject:
   - component: {fileID: 1357316527}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1595,7 +1616,7 @@ GameObject:
   - component: {fileID: 1755695573}
   m_Layer: 0
   m_Name: wall1
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1834,7 +1855,7 @@ GameObject:
   - component: {fileID: 1961582307}
   m_Layer: 0
   m_Name: car
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2037,6 +2058,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 106816222281373020, guid: 03016eb2094dd47499218f29ee26e995, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 166550381}
     - target: {fileID: 2367035922442566231, guid: 03016eb2094dd47499218f29ee26e995, type: 3}
       propertyPath: m_Name
       value: Player
