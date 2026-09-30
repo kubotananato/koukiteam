@@ -14,11 +14,13 @@ using UnityEngine.AI;
 public class EnemyMove : MonoBehaviour
 {
     NavMeshAgent agent;
+    GameObject playerObj;
     Transform playerTransform;
     Vector3 targetPosition = Vector3.zero;
     const float viewDistance = 1000000f;
     float shotReach = 10.0f;
     LayerMask[] sightMask;
+    bool isStayPosition;
     // 一度でも目標地点に到達したかどうか
     bool isReachedTarget = false;
     EnemyShot eneshot;
@@ -32,22 +34,29 @@ public class EnemyMove : MonoBehaviour
         config = this.GetComponent<EnemyConfig>();
         hp = this.GetComponent<EnemyHP>();
 
+        playerObj = GameObject.Find("Player");
+
         SetValue();
 
         // 最初は指定地点まで移動する
         agent.stoppingDistance = 0f;
         agent.SetDestination(targetPosition);
+
+        if(isStayPosition)
+        {
+            isReachedTarget = true;
+        }
     }
 
     void SetValue()
     {
-        agent = config.agent;
+        agent = this.GetComponent<NavMeshAgent>();
         agent.speed = config.moveSpeed;
-        playerTransform = config.playerTransform;
+        playerTransform = playerObj.transform;
         targetPosition = config.targetPosition;
         sightMask = config.sightMask;
         shotReach = config.shotReach;
-
+        isStayPosition = config.isStayPosition;
     }
 
     void FixedUpdate()

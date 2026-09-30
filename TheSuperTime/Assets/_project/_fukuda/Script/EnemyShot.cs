@@ -12,7 +12,7 @@ public class EnemyShot : MonoBehaviour
 
     void Start()
     {
-        
+        frameTimer = 30;
     }
 
     void FixedUpdate()

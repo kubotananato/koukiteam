@@ -3,12 +3,9 @@ using UnityEngine.AI;
 
 public class EnemyConfig : MonoBehaviour
 {
-    // 敵の設定を全部かき集めた
-    [Header("基本設定")]
-    [SerializeField] public Transform playerTransform;
-    [SerializeField] public NavMeshAgent agent;
 
     [Header("移動")]
+    [SerializeField] public bool isStayPosition = false;
     [SerializeField] public Vector3 targetPosition;
     [SerializeField] public float moveSpeed = 0.0f;
 
