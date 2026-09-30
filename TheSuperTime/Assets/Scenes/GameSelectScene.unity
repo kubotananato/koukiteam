@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u4EEE"
+  m_text: "\u52D5\u304D\u898B\u308B\u305F\u3081\u306B\u30EA\u30B6\u30EB\u30C8\u30B7\u30FC\u30F3\u306B\u884C\u304D\u307E\u3059"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 893108782d8ad794cb9f27a9576a75b1, type: 2}
   m_sharedMaterial: {fileID: 3107436208333816985, guid: 893108782d8ad794cb9f27a9576a75b1, type: 2}
@@ -338,7 +338,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 576746013}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 629922941}
+        m_TargetAssemblyTypeName: SceneCenge, Assembly-CSharp
+        m_MethodName: LoadTargetScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: ResultScene
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &576746013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,11 +415,11 @@ Transform:
   m_GameObject: {fileID: 629922939}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -501.64636, y: -217.5188, z: 41.79895}
+  m_LocalPosition: {x: 218.35364, y: 399.9812, z: 41.79895}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1470166534}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &629922941
 MonoBehaviour:
@@ -421,7 +433,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b45d6dedd46b79941a53ab17737c15d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneCenge
-  targetScene: StageScene_1
 --- !u!1 &636207945
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,7 +962,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 636207946}
-  - {fileID: 629922940}
   m_Father: {fileID: 1995550282}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1003,16 +1013,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 629922941}
+      - m_Target: {fileID: 629922939}
         m_TargetAssemblyTypeName: SceneCenge, Assembly-CSharp
-        m_MethodName: LoadTargetScene
-        m_Mode: 1
+        m_MethodName: 
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: StageScene_1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1470166536
@@ -1721,3 +1731,4 @@ SceneRoots:
   - {fileID: 1526182175}
   - {fileID: 1403482164}
   - {fileID: 1826027258}
+  - {fileID: 629922940}
