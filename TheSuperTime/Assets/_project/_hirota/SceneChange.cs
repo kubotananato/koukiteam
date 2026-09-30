@@ -5,28 +5,35 @@ using UnityEngine.SceneManagement;
 public class SceneCenge : MonoBehaviour
 {
 
-    [SerializeField]private string targetScene;
-
-
-    void Start()
+    public void LoadResultScene()
     {
-    }
-    void Update()
-    {
+
+        LoadScene("ResultScene");
     }
 
-    public void LoadTargetScene()
+    public void LoadPreviousScene()
     {
-        if (!string.IsNullOrEmpty(targetScene))
+        string Scene = SceneHistory.Instance.PreviousSceneName;
+        GameManeger.Instance.ResetGameData();
+        LoadScene(Scene);
+    }
+
+    public void LoadTargetScene(string Scene)
+    {
+        GameManeger.Instance.ResetGameData();
+        LoadScene(Scene);
+    }
+
+    void LoadScene(string scene)
+    {
+        if (!string.IsNullOrEmpty(scene))
         {
-            SceneManager.LoadScene(targetScene);
+            SceneManager.LoadScene(scene);
         }
         else
         {
             Debug.LogWarning("シーンが正しく設定されてない");
         }
     }
-
-
 
 }
