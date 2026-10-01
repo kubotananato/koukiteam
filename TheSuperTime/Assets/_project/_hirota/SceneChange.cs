@@ -7,7 +7,10 @@ public class SceneCenge : MonoBehaviour
 
     public void LoadResultScene()
     {
+        Cursor.visible = true;
 
+        // マウスカーソルのロックを解除する（画面中央に固定されていたものを自由にする）
+        Cursor.lockState = CursorLockMode.None;
         LoadScene("ResultScene");
     }
 
