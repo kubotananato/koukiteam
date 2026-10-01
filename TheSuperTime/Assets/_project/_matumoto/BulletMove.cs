@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BulletMove : MonoBehaviour
 {
-    public float bulletSpeed = 20f;    // 弾のスピード
+    public float bulletSpeed = 5f;    // 弾のスピード
     public float lifeTime = 5f;        // 弾が消えるまでの時間（秒）
 
     void Start()
