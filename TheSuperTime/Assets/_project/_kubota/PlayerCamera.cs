@@ -6,7 +6,8 @@ public class PlaeyerCamera : MonoBehaviour
     public float mouseSens = 2f;
     private float xRotation = 0f;
 
-//    public GameObject WeaponReticle;
+    public GameObject WeaponReticle;
+    public GameObject HandReticle;
 
     void Start()
     {
