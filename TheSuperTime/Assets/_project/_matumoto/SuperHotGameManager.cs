@@ -6,11 +6,11 @@ public class SuperHotGameManager : MonoBehaviour
 {
     [Header("=== プレイヤーの設定 ===")]
     public Transform playerTransform;     // プレイヤーのTransform
-    public float playerMoveSpeed = 7f;    // プレイヤーの移動速度
+    public float playerMoveSpeed = 8f;    // プレイヤーの移動速度
 
     [Header("=== タイムスケール設定（敵・弾用） ===")]
     public float normalTimeScale = 1.0f;  // 動いているときの速さ
-    public float stopTimeScale = 2.0f;   // 止まっているときの超スロー
+    public float stopTimeScale = 1.0f;   // 止まっているときの超スロー
     public float transitionSpeed = 5.0f;   // 時間変化の滑らかさ
 
     // プレイヤーが動いているかどうか（True / False）
