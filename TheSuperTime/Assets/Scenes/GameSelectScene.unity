@@ -1013,9 +1013,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 629922939}
+      - m_Target: {fileID: 629922941}
         m_TargetAssemblyTypeName: SceneCenge, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: LoadTargetScene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -7,6 +7,8 @@ public class GameManeger : MonoBehaviour
     //持ち越したいデータ
     public float clearTime = 0.0f;
     public int downEnemy = 0;
+
+    public bool isPlayerDead = false;
     private void Awake()
     {
         if(Instance == null)
@@ -25,5 +27,6 @@ public class GameManeger : MonoBehaviour
     {
         clearTime = 0.0f;
         downEnemy = 0;
+        isPlayerDead = false;
     }
 }
