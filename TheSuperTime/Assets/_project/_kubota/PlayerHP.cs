@@ -21,8 +21,19 @@ public class PlayerHP : MonoBehaviour
         {
             return;
         }
-
+/*
         if(collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("敵に攻撃された");
+            PlayerHp -= 1;
+
+            if (PlayerHp <= 0)
+            {
+                isDead = true;
+            }
+        }
+*/
+        if(collision.gameObject.CompareTag("EnemyBullet"))
         {
             Debug.Log("敵に攻撃された");
             PlayerHp -= 1;

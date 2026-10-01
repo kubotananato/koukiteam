@@ -4,12 +4,15 @@ using UnityEngine.InputSystem;
 public class PlaeyerCamera : MonoBehaviour
 {
     public float mouseSens = 2f;
-
     private float xRotation = 0f;
+
+//    public GameObject WeaponReticle;
 
     void Start()
     {
+        // マウスカーソルを画面に中央に固定
         Cursor.lockState = CursorLockMode.Locked;
+        // マウスカーソルを画面上に表示しない
         Cursor.visible = false;
     }
 
