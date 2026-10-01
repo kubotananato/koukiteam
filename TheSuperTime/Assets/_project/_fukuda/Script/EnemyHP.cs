@@ -30,6 +30,7 @@ public class EnemyHP : MonoBehaviour
         if(hp <= 0)
         {
             isDead = true;
+            GameManeger.Instance.downEnemy++;
         }
     }
 }
