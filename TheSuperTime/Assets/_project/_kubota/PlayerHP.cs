@@ -21,6 +21,8 @@ public class PlayerHP : MonoBehaviour
         {
             return;
         }
+
+        Debug.Log("プレイヤーに何かがあった");
 /*
         if(collision.gameObject.CompareTag("Enemy"))
         {
