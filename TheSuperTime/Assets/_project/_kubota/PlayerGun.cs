@@ -10,6 +10,7 @@ public class PlayerGun : MonoBehaviour
     {
         if(Mouse.current.leftButton.wasPressedThisFrame)
         {
+            Debug.Log("左クリック");
            PShoot();
         }
     }
@@ -36,6 +37,6 @@ public class PlayerGun : MonoBehaviour
         GameObject bullet = Instantiate(PbulletPrefab, PbulletPoint.position, Quaternion.LookRotation(direction));
         */
         Instantiate(PbulletPrefab, PbulletPoint.position, PbulletPoint.rotation);
-
+        Debug.Log("撃った");
     }
 }
