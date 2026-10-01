@@ -41,7 +41,6 @@ public class PlayerHP : MonoBehaviour
             if (PlayerHp <= 0)
             {
                 isDead = true;
-                GameManeger.Instance.isPlayerDead = true;
             }
         }
     }

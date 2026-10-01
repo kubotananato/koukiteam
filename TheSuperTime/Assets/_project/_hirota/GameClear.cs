@@ -28,9 +28,5 @@ public class GameClear : MonoBehaviour
         {
             sceneChangeScript.LoadResultScene();
         }
-        if(GameManeger.Instance.isPlayerDead)
-        {
-            sceneChangeScript.LoadResultScene();
-        }
     }
 }
