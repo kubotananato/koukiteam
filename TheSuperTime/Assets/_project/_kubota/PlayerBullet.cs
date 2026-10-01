@@ -14,7 +14,7 @@ public class PlayerBullet : MonoBehaviour
         transform.position += transform.forward * PbulletSpeed * Time.deltaTime;
     }
 
-    void OncollisinEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         Destroy(gameObject);
     }
