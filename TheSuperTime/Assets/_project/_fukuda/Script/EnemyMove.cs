@@ -19,7 +19,7 @@ public class EnemyMove : MonoBehaviour
     Vector3 targetPosition = Vector3.zero;
     const float viewDistance = 1000000f;
     float shotReach = 10.0f;
-    LayerMask[] sightMask;
+    LayerMask sightMask;
     bool isStayPosition;
     // 一度でも目標地点に到達したかどうか
     bool isReachedTarget = false;
@@ -127,13 +127,10 @@ public class EnemyMove : MonoBehaviour
 
         // プレイヤーが敵の見える位置にいるかどうかを判定する。壁越しかどうかだけ
         Vector3 eyePosition = transform.position + Vector3.up * 1.5f;
-        for(int i = 0; i < sightMask.Length; i++)
+        if (Physics.Raycast(eyePosition, (playerTransform.position - eyePosition).normalized, out RaycastHit hit, viewDistance, sightMask))
         {
-            if (Physics.Raycast(eyePosition, (playerTransform.position - eyePosition).normalized, out RaycastHit hit, viewDistance, sightMask[0]))
-            {
-                // 最初に当たったものがターゲットであれば見えている
-                return hit.transform == playerTransform;
-            }
+           // 最初に当たったものがターゲットであれば見えている
+            return hit.transform == playerTransform;
         }
 
         return false;
