@@ -17,12 +17,14 @@ public class EnemyShot : MonoBehaviour
 
     void FixedUpdate()
     {
+        
         // とりあえず仮で目標地点まで到達→撃つの流れ
         if (!canShot) return;
 
         frameTimer++;
         if(frameTimer >= SHOT_SPAN)
         {
+            Debug.Log("shot!");
             frameTimer = 0;
             ShotOneBullet();
         }
@@ -33,7 +35,9 @@ public class EnemyShot : MonoBehaviour
         GameObject obj = Instantiate(bulletPrefab);
         if(obj == null) return;
         Bullet bullet = obj.GetComponent<Bullet>();
-        obj.transform.position = transform.position;
+        Vector3 genePos = transform.position;
+        genePos.y += 1.5f;
+        obj.transform.position = genePos;
         obj.transform.rotation = transform.rotation;
     }
 }
