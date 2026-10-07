@@ -16,6 +16,11 @@ public class EnemyAnimation : MonoBehaviour
 
     public void SetMoveDir(int _dir)
     {
-        animator.SetInteger("moveDIr", _dir);
+        animator.SetInteger("moveDir", _dir);
+    }
+
+    public void SetIsShot(bool _isShot)
+    {
+        animator.SetBool("isShot", _isShot);
     }
 }
