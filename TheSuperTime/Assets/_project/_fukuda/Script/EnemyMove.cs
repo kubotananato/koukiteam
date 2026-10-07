@@ -26,6 +26,7 @@ public class EnemyMove : MonoBehaviour
     EnemyShot eneshot;
     EnemyConfig config;
     EnemyHP hp;
+    EnemyAnimation anim;
 
     
     void Start()
@@ -33,6 +34,7 @@ public class EnemyMove : MonoBehaviour
         eneshot = this.GetComponent<EnemyShot>();
         config = this.GetComponent<EnemyConfig>();
         hp = this.GetComponent<EnemyHP>();
+        anim = this.GetComponent<EnemyAnimation>();
 
         playerObj = GameObject.Find("Player");
 
