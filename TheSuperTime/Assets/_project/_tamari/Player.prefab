@@ -152,6 +152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlaeyerCamera
   mouseSens: 0.5
+  HandReticle: {fileID: 0}
+  WeaponReticle: {fileID: 0}
 --- !u!1 &3394830308977632847
 GameObject:
   m_ObjectHideFlags: 0
@@ -566,5 +568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84821b0f9f75a9d47a6980a6b4cc3f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerGun
+  playerWeaponpick: {fileID: 0}
   PbulletPrefab: {fileID: 6427642465268052467, guid: 87f64d7e158376441afbb03c6e653ad8, type: 3}
   PbulletPoint: {fileID: 4254176998664657472}
+  PlayerGunCoolDown: 1
