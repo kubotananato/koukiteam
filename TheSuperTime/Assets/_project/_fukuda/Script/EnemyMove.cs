@@ -90,7 +90,6 @@ public class EnemyMove : MonoBehaviour
     if (agent.isStopped || velocity.sqrMagnitude < 0.01f)
     {
         anim.SetMoveDir(5);
-        Debug.Log("停止中");
         return;
     }
 
