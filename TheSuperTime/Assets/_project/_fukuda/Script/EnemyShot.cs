@@ -41,11 +41,11 @@ public class EnemyShot : MonoBehaviour
             Debug.Log("shot!");
             frameTimer = 0;
             ShotOneBullet();
-            anim.SetIsShot(true);
+            //anim.SetIsShot(true);
         }
         else
         {
-            anim.SetIsShot(false);
+            //anim.SetIsShot(false);
         }
     }
 
