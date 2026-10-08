@@ -11,7 +11,7 @@ public class EnemyConfig : MonoBehaviour
 
     [Header("視界など")]
     // プレイヤーと壁・障害物のみ入れる(弾・武器は入れない)
-    [SerializeField] public LayerMask[] sightMask;
+    [SerializeField] public LayerMask sightMask;
 
 
     [Header("攻撃")]

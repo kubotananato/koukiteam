@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Video;
 
 // 敵の動き
 // 指定の位置まで移動する
@@ -19,13 +20,14 @@ public class EnemyMove : MonoBehaviour
     Vector3 targetPosition = Vector3.zero;
     const float viewDistance = 1000000f;
     float shotReach = 10.0f;
-    LayerMask[] sightMask;
+    LayerMask sightMask;
     bool isStayPosition;
     // 一度でも目標地点に到達したかどうか
     bool isReachedTarget = false;
     EnemyShot eneshot;
     EnemyConfig config;
     EnemyHP hp;
+    EnemyAnimation anim;
 
     
     void Start()
@@ -33,6 +35,7 @@ public class EnemyMove : MonoBehaviour
         eneshot = this.GetComponent<EnemyShot>();
         config = this.GetComponent<EnemyConfig>();
         hp = this.GetComponent<EnemyHP>();
+        anim = this.GetComponent<EnemyAnimation>();
 
         playerObj = GameObject.Find("Player");
 
@@ -52,6 +55,7 @@ public class EnemyMove : MonoBehaviour
     {
         agent = this.GetComponent<NavMeshAgent>();
         agent.speed = config.moveSpeed;
+        agent.updateRotation = false; // 移動方向への自動回転を無効にする
         playerTransform = playerObj.transform;
         targetPosition = config.targetPosition;
         sightMask = config.sightMask;
@@ -67,7 +71,74 @@ public class EnemyMove : MonoBehaviour
             return;
         }
 
+        // プレイヤーの向きに回転
+        RotationToPlayer();
 
+        // ターゲットへ動く
+        MoveToTarget();
+
+        // アニメーション用に歩く方向をセットする
+        SetMoveDir();
+    }
+
+    void SetMoveDir()
+    {
+        Vector3 velocity = agent.velocity;
+        velocity.y = 0f;
+
+    // 停止中、またはほとんど移動していない場合はIdle
+    if (agent.isStopped || velocity.sqrMagnitude < 0.01f)
+    {
+        anim.SetMoveDir(5);
+        return;
+    }
+
+    // ワールドの移動方向を、敵自身を基準にした方向へ変換
+    Vector3 localDir = transform.InverseTransformDirection(velocity);
+
+    // 前を0度として、右が90度、左が-90度
+    float angle = Mathf.Atan2(localDir.x, localDir.z) * Mathf.Rad2Deg;
+
+    // 45度ずつの8方向に分類する
+    // 0:前 1:右前 2:右 3:右後 4:後 5:左後 6:左 7:左前
+    int sector = Mathf.RoundToInt(angle / 45f);
+    sector = (sector + 8) % 8;
+
+    int moveDir = 5;
+
+    switch (sector)
+    {
+        case 0: moveDir = 2; break; // 前
+        case 1: moveDir = 3; break; // 右前
+        case 2: moveDir = 6; break; // 右
+        case 3: moveDir = 9; break; // 右後
+        case 4: moveDir = 8; break; // 後
+        case 5: moveDir = 7; break; // 左後
+        case 6: moveDir = 4; break; // 左
+        case 7: moveDir = 1; break; // 左前
+    }
+
+    anim.SetMoveDir(moveDir);
+    }
+
+    void RotationToPlayer()
+    {
+        // プレイヤーの位置を向くようにする
+        if(playerTransform != null)
+        {
+            Vector3 dir = playerTransform.position - transform.position;
+            dir.y = 0.0f; // XZ軸のみで回転を行う
+
+            if(dir.sqrMagnitude > 0.001f)
+            {
+                transform.rotation = Quaternion.LookRotation(dir);
+            }
+        }
+    }
+
+
+    void MoveToTarget()
+    {
         // 優先順位
         // 指定までの移動→Playerが見えていれば撃つ→見えなくなった時、見える位置までの移動（最終的には）
 
@@ -97,16 +168,9 @@ public class EnemyMove : MonoBehaviour
 
         if(CanSeeTarget() && isInReach)
         {
-            // プレイヤーが見える位置にいるなら、その場で止まって向きだけ変える
+            // プレイヤーが見える位置にいるなら、その場で止まって射撃を行う
             agent.isStopped = true;
             agent.updateRotation = false;
-
-            Vector3 dir = playerTransform.position - transform.position;
-            dir.y = 0f;
-            if(dir.sqrMagnitude > 0.001f)
-            {
-                transform.rotation = Quaternion.LookRotation(dir);
-            }
 
             // 射撃可能にする
             eneshot.canShot = true;
@@ -127,13 +191,10 @@ public class EnemyMove : MonoBehaviour
 
         // プレイヤーが敵の見える位置にいるかどうかを判定する。壁越しかどうかだけ
         Vector3 eyePosition = transform.position + Vector3.up * 1.5f;
-        for(int i = 0; i < sightMask.Length; i++)
+        if (Physics.Raycast(eyePosition, (playerTransform.position - eyePosition).normalized, out RaycastHit hit, viewDistance, sightMask))
         {
-            if (Physics.Raycast(eyePosition, (playerTransform.position - eyePosition).normalized, out RaycastHit hit, viewDistance, sightMask[0]))
-            {
-                // 最初に当たったものがターゲットであれば見えている
-                return hit.transform == playerTransform;
-            }
+           // 最初に当たったものがターゲットであれば見えている
+            return hit.transform == playerTransform;
         }
 
         return false;
