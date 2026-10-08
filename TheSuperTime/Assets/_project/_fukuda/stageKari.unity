@@ -541,7 +541,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6054495601292471813, guid: 11434b0ef53c1cb4f98c59e715a259f3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6867482588077077695, guid: 11434b0ef53c1cb4f98c59e715a259f3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1638,7 +1638,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6054495601292471813, guid: 11434b0ef53c1cb4f98c59e715a259f3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6867482588077077695, guid: 11434b0ef53c1cb4f98c59e715a259f3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1693,13 +1693,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 440526739045697949, guid: 11434b0ef53c1cb4f98c59e715a259f3, type: 3}
-      propertyPath: isStayPosition
+    - target: {fileID: -2552195440943218096, guid: 11434b0ef53c1cb4f98c59e715a259f3, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 440526739045697949, guid: 11434b0ef53c1cb4f98c59e715a259f3, type: 3}
+      propertyPath: isGun
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440526739045697949, guid: 11434b0ef53c1cb4f98c59e715a259f3, type: 3}
+      propertyPath: punchReach
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 440526739045697949, guid: 11434b0ef53c1cb4f98c59e715a259f3, type: 3}
+      propertyPath: isStayPosition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 440526739045697949, guid: 11434b0ef53c1cb4f98c59e715a259f3, type: 3}
       propertyPath: targetPosition.x
-      value: 10.59
+      value: 4.04
       objectReference: {fileID: 0}
     - target: {fileID: 440526739045697949, guid: 11434b0ef53c1cb4f98c59e715a259f3, type: 3}
       propertyPath: targetPosition.y
@@ -1708,6 +1720,14 @@ PrefabInstance:
     - target: {fileID: 440526739045697949, guid: 11434b0ef53c1cb4f98c59e715a259f3, type: 3}
       propertyPath: targetPosition.z
       value: 1.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 2128264515821571811, guid: 11434b0ef53c1cb4f98c59e715a259f3, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2937549162815098759, guid: 11434b0ef53c1cb4f98c59e715a259f3, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6054495601292471813, guid: 11434b0ef53c1cb4f98c59e715a259f3, type: 3}
       propertyPath: m_Name
@@ -1757,11 +1777,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7591577485293565611, guid: 11434b0ef53c1cb4f98c59e715a259f3, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6054495601292471813, guid: 11434b0ef53c1cb4f98c59e715a259f3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1633961704}
   m_SourcePrefab: {fileID: 100100000, guid: 11434b0ef53c1cb4f98c59e715a259f3, type: 3}
+--- !u!1 &1633961703 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6054495601292471813, guid: 11434b0ef53c1cb4f98c59e715a259f3, type: 3}
+  m_PrefabInstance: {fileID: 1633961702}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1633961704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633961703}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfe35b6b5bf9b604da50eb4029153251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyPunchMove
 --- !u!1 &1754670601
 GameObject:
   m_ObjectHideFlags: 0
@@ -1967,7 +2011,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6054495601292471813, guid: 11434b0ef53c1cb4f98c59e715a259f3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6867482588077077695, guid: 11434b0ef53c1cb4f98c59e715a259f3, type: 3}
       propertyPath: m_LocalPosition.x
