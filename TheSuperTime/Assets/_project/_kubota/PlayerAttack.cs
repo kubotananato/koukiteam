@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
 {
+    public PlayerWeaponpick playerWeaponpick;
     public float attackCoolDown = 1f;
     void Start()
     {
@@ -10,6 +12,18 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        
+        if (playerWeaponpick.hasWeapon == false && playerWeaponpick.hasWeaponyes == false)
+        {
+            if (Mouse.current.leftButton.wasPressedThisFrame)
+            {
+                Debug.Log("殴り");
+                Attack();
+            }
+        }
+    }
+
+    void Attack()
+    {
+
     }
 }
