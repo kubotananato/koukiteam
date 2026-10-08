@@ -2,17 +2,24 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerGun : MonoBehaviour
 {
+    public PlayerWeaponpick playerWeaponpick; // PlayerWeapnpickのスクリプトを参照
     public GameObject PbulletPrefab;
     public Transform PbulletPoint;
-//    public Camera playerCamera;
+    //    public Camera playerCamera;
+
+    public float PlayerGunCoolDown = 1f;
 
     void Update()
     {
-        if(Mouse.current.leftButton.wasPressedThisFrame)
+        if (playerWeaponpick.hasWeapon == false)
         {
-            Debug.Log("左クリック");
-           PShoot();
+            if (Mouse.current.leftButton.wasPressedThisFrame)
+            {
+                Debug.Log("銃");
+                PShoot();
+            }   
         }
+        playerWeaponpick.hasWeapon = false;
     }
 
     void PShoot()
