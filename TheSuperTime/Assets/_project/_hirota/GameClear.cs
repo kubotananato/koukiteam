@@ -24,8 +24,10 @@ public class GameClear : MonoBehaviour
 
     void Update()
     {
+        GameManeger.Instance.clearTime++;
         if (GameManeger.Instance.downEnemy >= 4)
         {
+            
             sceneChangeScript.LoadResultScene();
         }
     }
