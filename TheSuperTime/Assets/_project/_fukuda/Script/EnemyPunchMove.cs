@@ -12,15 +12,14 @@ using UnityEngine.Video;
 // 移動しながら撃つor撃たない
 // 移動中に射程範囲内にプレイヤーが入ってきたら止まるor止まらない（後から）
 
-public class EnemyMove : MonoBehaviour
+public class EnemyPunchMove : MonoBehaviour
 {
     NavMeshAgent agent;
     GameObject playerObj;
     Transform playerTransform;
     Vector3 targetPosition = Vector3.zero;
     const float viewDistance = 1000000f;
-    float shotReach = 10.0f;
-    float punchReach = 0.0f;
+    float punchReach = 5.0f;
     LayerMask sightMask;
     bool isStayPosition;
     // 一度でも目標地点に到達したかどうか
@@ -30,7 +29,7 @@ public class EnemyMove : MonoBehaviour
     EnemyHP hp;
     EnemyAnimation anim;
 
-    
+
     void Start()
     {
         eneshot = this.GetComponent<EnemyShot>();
@@ -46,7 +45,7 @@ public class EnemyMove : MonoBehaviour
         agent.stoppingDistance = 0f;
         agent.SetDestination(targetPosition);
 
-        if(isStayPosition)
+        if (isStayPosition)
         {
             isReachedTarget = true;
         }
@@ -60,14 +59,13 @@ public class EnemyMove : MonoBehaviour
         playerTransform = playerObj.transform;
         targetPosition = config.targetPosition;
         sightMask = config.sightMask;
-        shotReach = config.shotReach;
         punchReach = config.punchReach;
         isStayPosition = config.isStayPosition;
     }
 
     void FixedUpdate()
     {
-        if(hp.isDead)
+        if (hp.isDead)
         {
             Destroy(gameObject);
             return;
@@ -88,50 +86,50 @@ public class EnemyMove : MonoBehaviour
         Vector3 velocity = agent.velocity;
         velocity.y = 0f;
 
-    // 停止中、またはほとんど移動していない場合はIdle
-    if (agent.isStopped || velocity.sqrMagnitude < 0.01f)
-    {
-        anim.SetMoveDir(5);
-        return;
-    }
+        // 停止中、またはほとんど移動していない場合はIdle
+        if (agent.isStopped || velocity.sqrMagnitude < 0.01f)
+        {
+            anim.SetMoveDir(5);
+            return;
+        }
 
-    // ワールドの移動方向を、敵自身を基準にした方向へ変換
-    Vector3 localDir = transform.InverseTransformDirection(velocity);
+        // ワールドの移動方向を、敵自身を基準にした方向へ変換
+        Vector3 localDir = transform.InverseTransformDirection(velocity);
 
-    // 前を0度として、右が90度、左が-90度
-    float angle = Mathf.Atan2(localDir.x, localDir.z) * Mathf.Rad2Deg;
+        // 前を0度として、右が90度、左が-90度
+        float angle = Mathf.Atan2(localDir.x, localDir.z) * Mathf.Rad2Deg;
 
-    // 45度ずつの8方向に分類する
-    // 0:前 1:右前 2:右 3:右後 4:後 5:左後 6:左 7:左前
-    int sector = Mathf.RoundToInt(angle / 45f);
-    sector = (sector + 8) % 8;
+        // 45度ずつの8方向に分類する
+        // 0:前 1:右前 2:右 3:右後 4:後 5:左後 6:左 7:左前
+        int sector = Mathf.RoundToInt(angle / 45f);
+        sector = (sector + 8) % 8;
 
-    int moveDir = 5;
+        int moveDir = 5;
 
-    switch (sector)
-    {
-        case 0: moveDir = 2; break; // 前
-        case 1: moveDir = 3; break; // 右前
-        case 2: moveDir = 6; break; // 右
-        case 3: moveDir = 9; break; // 右後
-        case 4: moveDir = 8; break; // 後
-        case 5: moveDir = 7; break; // 左後
-        case 6: moveDir = 4; break; // 左
-        case 7: moveDir = 1; break; // 左前
-    }
+        switch (sector)
+        {
+            case 0: moveDir = 2; break; // 前
+            case 1: moveDir = 3; break; // 右前
+            case 2: moveDir = 6; break; // 右
+            case 3: moveDir = 9; break; // 右後
+            case 4: moveDir = 8; break; // 後
+            case 5: moveDir = 7; break; // 左後
+            case 6: moveDir = 4; break; // 左
+            case 7: moveDir = 1; break; // 左前
+        }
 
-    anim.SetMoveDir(moveDir);
+        anim.SetMoveDir(moveDir);
     }
 
     void RotationToPlayer()
     {
         // プレイヤーの位置を向くようにする
-        if(playerTransform != null)
+        if (playerTransform != null)
         {
             Vector3 dir = playerTransform.position - transform.position;
             dir.y = 0.0f; // XZ軸のみで回転を行う
 
-            if(dir.sqrMagnitude > 0.001f)
+            if (dir.sqrMagnitude > 0.001f)
             {
                 transform.rotation = Quaternion.LookRotation(dir);
             }
@@ -159,16 +157,15 @@ public class EnemyMove : MonoBehaviour
             if (isTargetPos)
             {
                 isReachedTarget = true;
-                Debug.Log("toutatu");
             }
         }
 
         if (!isReachedTarget) return;
 
         float distance = Vector3.Distance(transform.position, playerTransform.transform.position);
-        bool isInReach = config.isGun ? distance <= shotReach : distance <= punchReach;
+        bool isInReach = distance <= punchReach;
 
-        if(CanSeeTarget() && isInReach)
+        if (CanSeeTarget() && isInReach)
         {
             // プレイヤーが見える位置にいるなら、その場で止まって射撃を行う
             agent.isStopped = true;
@@ -195,7 +192,7 @@ public class EnemyMove : MonoBehaviour
         Vector3 eyePosition = transform.position + Vector3.up * 1.5f;
         if (Physics.Raycast(eyePosition, (playerTransform.position - eyePosition).normalized, out RaycastHit hit, viewDistance, sightMask))
         {
-           // 最初に当たったものがターゲットであれば見えている
+            // 最初に当たったものがターゲットであれば見えている
             return hit.transform == playerTransform;
         }
 
