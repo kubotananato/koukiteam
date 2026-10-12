@@ -5,33 +5,44 @@ using UnityEngine;
 public class EnemyShot : MonoBehaviour
 {
     [SerializeField]GameObject bulletPrefab;
-    Transform gunTransform;
+    GameObject gunTransform;
+    bool disActiveOnce = false;
     int frameTimer = 0;
     const int SHOT_SPAN = 50;
 
     public bool canShot = false;
     EnemyAnimation anim;
+    EnemyConfig config;
 
     void Awake()
     {
-        foreach (Transform child in GetComponentsInChildren<Transform>(true))
-    {
-        if (child.name == "HumanM_GunR")
+        foreach (GameObject child in GetComponentsInChildren<GameObject>(true))
         {
-            gunTransform = child;
-            break;
+            if (child.name == "HumanM_GunR")
+            {
+                gunTransform = child;
+                break;
+            }
         }
-    }
     } 
 
     void Start()
     {
         frameTimer = 30;
+        config = this.GetComponent<EnemyConfig>();
     }
 
     void FixedUpdate()
     {
-        
+        if (!config.isGun)
+        {
+            if(disActiveOnce)
+            {
+                gunTransform.gameObject.SetActive(false);
+                disActiveOnce = true;
+            }
+            return;
+        }
         // とりあえず仮で目標地点まで到達→撃つの流れ
         if (!canShot) return;
 

@@ -20,6 +20,7 @@ public class EnemyMove : MonoBehaviour
     Vector3 targetPosition = Vector3.zero;
     const float viewDistance = 1000000f;
     float shotReach = 10.0f;
+    float punchReach = 0.0f;
     LayerMask sightMask;
     bool isStayPosition;
     // 一度でも目標地点に到達したかどうか
@@ -60,6 +61,7 @@ public class EnemyMove : MonoBehaviour
         targetPosition = config.targetPosition;
         sightMask = config.sightMask;
         shotReach = config.shotReach;
+        punchReach = config.punchReach;
         isStayPosition = config.isStayPosition;
     }
 
@@ -164,7 +166,7 @@ public class EnemyMove : MonoBehaviour
         if (!isReachedTarget) return;
 
         float distance = Vector3.Distance(transform.position, playerTransform.transform.position);
-        bool isInReach = distance <= shotReach;
+        bool isInReach = config.isGun ? distance <= shotReach : distance <= punchReach;
 
         if(CanSeeTarget() && isInReach)
         {
