@@ -67,7 +67,6 @@ public class EnemyMove : MonoBehaviour
 
     void FixedUpdate()
     {
-
         // プレイヤーの向きに回転
         RotationToPlayer();
 
@@ -127,6 +126,11 @@ public class EnemyMove : MonoBehaviour
 
     void RotationToPlayer()
     {
+        if(hp.isDead)
+        {
+            return;
+        }
+
         // プレイヤーの位置を向くようにする
         if(playerTransform != null)
         {
@@ -143,6 +147,12 @@ public class EnemyMove : MonoBehaviour
 
     void MoveToTarget()
     {
+        if(hp.isDead)
+        {
+            agent.isStopped = true;
+            return;
+        }
+
         // 優先順位
         // 指定までの移動→Playerが見えていれば撃つ→見えなくなった時、見える位置までの移動（最終的には）
 
