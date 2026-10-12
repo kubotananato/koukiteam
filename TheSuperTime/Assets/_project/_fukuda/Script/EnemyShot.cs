@@ -5,10 +5,12 @@ using UnityEngine;
 public class EnemyShot : MonoBehaviour
 {
     [SerializeField]GameObject bulletPrefab;
-    GameObject gunTransform;
+    [SerializeField]GameObject gunObj;
+    [SerializeField]GameObject punchColObj;
     bool disActiveOnce = false;
     int frameTimer = 0;
     const int SHOT_SPAN = 50;
+    const int PUNCH_SPAN = 10;
 
     public bool canShot = false;
     EnemyAnimation anim;
@@ -16,20 +18,15 @@ public class EnemyShot : MonoBehaviour
 
     void Awake()
     {
-        foreach (GameObject child in GetComponentsInChildren<GameObject>(true))
-        {
-            if (child.name == "HumanM_GunR")
-            {
-                gunTransform = child;
-                break;
-            }
-        }
+        
     } 
 
     void Start()
     {
         frameTimer = 30;
         config = this.GetComponent<EnemyConfig>();
+        anim = this.GetComponent<EnemyAnimation>();
+        punchColObj.SetActive(false);
     }
 
     void FixedUpdate()
@@ -38,26 +35,47 @@ public class EnemyShot : MonoBehaviour
         {
             if(disActiveOnce)
             {
-                gunTransform.gameObject.SetActive(false);
+                gunObj.gameObject.SetActive(false);
                 disActiveOnce = true;
             }
-            return;
         }
         // とりあえず仮で目標地点まで到達→撃つの流れ
         if (!canShot) return;
-
         frameTimer++;
-        if(frameTimer >= SHOT_SPAN)
+        switch(config.isGun)
         {
-            Debug.Log("shot!");
-            frameTimer = 0;
-            ShotOneBullet();
-            //anim.SetIsShot(true);
+            case true:
+            // 銃を持っているときの攻撃
+            if(frameTimer >= SHOT_SPAN)
+            {
+                Debug.Log("shot!");
+                frameTimer = 0;
+                ShotOneBullet();
+                anim.SetIsShot(true);
+            }
+            else
+            {
+                anim.SetIsShot(false);
+            }      
+            break;
+            case false:
+            // 銃を持っていないときの攻撃
+                if(frameTimer >= PUNCH_SPAN)
+                {
+                    Debug.Log("punch!");
+                    frameTimer = 0;
+                    anim.SetIsPunch(true);
+                }
+                else
+                {
+                    anim.SetIsPunch(false);
+                }
+
+            break;
         }
-        else
-        {
-            //anim.SetIsShot(false);
-        }
+
+        
+        
     }
 
     void ShotOneBullet()
@@ -67,7 +85,17 @@ public class EnemyShot : MonoBehaviour
         Bullet bullet = obj.GetComponent<Bullet>();
         Vector3 genePos = transform.position;
         genePos.y += 1.2f;
-        obj.transform.position = gunTransform.transform.position;
+        obj.transform.position = gunObj.transform.position;
         obj.transform.rotation = transform.rotation;
+    }
+
+    void ActivePunchCol()
+    {
+        punchColObj.SetActive(true);
+    }
+
+    void DeActivePunchCol()
+    {
+        punchColObj.SetActive(false);
     }
 }

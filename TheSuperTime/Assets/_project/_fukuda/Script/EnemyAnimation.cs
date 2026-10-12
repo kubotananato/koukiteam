@@ -23,4 +23,9 @@ public class EnemyAnimation : MonoBehaviour
     {
         animator.SetBool("isShot", _isShot);
     }
+
+    public void SetIsPunch(bool _isAttack)
+    {
+        animator.SetBool("isAttack", _isAttack);
+    }
 }
