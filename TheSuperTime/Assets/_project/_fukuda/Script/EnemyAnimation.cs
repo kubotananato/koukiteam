@@ -8,10 +8,10 @@ public class EnemyAnimation : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetDead(bool _isDead, bool _isForward)
     {
-        
+        animator.SetBool("isDead", _isDead);
+        animator.SetBool("isForward", _isForward);
     }
 
     public void SetMoveDir(int _dir)
