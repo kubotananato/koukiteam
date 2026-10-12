@@ -598,6 +598,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 2668605608433959078, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2910311387390387455, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       propertyPath: m_Layer
       value: 8
@@ -764,8 +768,10 @@ MonoBehaviour:
   sightMask:
     serializedVersion: 2
     m_Bits: 129
+  punchReach: 1
   shotReach: 15
   shotSpanFrame: 30
+  isGun: 0
 --- !u!114 &7591577485293565611
 MonoBehaviour:
   m_ObjectHideFlags: 0

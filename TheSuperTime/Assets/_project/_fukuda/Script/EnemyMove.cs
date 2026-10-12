@@ -67,11 +67,6 @@ public class EnemyMove : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(hp.isDead)
-        {
-            Destroy(gameObject);
-            return;
-        }
 
         // プレイヤーの向きに回転
         RotationToPlayer();
@@ -85,6 +80,13 @@ public class EnemyMove : MonoBehaviour
 
     void SetMoveDir()
     {
+        // 死んでるなら適当に値を入れておく（いちおう）
+        if(hp.isDead)
+        {
+            anim.SetMoveDir(10);
+            return;
+        }
+
         Vector3 velocity = agent.velocity;
         velocity.y = 0f;
 
@@ -200,5 +202,10 @@ public class EnemyMove : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void DestroyAfterAnimation()
+    {
+        Destroy(this.gameObject);
     }
 }
