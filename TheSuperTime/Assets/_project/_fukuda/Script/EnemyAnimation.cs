@@ -1,11 +1,18 @@
 using UnityEngine;
 
+
 public class EnemyAnimation : MonoBehaviour
 {
+    EnemyConfig config;
     Animator animator;
     void Start()
     {
+        config = GetComponent<EnemyConfig>();
         animator = GetComponent<Animator>();
+        if(!config.isGun)
+        {
+            animator.SetBool("isPunch", true);
+        }
     }
 
     public void SetDead(bool _isDead, bool _isForward)

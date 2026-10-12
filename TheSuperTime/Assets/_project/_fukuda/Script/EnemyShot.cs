@@ -10,7 +10,7 @@ public class EnemyShot : MonoBehaviour
     bool disActiveOnce = false;
     int frameTimer = 0;
     const int SHOT_SPAN = 50;
-    const int PUNCH_SPAN = 10;
+    const int PUNCH_SPAN = 50;
 
     public bool canShot = false;
     EnemyAnimation anim;
@@ -94,7 +94,7 @@ public class EnemyShot : MonoBehaviour
         punchColObj.SetActive(true);
     }
 
-    void DeActivePunchCol()
+    void DeActiveAttackCol()
     {
         punchColObj.SetActive(false);
     }
