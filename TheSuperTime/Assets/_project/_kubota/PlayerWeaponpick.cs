@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerWeaponpick : MonoBehaviour
 {
     public Camera PlayerCamera;
+    public PlayerGun playerGun;
 
     public float pickupDistance = 3f;
     public bool hasWeapon = false;
@@ -19,7 +20,8 @@ public class PlayerWeaponpick : MonoBehaviour
 
     void Update()
     {
-        if(Mouse.current.leftButton.wasPressedThisFrame)
+        hasWeaponyes = false;
+        if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             PickupWeapon();
         }
@@ -37,6 +39,7 @@ public class PlayerWeaponpick : MonoBehaviour
             {
                 hasWeapon = true;
                 hasWeaponyes = true;
+                playerGun.ReloadAmmo();
                 Debug.Log("武器を拾った!");
             }
         }
