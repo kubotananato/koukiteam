@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerHP : MonoBehaviour
+public class PlayerStatus : MonoBehaviour
 {
     public float PlayerHp = 1;
     public bool isDead = false;
@@ -21,6 +21,8 @@ public class PlayerHP : MonoBehaviour
         {
             return;
         }
+
+        Debug.Log("プレイヤーに何かがあった");
 /*
         if(collision.gameObject.CompareTag("Enemy"))
         {
@@ -37,10 +39,12 @@ public class PlayerHP : MonoBehaviour
         {
             Debug.Log("敵に攻撃された");
             PlayerHp -= 1;
+            PlayerHp = Mathf.Max(PlayerHp, 0);
 
             if (PlayerHp <= 0)
             {
                 isDead = true;
+                Debug.Log("プレイヤー死亡！");
             }
         }
     }

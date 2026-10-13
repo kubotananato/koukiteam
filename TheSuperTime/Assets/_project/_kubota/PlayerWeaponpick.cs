@@ -4,8 +4,11 @@ using UnityEngine.InputSystem;
 public class PlayerWeaponpick : MonoBehaviour
 {
     public Camera PlayerCamera;
+    public PlayerGun playerGun;
 
     public float pickupDistance = 3f;
+    public bool hasWeapon = false;
+    public bool hasWeaponyes = false;
 
     private float ViewportX = 0.5f;
     private float ViewportY = 0.5f;
@@ -17,10 +20,12 @@ public class PlayerWeaponpick : MonoBehaviour
 
     void Update()
     {
-        if(Mouse.current.leftButton.wasPressedThisFrame)
+        hasWeaponyes = false;
+        if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             PickupWeapon();
         }
+
     }
 
     void PickupWeapon()
@@ -29,8 +34,12 @@ public class PlayerWeaponpick : MonoBehaviour
 
         if(Physics.Raycast(ray, out RaycastHit hit, pickupDistance))
         {
-            if(hit.collider.CompareTag("Weapon"))
+           // if(hit.collider.CompareTag("Weapon"))
+            if(hit.collider.CompareTag("Wall"))
             {
+                hasWeapon = true;
+                hasWeaponyes = true;
+                playerGun.ReloadAmmo();
                 Debug.Log("武器を拾った!");
             }
         }

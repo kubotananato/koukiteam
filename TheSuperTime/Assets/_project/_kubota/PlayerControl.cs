@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerControl : MonoBehaviour
 {
+    // PlayerStatusを参照
+    public PlayerStatus playerStatus;
     public float PmoveSpeed = 5f; // 歩く速度
 
     public float NormalTimer = 0f;
@@ -20,6 +22,11 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (playerStatus.isDead)
+        {
+            return;
+        }
         float horizontal = 0f;
         float vertical = 0f;
 

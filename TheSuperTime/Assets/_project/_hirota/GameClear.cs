@@ -20,12 +20,16 @@ public class GameClear : MonoBehaviour
             Debug.LogWarning("SceneManagerが設定されていません。");
         }
     }
-
+    private void FixedUpdate()
+    {
+        GameManeger.Instance.clearTime++;
+    }
 
     void Update()
     {
         if (GameManeger.Instance.downEnemy >= 4)
         {
+            
             sceneChangeScript.LoadResultScene();
         }
     }

@@ -5,27 +5,77 @@ using UnityEngine;
 public class EnemyShot : MonoBehaviour
 {
     [SerializeField]GameObject bulletPrefab;
+    [SerializeField]GameObject gunObj;
+    [SerializeField]GameObject punchColObj;
+    bool disActiveOnce = false;
     int frameTimer = 0;
     const int SHOT_SPAN = 50;
+    const int PUNCH_SPAN = 50;
 
     public bool canShot = false;
+    EnemyAnimation anim;
+    EnemyConfig config;
+
+    void Awake()
+    {
+        
+    } 
 
     void Start()
     {
         frameTimer = 30;
+        config = this.GetComponent<EnemyConfig>();
+        anim = this.GetComponent<EnemyAnimation>();
+        punchColObj.SetActive(false);
     }
 
     void FixedUpdate()
     {
+        if (!config.isGun)
+        {
+            if(disActiveOnce)
+            {
+                gunObj.gameObject.SetActive(false);
+                disActiveOnce = true;
+            }
+        }
         // とりあえず仮で目標地点まで到達→撃つの流れ
         if (!canShot) return;
-
         frameTimer++;
-        if(frameTimer >= SHOT_SPAN)
+        switch(config.isGun)
         {
-            frameTimer = 0;
-            ShotOneBullet();
+            case true:
+            // 銃を持っているときの攻撃
+            if(frameTimer >= SHOT_SPAN)
+            {
+                Debug.Log("shot!");
+                frameTimer = 0;
+                ShotOneBullet();
+                anim.SetIsShot(true);
+            }
+            else
+            {
+                anim.SetIsShot(false);
+            }      
+            break;
+            case false:
+            // 銃を持っていないときの攻撃
+                if(frameTimer >= PUNCH_SPAN)
+                {
+                    Debug.Log("punch!");
+                    frameTimer = 0;
+                    anim.SetIsPunch(true);
+                }
+                else
+                {
+                    anim.SetIsPunch(false);
+                }
+
+            break;
         }
+
+        
+        
     }
 
     void ShotOneBullet()
@@ -33,7 +83,19 @@ public class EnemyShot : MonoBehaviour
         GameObject obj = Instantiate(bulletPrefab);
         if(obj == null) return;
         Bullet bullet = obj.GetComponent<Bullet>();
-        obj.transform.position = transform.position;
+        Vector3 genePos = transform.position;
+        genePos.y += 1.2f;
+        obj.transform.position = gunObj.transform.position;
         obj.transform.rotation = transform.rotation;
+    }
+
+    void ActivePunchCol()
+    {
+        punchColObj.SetActive(true);
+    }
+
+    void DeActiveAttackCol()
+    {
+        punchColObj.SetActive(false);
     }
 }

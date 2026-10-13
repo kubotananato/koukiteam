@@ -11,10 +11,12 @@ public class EnemyConfig : MonoBehaviour
 
     [Header("視界など")]
     // プレイヤーと壁・障害物のみ入れる(弾・武器は入れない)
-    [SerializeField] public LayerMask[] sightMask;
+    [SerializeField] public LayerMask sightMask;
 
 
     [Header("攻撃")]
+    [SerializeField] public float punchReach = 1.0f;
     [SerializeField] public float shotReach = 10.0f;
-    [SerializeField] public int shotSpanFrame = 30; 
+    [SerializeField] public int shotSpanFrame = 30;
+    [SerializeField] public bool isGun = false;
 }
