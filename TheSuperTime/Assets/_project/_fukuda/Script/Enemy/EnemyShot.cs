@@ -31,14 +31,6 @@ public class EnemyShot : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!config.isGun)
-        {
-            if(disActiveOnce)
-            {
-                gunObj.gameObject.SetActive(false);
-                disActiveOnce = true;
-            }
-        }
         // とりあえず仮で目標地点まで到達→撃つの流れ
         if (!canShot) return;
         frameTimer++;

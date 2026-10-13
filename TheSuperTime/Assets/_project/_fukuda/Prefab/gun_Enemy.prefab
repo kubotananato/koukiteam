@@ -833,6 +833,7 @@ MonoBehaviour:
   shotReach: 15
   shotSpanFrame: 30
   isGun: 0
+  gunObj: {fileID: 6401728020494075282}
 --- !u!114 &7591577485293565611
 MonoBehaviour:
   m_ObjectHideFlags: 0

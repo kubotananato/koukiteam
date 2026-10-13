@@ -75,6 +75,11 @@ public class EnemyMove : MonoBehaviour
 
         // アニメーション用に歩く方向をセットする
         SetMoveDir();
+
+        if(!config.isGun)
+        {
+            anim.SetIsNotGun();
+        }
     }
 
     void SetMoveDir()
@@ -218,4 +223,28 @@ public class EnemyMove : MonoBehaviour
     {
         Destroy(this.gameObject);
     }
+
+    public void DropItem()
+    {
+        config.isGun = false;
+        anim.SetIsDamaged(true);
+        // 武器を生み出してプレイヤー方向に飛ばす
+        GameObject obj = Instantiate(config.dropItemPrefab);
+        obj.transform.position = config.gunObj.transform.position;
+        config.gunObj.SetActive(false);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("PlayerBullet"))
+        {
+            if(config.isGun)
+            {
+                DropItem();
+                return;
+            }
+            else hp.Damaged();
+        }
+    }
+
 }
