@@ -747,6 +747,7 @@ GameObject:
   - component: {fileID: 5778082025577348445}
   - component: {fileID: 8022963344322361610}
   - component: {fileID: 8022963344322361611}
+  - component: {fileID: 8022963344322361612}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -866,6 +867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eb2d814d8a2a744db3e4601ccd22759, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerControl
+  playerStatus: {fileID: 0}
   PmoveSpeed: 5
   NormalTimer: 0
   NormalDuration: 0.2
@@ -929,9 +931,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerGun
   playerWeaponpick: {fileID: 8022963344322361611}
+  playerStatus: {fileID: 0}
   PbulletPrefab: {fileID: 6427642465268052467, guid: 87f64d7e158376441afbb03c6e653ad8, type: 3}
   PbulletPoint: {fileID: 1061998773774790622}
   PlayerGunCoolDown: 1
+  maxAmmo: 10
+  currentAmmo: 0
 --- !u!33 &3245455727891452960
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1387,9 +1392,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponpick
   PlayerCamera: {fileID: 6037327426875834996}
+  playerGun: {fileID: 3029888223800842037}
   pickupDistance: 3
   hasWeapon: 0
   hasWeaponyes: 0
+--- !u!114 &8022963344322361612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561216603733239555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe64ca3de0d95b44785bee5a98142ea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player
+  playerWeaponpick: {fileID: 8022963344322361611}
+  heldWeapon: {fileID: 655139230}
+  throwForce: 15
 --- !u!33 &8992743396487315289
 MeshFilter:
   m_ObjectHideFlags: 0

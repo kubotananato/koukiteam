@@ -20,6 +20,7 @@ public class EnemyMove : MonoBehaviour
     Vector3 targetPosition = Vector3.zero;
     const float viewDistance = 1000000f;
     float shotReach = 10.0f;
+    float punchReach = 0.0f;
     LayerMask sightMask;
     bool isStayPosition;
     // 一度でも目標地点に到達したかどうか
@@ -60,17 +61,12 @@ public class EnemyMove : MonoBehaviour
         targetPosition = config.targetPosition;
         sightMask = config.sightMask;
         shotReach = config.shotReach;
+        punchReach = config.punchReach;
         isStayPosition = config.isStayPosition;
     }
 
     void FixedUpdate()
     {
-        if(hp.isDead)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         // プレイヤーの向きに回転
         RotationToPlayer();
 
@@ -83,6 +79,13 @@ public class EnemyMove : MonoBehaviour
 
     void SetMoveDir()
     {
+        // 死んでるなら適当に値を入れておく（いちおう）
+        if(hp.isDead)
+        {
+            anim.SetMoveDir(10);
+            return;
+        }
+
         Vector3 velocity = agent.velocity;
         velocity.y = 0f;
 
@@ -123,6 +126,11 @@ public class EnemyMove : MonoBehaviour
 
     void RotationToPlayer()
     {
+        if(hp.isDead)
+        {
+            return;
+        }
+
         // プレイヤーの位置を向くようにする
         if(playerTransform != null)
         {
@@ -139,6 +147,12 @@ public class EnemyMove : MonoBehaviour
 
     void MoveToTarget()
     {
+        if(hp.isDead)
+        {
+            agent.isStopped = true;
+            return;
+        }
+
         // 優先順位
         // 指定までの移動→Playerが見えていれば撃つ→見えなくなった時、見える位置までの移動（最終的には）
 
@@ -164,7 +178,7 @@ public class EnemyMove : MonoBehaviour
         if (!isReachedTarget) return;
 
         float distance = Vector3.Distance(transform.position, playerTransform.transform.position);
-        bool isInReach = distance <= shotReach;
+        bool isInReach = config.isGun ? distance <= shotReach : distance <= punchReach;
 
         if(CanSeeTarget() && isInReach)
         {
@@ -198,5 +212,10 @@ public class EnemyMove : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void DestroyAfterAnimation()
+    {
+        Destroy(this.gameObject);
     }
 }
