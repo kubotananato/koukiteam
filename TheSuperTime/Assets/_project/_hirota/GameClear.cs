@@ -8,6 +8,8 @@ public class GameClear : MonoBehaviour
     private SceneCenge sceneChangeScript;
     // Update is called once per frame
 
+    private bool isGameClear = false;
+
     void Start()
     {
         sceneManegerObj = GameObject.Find("SceneManeger");
@@ -29,8 +31,12 @@ public class GameClear : MonoBehaviour
     {
         if (GameManeger.Instance.downEnemy >= 4)
         {
-            
-            sceneChangeScript.LoadResultScene();
+            if (!isGameClear)
+            {
+                sceneChangeScript.LoadResultScene();
+            }
+            isGameClear = true;
+
         }
     }
 }
