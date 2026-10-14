@@ -8,6 +8,7 @@ public class EnemyHP : MonoBehaviour
     int hp;
     public bool isDead = false;
     EnemyAnimation anim;
+    EnemyConfig config;
     int frame = 0;
     bool setOnece = false;
     [SerializeField] GameObject proxy;
@@ -16,6 +17,7 @@ public class EnemyHP : MonoBehaviour
     {
         hp = maxHp;
         anim = this.GetComponent<EnemyAnimation>();
+        config = this.GetComponent<EnemyConfig>();
 
         proxy.SetActive(true);
     }
@@ -41,17 +43,8 @@ public class EnemyHP : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("PlayerBullet"))
-        {
-            Damaged();
-        }
-    }
-
     public void Damaged()
     {
         hp--;
-        
     }
 }
