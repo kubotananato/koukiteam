@@ -1515,9 +1515,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0212bf5424f338941aaad4687f705ef6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ReplayRecorder
-  playerTransform: {fileID: 0}
-  cameraTransform: {fileID: 0}
-  targetDefeatCount: 5
+  playerTransform: {fileID: 1344148091}
+  cameraTransform: {fileID: 1675523241}
+  targetDefeatCount: 4
   recordedFrames: []
   currentState: 2
 --- !u!4 &1281136816
@@ -1597,6 +1597,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85bedcd25c48e414ca66f7dbff3e7ce4, type: 3}
+--- !u!4 &1344148091 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6957836540841080421, guid: f022fc26ec9ed3442a68d507f1de2b71, type: 3}
+  m_PrefabInstance: {fileID: 1034869266}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1357316525
 GameObject:
   m_ObjectHideFlags: 0
@@ -1767,6 +1772,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ReplayCheckKari
   goToReplay: 0
+--- !u!4 &1675523241 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4082995974826130547, guid: f022fc26ec9ed3442a68d507f1de2b71, type: 3}
+  m_PrefabInstance: {fileID: 1034869266}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1754670601
 GameObject:
   m_ObjectHideFlags: 0
