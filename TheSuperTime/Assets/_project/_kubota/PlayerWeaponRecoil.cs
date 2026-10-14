@@ -4,7 +4,7 @@ public class PlayerWeaponRecoil : MonoBehaviour
 {
     public float recoilBack = -1f;
     public float recoilUp =10f;
-    public float returnSpeed = 3f;
+    public float returnSpeed = 6f;
 
     private Vector3 startPosition;
     private Quaternion startRotation;
