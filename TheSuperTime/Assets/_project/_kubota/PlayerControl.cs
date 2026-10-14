@@ -8,28 +8,22 @@ public class PlayerControl : MonoBehaviour
     public float PmoveSpeed = 5f; // 歩く速度
 
     public float NormalTimer = 0f;
-    public float NormalDuration = 0.2f;
-    /*
-    public float RunSpeed = 10f;　// 走る速度
+    public float NormalDuration = 0.5f;
 
-    private float currentSpeed = 0f;
-    */
     void Start()
     {
-        
+
     }
 
-    // Update is called once per frame
     void Update()
     {
-
         if (playerStatus.isDead)
         {
             return;
         }
+
         float horizontal = 0f;
         float vertical = 0f;
-
 
         // WASD移動
         if (Keyboard.current.aKey.isPressed)
@@ -52,19 +46,6 @@ public class PlayerControl : MonoBehaviour
             vertical = 1f;
         }
 
-        /*
-        // Shiftを押したら走る
-        if(Keyboard.current.shiftKey.isPressed)
-        {
-            currentSpeed = RunSpeed;
-        }
-        else
-        {
-
-            currentSpeed = MoveSpeed;
-        }
-        */
-
         // Playerの向いている方向を基準にする
         Vector3 move =
             transform.forward * vertical +
@@ -78,27 +59,27 @@ public class PlayerControl : MonoBehaviour
 
         // 移動
         transform.position += move * PmoveSpeed * Time.deltaTime;
-        
 
-        if(Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            NormalTimer = NormalDuration;
-        }
-
-        // 移動しているかまたは左クリックを押している間を判定して時間を遅くする
+        // 移動している、または撃った直後なら通常速度。それ以外はスロー
         if (move.magnitude > 0f || NormalTimer > 0f)
         {
             Time.timeScale = 1f;
         }
         else
         {
-            Time.timeScale = 0.02f;
+            Time.timeScale = 0.05f;
         }
 
         if (NormalTimer > 0f)
         {
             NormalTimer -= Time.unscaledDeltaTime;
         }
+    }
 
+    // 銃を撃ったときに PlayerGun.cs から呼ばれる
+    public void OnShoot()
+    {
+        NormalTimer = NormalDuration;
+        Time.timeScale = 1f;
     }
 }

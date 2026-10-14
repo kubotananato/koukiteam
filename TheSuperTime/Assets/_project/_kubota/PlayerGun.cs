@@ -7,13 +7,15 @@ public class PlayerGun : MonoBehaviour
     public PlayerStatus playerStatus; // PlayerStatusを参照
     public PMuzzleFlashMeshEffect muzzleFlash; // PMuzzleFlashMeshEffectを参照
     public PlayerWeaponRecoil weaponRecoil; // PlayerWeaponRecoilを参照
+    public PlayerControl playerControl;
     public GameObject PbulletPrefab;
     public Transform PbulletPoint;
     public GameObject PmuzzleFlashPrefab;
     public Transform PmuzzlePoint;
     //    public Camera playerCamera;
 
-    public float PlayerGunCoolDown = 1f;
+    public float shootCooldown = 0.5f;   // 次に撃てるまでの秒数
+    private float nextShootTime = 0f;    // 次に撃てる時刻
 
     public int maxAmmo = 10;
     public int currentAmmo;
@@ -53,22 +55,35 @@ public class PlayerGun : MonoBehaviour
 
     void PShoot()
     {
-        if(currentAmmo <= 0)
+        // クールタイム中なら撃たない(いちばん最初に確認する)
+        if (Time.unscaledTime < nextShootTime) return;
+
+        if (currentAmmo <= 0)
         {
             Debug.Log("弾切れ!");
             return;
         }
+
+        // ここまで来たら撃てるので、次に撃てる時刻を決める
+        nextShootTime = Time.unscaledTime + shootCooldown;
 
         currentAmmo--;
 
         // 弾を発射する
         Instantiate(PbulletPrefab, PbulletPoint.position, PbulletPoint.rotation);
         Debug.Log("撃った! 残りの弾数:" + currentAmmo);
+
+        // 撃った瞬間に時間を通常速度に戻す
+        if (playerControl != null)
+        {
+            playerControl.OnShoot();
+        }
+
         if (muzzleFlash != null)
         {
             muzzleFlash.Play();
         }
-        if(weaponRecoil != null)
+        if (weaponRecoil != null)
         {
             weaponRecoil.ShotRecoil();
         }
@@ -83,26 +98,6 @@ public class PlayerGun : MonoBehaviour
             // 0.3秒後にエフェクトを削除する
             Destroy(effect, 0.3f);
         }
-
-        /*
-        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-
-       RaycastHit hit;
-
-        Vector3 targetPoint;
-        if (Physics.Raycast(ray, out hit))
-        {
-            targetPoint = hit.point;
-        }
-        else
-        {
-            targetPoint = ray.origin + ray.direction * 100;
-        }
-
-        Vector3 direction = targetPoint - PbulletPoint.position;
-
-        GameObject bullet = Instantiate(PbulletPrefab, PbulletPoint.position, Quaternion.LookRotation(direction));
-        */
     }
     public void ReloadAmmo()
     {
