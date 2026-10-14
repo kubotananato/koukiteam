@@ -92,7 +92,7 @@ public class PlayerControl : MonoBehaviour
         }
         else
         {
-            Time.timeScale = 0.05f;
+            Time.timeScale = 0.02f;
         }
 
         if (NormalTimer > 0f)

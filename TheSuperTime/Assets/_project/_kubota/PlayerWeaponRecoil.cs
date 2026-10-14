@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class PlayerWeaponRecoil : MonoBehaviour
 {
-    public float recoilBack = 0.08f;
-    public float recoilUp = 3.5f;
-    public float returnSpeed = 18.0f;
+    public float recoilBack = -1f;
+    public float recoilUp =10f;
+    public float returnSpeed = 3f;
 
     private Vector3 startPosition;
     private Quaternion startRotation;
