@@ -5,6 +5,8 @@ public class PlayerGun : MonoBehaviour
 
     public PlayerWeaponpick playerWeaponpick; // PlayerWeapnpickのスクリプトを参照
     public PlayerStatus playerStatus; // PlayerStatusを参照
+    public PMuzzleFlashMeshEffect muzzleFlash; // PMuzzleFlashMeshEffectを参照
+    public PlayerWeaponRecoil weaponRecoil; // PlayerWeaponRecoilを参照
     public GameObject PbulletPrefab;
     public Transform PbulletPoint;
     public GameObject PmuzzleFlashPrefab;
@@ -62,6 +64,14 @@ public class PlayerGun : MonoBehaviour
         // 弾を発射する
         Instantiate(PbulletPrefab, PbulletPoint.position, PbulletPoint.rotation);
         Debug.Log("撃った! 残りの弾数:" + currentAmmo);
+        if (muzzleFlash != null)
+        {
+            muzzleFlash.Play();
+        }
+        if(weaponRecoil != null)
+        {
+            weaponRecoil.ShotRecoil();
+        }
         if (PmuzzleFlashPrefab != null && PmuzzlePoint != null)
         {
             GameObject effect = Instantiate(
