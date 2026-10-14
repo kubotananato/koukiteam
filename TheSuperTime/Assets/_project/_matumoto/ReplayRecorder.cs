@@ -104,7 +104,7 @@ public class ReplayRecorder : MonoBehaviour
         currentState = State.Replaying;
         replayIndex = 0;
 
-        // --- 【追加】リプレイが始まる直前に、プレイヤーを初期地点へ強制送還する ---
+        // --- 1. プレイヤーを初期地点へ強制送還する ---
         if (playerTransform != null)
         {
             playerTransform.position = initialPlayerPosition;
@@ -113,6 +113,14 @@ public class ReplayRecorder : MonoBehaviour
         if (cameraTransform != null)
         {
             cameraTransform.rotation = initialCameraRotation;
+        }
+
+        // ---  【重要】リプレイ中は通常の操作スクリプトをオフにする ---
+        // （※ "PlayerMove" の部分は、ご自身のプレイヤー移動スクリプト名に変更してください）
+        ReplayRecorder moveScript = GetComponent<ReplayRecorder>(); // または playerTransform.GetComponent<PlayerMove>();
+        if (moveScript != null)
+        {
+            moveScript.enabled = false; // 通常操作を無効化！
         }
 
         Debug.Log("リプレイ再生開始！ 初期位置に戻しました。 総フレーム数: " + recordedFrames.Count);
