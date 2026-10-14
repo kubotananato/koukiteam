@@ -21,6 +21,6 @@ public class TimeDisp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timeText.text =dispTimeMinutes.ToString()+":"+dispTimeSeconds.ToString()+ ":" + dispTimeLessSeconds.ToString();
+        timeText.text =dispTimeMinutes.ToString()+":"+dispTimeSeconds.ToString()+ "." + dispTimeLessSeconds.ToString();
     }
 }
