@@ -15,8 +15,11 @@ public class EnemyConfig : MonoBehaviour
 
 
     [Header("攻撃")]
-    [SerializeField] public float punchReach = 1.0f;
+    [SerializeField] public float punchReach = 5.0f;
     [SerializeField] public float shotReach = 10.0f;
     [SerializeField] public int shotSpanFrame = 30;
     [SerializeField] public bool isGun = false;
+    [SerializeField] public GameObject gunObj;
+    [Header("アイテム")]
+    [SerializeField] public GameObject dropItemPrefab;
 }
