@@ -3,22 +3,21 @@ using UnityEngine;
 /// <summary>
 /// 敵のPrefabに付けるコンポーネント。
 /// 敵が倒されて破棄されたとき、リスポーン管理に通知する。
-/// 生成された位置と向きを覚えておき、そこへ再生成できるようにする。
+/// 再生成先(生成元の固定座標)は、管理側が覚えている。
 /// </summary>
 public class EnemyRespawnNotifier : MonoBehaviour
 {
-    // 生成時の位置と向き(リスポーン先に使う)
-    private Vector3 _spawnPosition;
-    private Quaternion _spawnRotation;
-
     // ゲーム終了中かどうか(終了時のOnDestroyでは通知しないため)
-    private static bool _isQuitting = false;
+    private static bool _isQuitting;
 
-    private void Awake()
+    /// <summary>
+    /// Play開始時にフラグを初期化する。
+    /// Domain Reloadを無効にしていると、staticな値が前回のPlayから残るため。
+    /// </summary>
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetStatics()
     {
-        // 生成された瞬間の位置を記録する
-        _spawnPosition = transform.position;
-        _spawnRotation = transform.rotation;
+        _isQuitting = false;
     }
 
     private void OnApplicationQuit()
@@ -34,10 +33,10 @@ public class EnemyRespawnNotifier : MonoBehaviour
             return;
         }
 
-        // 管理スクリプトがあれば、リスポーンを依頼する
+        // 管理スクリプトがあれば、この敵の生成元への再生成を依頼する
         if (EnemyRespawnManager.Instance != null)
         {
-            EnemyRespawnManager.Instance.RequestRespawn(_spawnPosition, _spawnRotation);
+            EnemyRespawnManager.Instance.RequestRespawn(gameObject);
         }
     }
 }
