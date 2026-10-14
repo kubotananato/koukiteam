@@ -7,7 +7,6 @@ public class EnemyShot : MonoBehaviour
     [SerializeField]GameObject bulletPrefab;
     [SerializeField]GameObject gunObj;
     [SerializeField]GameObject punchColObj;
-    bool disActiveOnce = false;
     int frameTimer = 0;
     const int SHOT_SPAN = 50;
     const int PUNCH_SPAN = 50;

@@ -155,3 +155,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBullet
   PbulletSpeed: 10
   PbulletTime: 3
+  hitEffect: {fileID: 9218649197746354276, guid: c4a060d28e037be45a1e5cdf843bb3e9, type: 3}
