@@ -3,6 +3,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] float speed = 1f;
+    [SerializeField] GameObject hitEffectPrefab;
 
     void Start()
     {
@@ -23,6 +24,9 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            GameObject obj = Instantiate(hitEffectPrefab);
+            obj.transform.position = transform.position;
+            Debug.Log("hit!!");
             Destroy(gameObject);
             return;
         }

@@ -112,8 +112,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.20223999, y: 0.26851964, z: 0.49437118}
+  m_Center: {x: 0.0018801689, y: 0.067141, z: 0.045549035}
 --- !u!114 &4607060027514333060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,8 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ecd9652fd5b06a4b97a1acef9f35348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DropItem
-  speed: 7
-  ySpeed: 5
+  speed: 4
+  ySpeed: 3
+  rotSpeed: 10
 --- !u!54 &3685624787967552026
 Rigidbody:
   m_ObjectHideFlags: 0

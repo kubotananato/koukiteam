@@ -236,6 +236,7 @@ public class EnemyMove : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        // 殴られたときに変更する
         if (collision.gameObject.CompareTag("PlayerBullet"))
         {
             if(config.isGun)
@@ -245,6 +246,13 @@ public class EnemyMove : MonoBehaviour
             }
             else hp.Damaged();
         }
+
+        // 銃に撃たれたとき
+        if (collision.gameObject.CompareTag("PlayerBullet"))
+        {
+            hp.Damaged();
+        }
+
     }
 
 }
