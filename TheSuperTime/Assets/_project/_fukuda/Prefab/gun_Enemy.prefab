@@ -834,6 +834,7 @@ MonoBehaviour:
   shotSpanFrame: 30
   isGun: 0
   gunObj: {fileID: 6401728020494075282}
+  dropItemPrefab: {fileID: 6637052122941244926, guid: 25ec6cea413c4bf4588f0b527c94273f, type: 3}
 --- !u!114 &7591577485293565611
 MonoBehaviour:
   m_ObjectHideFlags: 0

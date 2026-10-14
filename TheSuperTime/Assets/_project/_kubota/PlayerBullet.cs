@@ -4,6 +4,7 @@ public class PlayerBullet : MonoBehaviour
 {
     public float PbulletSpeed = 10f;
     public float PbulletTime = 3.0f;
+    [SerializeField] GameObject hitEffect;
     void Start()
     {
         Destroy(gameObject, PbulletTime);
@@ -16,6 +17,8 @@ public class PlayerBullet : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        GameObject obj = Instantiate(hitEffect);
+        obj.transform.position = transform.position;
         Destroy(gameObject);
     }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3402631582221575831}
   - component: {fileID: -3357038279601616978}
   - component: {fileID: 5784420522484941711}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: EneBullet
   m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
@@ -79,6 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   speed: 10
+  hitEffectPrefab: {fileID: 9218649197746354276, guid: cafc46d1a53ea40458d10ea6e01e5230, type: 3}
 --- !u!54 &-3357038279601616978
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -156,7 +157,7 @@ TrailRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Time: 1
-  m_PreviewTimeScale: 0
+  m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -227,7 +228,7 @@ GameObject:
   - component: {fileID: 1659028239972042204}
   - component: {fileID: 9208331637880421099}
   - component: {fileID: 2166299149936166242}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -318,7 +319,7 @@ GameObject:
   - component: {fileID: 7706956367187467367}
   - component: {fileID: 1751235416909565742}
   - component: {fileID: 44805415374654937}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
