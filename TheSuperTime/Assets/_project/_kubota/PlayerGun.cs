@@ -2,10 +2,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerGun : MonoBehaviour
 {
+
     public PlayerWeaponpick playerWeaponpick; // PlayerWeapnpickのスクリプトを参照
     public PlayerStatus playerStatus; // PlayerStatusを参照
     public GameObject PbulletPrefab;
     public Transform PbulletPoint;
+    public GameObject PmuzzleFlashPrefab;
+    public Transform PmuzzlePoint;
     //    public Camera playerCamera;
 
     public float PlayerGunCoolDown = 1f;
@@ -59,6 +62,17 @@ public class PlayerGun : MonoBehaviour
         // 弾を発射する
         Instantiate(PbulletPrefab, PbulletPoint.position, PbulletPoint.rotation);
         Debug.Log("撃った! 残りの弾数:" + currentAmmo);
+        if (PmuzzleFlashPrefab != null && PmuzzlePoint != null)
+        {
+            GameObject effect = Instantiate(
+                PmuzzleFlashPrefab,
+                PmuzzlePoint.position,
+                PmuzzlePoint.rotation
+            );
+
+            // 0.3秒後にエフェクトを削除する
+            Destroy(effect, 0.3f);
+        }
 
         /*
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
