@@ -17,8 +17,11 @@ public class PlayerBullet : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        GameObject obj = Instantiate(hitEffect);
-        obj.transform.position = transform.position;
+        if(collision.gameObject.CompareTag("Enemy"))
+        {
+            GameObject obj = Instantiate(hitEffect);
+            obj.transform.position = transform.position;
+        }
         Destroy(gameObject);
     }
 }

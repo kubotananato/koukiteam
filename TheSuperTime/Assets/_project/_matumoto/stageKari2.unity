@@ -1675,7 +1675,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ReplayRecorder
   playerTransform: {fileID: 1344148091}
   cameraTransform: {fileID: 1675523241}
-  targetDefeatCount: 4
+  targetDefeatCount: 1
   recordedFrames: []
   currentState: 2
 --- !u!4 &1281136816
