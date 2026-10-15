@@ -1299,7 +1299,7 @@ GameObject:
   - component: {fileID: 1820282049}
   - component: {fileID: 1820282048}
   m_Layer: 0
-  m_Name: BottonSound
+  m_Name: Sound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1318,6 +1318,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   buttonSeClip: {fileID: 8300000, guid: 522fa1e5d31b34a4bab27d810b428976, type: 3}
+  gunShotClip: {fileID: 0}
+  seAudioSource: {fileID: 0}
+  bgmAudioSource: {fileID: 0}
 --- !u!82 &1820282049
 AudioSource:
   m_ObjectHideFlags: 0
