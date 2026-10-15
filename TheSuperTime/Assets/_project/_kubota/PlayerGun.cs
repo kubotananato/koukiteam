@@ -8,11 +8,13 @@ public class PlayerGun : MonoBehaviour
     public PMuzzleFlashMeshEffect muzzleFlash; // PMuzzleFlashMeshEffectを参照
     public PlayerWeaponRecoil weaponRecoil; // PlayerWeaponRecoilを参照
     public PlayerBulletEffect PbulletEffect; // PlayerBulletEffectを参照
+    public PlayerPunch Ppunch;
     public PlayerControl playerControl;
     public GameObject PbulletPrefab;
     public Transform PbulletPoint;
     public GameObject PmuzzleFlashPrefab;
     public Transform PmuzzlePoint;
+    public Animator PshotAnimation;
     //    public Camera playerCamera;
 
     public float shootCooldown = 0.5f;   // 次に撃てるまでの秒数
@@ -43,12 +45,14 @@ public class PlayerGun : MonoBehaviour
             if (!playerWeaponpick.hasWeapon)
             {
                 Debug.Log("素手攻撃");
+                Ppunch.punch();
             }
             else
             {
                 // 武器を持っているときだけ撃つ
                     Debug.Log("銃");
                     PShoot();
+                AnimationShot();
             }
         }
 
@@ -100,6 +104,11 @@ public class PlayerGun : MonoBehaviour
             // 0.3秒後にエフェクトを削除する
             Destroy(effect, 0.3f);
         }
+    }
+    void AnimationShot()
+    {
+        if (PshotAnimation == null) return;
+        PshotAnimation.SetTrigger("PlayerShot");
     }
     public void ReloadAmmo()
     {
