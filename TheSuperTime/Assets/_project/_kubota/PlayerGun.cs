@@ -46,6 +46,7 @@ public class PlayerGun : MonoBehaviour
             {
                 Debug.Log("素手攻撃");
                 Ppunch.punch();
+                playerWeaponpick.hasWeapon = false;
             }
             else
             {
@@ -53,6 +54,7 @@ public class PlayerGun : MonoBehaviour
                     Debug.Log("銃");
                     PShoot();
                 AnimationShot();
+                playerWeaponpick.hasWeapon = true;
             }
         }
 
