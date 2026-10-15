@@ -5,9 +5,11 @@ public class PlayerWeaponpick : MonoBehaviour
 {
     public Camera PlayerCamera;
     public PlayerGun playerGun;
+    public PlayerThrow player;
 
     public float pickupDistance = 3f;
-    public bool hasWeapon = false;
+
+    public bool hasWeapon = true;
     public bool hasWeaponyes = false;
 
     private float ViewportX = 0.5f;
@@ -17,8 +19,10 @@ public class PlayerWeaponpick : MonoBehaviour
     {
         hasWeaponyes = false;
 
-        if (Mouse.current != null &&
-            Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current == null)
+            return;
+
+        if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             PickupWeapon();
         }
@@ -26,40 +30,40 @@ public class PlayerWeaponpick : MonoBehaviour
 
     void PickupWeapon()
     {
+        if (PlayerCamera == null || player == null)
+            return;
+
         Ray ray = PlayerCamera.ViewportPointToRay(
             new Vector3(ViewportX, ViewportY, 0)
         );
 
-        if (Physics.Raycast(ray, out RaycastHit hit, pickupDistance))
+        if (!Physics.Raycast(ray, out RaycastHit hit, pickupDistance))
+            return;
+
+        WeaponPickupItem item =
+            hit.collider.GetComponentInParent<WeaponPickupItem>();
+
+        if (item == null)
+            return;
+
+        if (item.heldVisualPrefab == null ||
+            item.worldWeaponPrefab == null)
         {
-            // 銃に照準が合っているか確認
-            if (hit.collider.CompareTag("Weapon"))
-            {
-                PlayerThrow player = GetComponent<PlayerThrow>();
-
-                if (player == null)
-                {
-                    player = FindFirstObjectByType<PlayerThrow>();
-                }
-
-                if (player == null)
-                {
-                    Debug.LogError("Playerが見つかりません");
-                    return;
-                }
-
-                // 当たった銃を拾う
-                player.SetHeldWeapon(hit.collider.gameObject);
-
-                if (playerGun != null)
-                {
-                    playerGun.ReloadAmmo();
-                }
-
-                hasWeaponyes = true;
-                Debug.Log("武器を拾った!");
-            }
+            Debug.LogWarning("銃のPrefabが設定されていません");
+            return;
         }
+
+        // 銃を持っていないとき、または弾切れの銃を
+        // 持っているときに拾う
+        if (hasWeapon &&
+            playerGun != null &&
+            playerGun.currentAmmo > 0)
+        {
+            Debug.Log("まだ銃を持っているよ！");
+            return;
+        }
+
+        hasWeaponyes = true;
+        player.PickupWeapon(item);
     }
 }
-
