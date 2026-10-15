@@ -60,7 +60,7 @@ public class PlayerGun : MonoBehaviour
 
     void PShoot()
     {
-        SoundManager.Instance.PlayGunShot();
+     //   SoundManager.Instance.PlayGunShot();
         // クールタイム中なら撃たない(いちばん最初に確認する)
         if (Time.unscaledTime < nextShootTime) return;
 

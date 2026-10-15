@@ -45,7 +45,6 @@ public class Player : MonoBehaviour
             Debug.Log("武器にRigidbodyが必要です");
             return;
         }
-
         // 手元から武器を切り離す
         heldWeapon.transform.SetParent(null);
 
