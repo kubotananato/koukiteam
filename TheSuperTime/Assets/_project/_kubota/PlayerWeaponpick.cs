@@ -13,36 +13,53 @@ public class PlayerWeaponpick : MonoBehaviour
     private float ViewportX = 0.5f;
     private float ViewportY = 0.5f;
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         hasWeaponyes = false;
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+
+        if (Mouse.current != null &&
+            Mouse.current.leftButton.wasPressedThisFrame)
         {
             PickupWeapon();
         }
-
     }
 
     void PickupWeapon()
     {
-        Ray ray = PlayerCamera.ViewportPointToRay(new Vector3(ViewportX, ViewportY, 0));
+        Ray ray = PlayerCamera.ViewportPointToRay(
+            new Vector3(ViewportX, ViewportY, 0)
+        );
 
-        if(Physics.Raycast(ray, out RaycastHit hit, pickupDistance))
+        if (Physics.Raycast(ray, out RaycastHit hit, pickupDistance))
         {
-           // if(hit.collider.CompareTag("Weapon"))
-            if(hit.collider.CompareTag("Wall"))
+            // 銃に照準が合っているか確認
+            if (hit.collider.CompareTag("Weapon"))
             {
-                hasWeapon = true;
+                PlayerThrow player = GetComponent<PlayerThrow>();
+
+                if (player == null)
+                {
+                    player = FindFirstObjectByType<PlayerThrow>();
+                }
+
+                if (player == null)
+                {
+                    Debug.LogError("Playerが見つかりません");
+                    return;
+                }
+
+                // 当たった銃を拾う
+                player.SetHeldWeapon(hit.collider.gameObject);
+
+                if (playerGun != null)
+                {
+                    playerGun.ReloadAmmo();
+                }
+
                 hasWeaponyes = true;
-                playerGun.ReloadAmmo();
                 Debug.Log("武器を拾った!");
             }
         }
-
     }
 }
+
