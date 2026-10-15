@@ -10,6 +10,8 @@ public class GameClear : MonoBehaviour
 
     private bool isGameClear = false;
 
+    [SerializeField] private CanvasGroup targetCanvasGroup; // 操作したいCanvasのCanvasGroup
+
     void Start()
     {
         sceneManegerObj = GameObject.Find("SceneManeger");
@@ -38,5 +40,27 @@ public class GameClear : MonoBehaviour
             isGameClear = true;
 
         }
+    }
+    public void ToggleCanvas()
+    {
+        if (targetCanvasGroup == null) return;
+
+        if (targetCanvasGroup.alpha == 0)
+        {
+            Show();
+        }
+       
+    }
+
+
+    public void Show()
+    {
+        if (targetCanvasGroup == null) return;
+
+        targetCanvasGroup.alpha = 1f;             // 不透明
+        targetCanvasGroup.interactable = true;    // 操作
+        targetCanvasGroup.blocksRaycasts = true;  // クリックや入力
+
+        targetCanvasGroup.transform.SetAsLastSibling();
     }
 }
