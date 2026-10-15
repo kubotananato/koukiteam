@@ -12,7 +12,7 @@ public class PlayerDropItem : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
-        dropDirXZ = player.transform.position - transform.position;
+//        dropDirXZ = player.transform.position - transform.position;
         dropDirXZ.y = 0.0f;
         dropDirXZ.Normalize();
         rigid = GetComponent<Rigidbody>();

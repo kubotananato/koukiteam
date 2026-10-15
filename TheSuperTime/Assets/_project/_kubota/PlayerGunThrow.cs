@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class PlayerThrow : MonoBehaviour
 {
     public PlayerWeaponpick playerWeaponpick;
     public GameObject heldWeapon;
@@ -13,12 +13,12 @@ public class Player : MonoBehaviour
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
             Throw();
+
         }
     }
 
@@ -58,9 +58,37 @@ public class Player : MonoBehaviour
         );
 
         // 武器を持っていない状態にする
-        playerWeaponpick.hasWeapon = false;
-        heldWeapon = null;
+        SetHeldWeapon(null);
 
         Debug.Log("武器を投げた！");
+
     }
+
+    public void SetHeldWeapon (GameObject weapon)
+    {
+        if (heldWeapon == null)
+        {
+            PlayerGun oldGun = heldWeapon.GetComponent<PlayerGun>();
+            if (oldGun != null)
+            {
+                oldGun.enabled = false;
+            }
+        }
+
+        heldWeapon = weapon;
+        playerWeaponpick.hasWeapon = (weapon != null);
+
+        // 新しく持つ銃を有効にする
+        if (heldWeapon != null)
+        {
+            PlayerGun newGun = heldWeapon.GetComponent<PlayerGun>();
+
+            if (newGun != null)
+                newGun.enabled = true;
+        }
+
+    }
+
+        
+
 }
