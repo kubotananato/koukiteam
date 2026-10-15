@@ -1,14 +1,13 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerControlKari : MonoBehaviour
 {
-    // PlayerStatusを参照
     public PlayerStatus playerStatus;
-    public float PmoveSpeed = 5f; // 歩く速度
+    public float moveSpeed = 5f;
 
     public float NormalTimer = 0f;
     public float NormalDuration = 0.5f;
+
     Input input;
 
     void Start()
@@ -18,51 +17,30 @@ public class PlayerControlKari : MonoBehaviour
 
     void Update()
     {
+        if (input.IsReplay)
+        {
+            Time.timeScale = 1f;
+        }
+
         if (playerStatus.isDead)
         {
             return;
         }
 
-        float horizontal = 0f;
-        float vertical = 0f;
-
-        // WASD移動
-        if (input.inputs["left"])
-        {
-            horizontal = -1f;
-        }
-
-        if (input.inputs["right"])
-        {
-            horizontal = 1f;
-        }
-
-        if (input.inputs["back"])
-        {
-            vertical = -1f;
-        }
-
-        if (input.inputs["forward"])
-        {
-            vertical = 1f;
-        }
-
-        // Playerの向いている方向を基準にする
         Vector3 move =
-            transform.forward * vertical +
-            transform.right * horizontal;
+            transform.forward * input.moveAxis.y +
+            transform.right * input.moveAxis.x;
 
-        // 斜め移動が速くならないようにする
-        if (move.magnitude > 1f)
+        transform.position +=
+            move * moveSpeed * input.gameDeltaTime;
+
+        // リプレイ中はスロー処理を実行しない
+        if (input.IsReplay)
         {
-            move.Normalize();
+            return;
         }
 
-        // 移動
-        transform.position += move * PmoveSpeed * input.gameDeltaTime;
-
-        // 移動している、または撃った直後なら通常速度。それ以外はスロー
-        if (move.magnitude > 0f || NormalTimer > 0f)
+        if (move.sqrMagnitude > 0f || NormalTimer > 0f)
         {
             Time.timeScale = 1f;
         }
@@ -77,9 +55,11 @@ public class PlayerControlKari : MonoBehaviour
         }
     }
 
-    // 銃を撃ったときに PlayerGun.cs から呼ばれる
+    // 銃を撃ったときに呼ぶ
     public void OnShoot()
     {
+        if (input.IsReplay) return;
+
         NormalTimer = NormalDuration;
         Time.timeScale = 1f;
     }

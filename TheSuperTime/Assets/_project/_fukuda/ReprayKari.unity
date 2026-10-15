@@ -1689,7 +1689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerControlKari
   playerStatus: {fileID: 1235025389}
-  PmoveSpeed: 5
+  moveSpeed: 5
   NormalTimer: 0
   NormalDuration: 0.5
 --- !u!114 &1235025392
@@ -1705,7 +1705,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Input
   mouseDelta: {x: 0, y: 0}
+  moveAxis: {x: 0, y: 0}
   gameDeltaTime: 0
+  replaySpeed: 0.5
 --- !u!114 &1235025401
 MonoBehaviour:
   m_ObjectHideFlags: 0

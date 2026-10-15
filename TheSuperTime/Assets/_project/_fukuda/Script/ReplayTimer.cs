@@ -1,34 +1,39 @@
-using Unity.VisualScripting;
 using UnityEngine;
-[DefaultExecutionOrder(99)] 
+
+[DefaultExecutionOrder(99)]
 public class ReplayTimer : MonoBehaviour
 {
-    SaveReplay sReplay;
     ClearCheck clear;
+    Input playerInput;
+
     public int frame = 0;
     public bool isReplay = false;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
-        sReplay = GetComponent<SaveReplay>();
         clear = GetComponent<ClearCheck>();
+
+        playerInput = GameObject.Find("Player")
+            .GetComponent<Input>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        if(clear.isClear && !isReplay)
+        // クリアしたらリプレイ開始
+        if (clear.isClear && !isReplay)
         {
+            frame = 0;
             isReplay = true;
+            Time.timeScale = 1f;
             return;
         }
-        if(!isReplay) return;
-        Debug.Log("inputCount:"+sReplay.GetInputsCount());
-        if (++frame > sReplay.GetInputsCount() - 1)
+
+        if (!isReplay) return;
+
+        // 最後まで再生したら次のフレームで再スタート
+        if (playerInput.replayFinished)
         {
-            Debug.Log("reset");
-            frame = 0;
+            playerInput.RestartReplay();
         }
     }
 }

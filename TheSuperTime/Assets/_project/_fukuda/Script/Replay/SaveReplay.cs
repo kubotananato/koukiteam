@@ -22,7 +22,7 @@ public class SaveReplay : MonoBehaviour
     {
         if(repT.isReplay) return;
         // インプットから入力を受け取り、リストに追加
-        inputs.Add(input.inputs);
+        inputs.Add(new Dictionary<string,bool>(input.inputs));
         mouseDeltas.Add(input.mouseDelta);
         deltaTimes.Add(Time.deltaTime);
     }
