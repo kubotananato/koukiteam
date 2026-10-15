@@ -9,13 +9,17 @@ public class SoundManager : MonoBehaviour
 
     [Header("Audio Clips")]
     [SerializeField] private AudioClip buttonSeClip;
-    [Tooltip("銃の射撃音")]
+    [Tooltip("テスト用の銃の射撃音")]
     [SerializeField] private AudioClip gunShotClip;
 
+    [Header("BGM Settings (2 Types)")]
+    [Tooltip("BGM 1（例：通常ステージ・タイトル用など）")]
+    [SerializeField] private AudioClip bgm1;
+    [Tooltip("BGM 2（例：バトル・ボス戦用など）")]
+    [SerializeField] private AudioClip bgm2;
+
     [Header("Audio Sources")]
-    [Tooltip("効果音（SE）用のAudioSource")]
     [SerializeField] private AudioSource seAudioSource;
-    [Tooltip("BGM用のAudioSource")]
     [SerializeField] private AudioSource bgmAudioSource;
 
     void Awake()
@@ -29,7 +33,7 @@ public class SoundManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        // AudioSourceがアサインされていなければ自動で取得・追加する
+       
         if (seAudioSource == null)
         {
             seAudioSource = GetComponent<AudioSource>();
@@ -39,10 +43,8 @@ public class SoundManager : MonoBehaviour
             }
         }
 
-        // BGM用のAudioSourceがなければ追加する
         if (bgmAudioSource == null)
         {
-            // 同じオブジェクトに2つ目のAudioSourceを追加
             AudioSource[] sources = GetComponents<AudioSource>();
             if (sources.Length > 1)
             {
@@ -70,7 +72,7 @@ public class SoundManager : MonoBehaviour
         RegisterButtonsInScene();
     }
 
-    // シーン内にあるすべてのボタンを自動で探して登録する
+  
     public void RegisterButtonsInScene()
     {
         Button[] buttons = FindObjectsByType<Button>(FindObjectsSortMode.None);
@@ -82,16 +84,13 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    // --- 効果音（SE）関連 ---
+ 
 
     public void PlayButtonSE()
     {
         PlaySE(buttonSeClip);
     }
 
-    /// <summary>
-    /// 任意の効果音を再生する汎用メソッド
-    /// </summary>
     public void PlaySE(AudioClip clip)
     {
         if (clip != null && seAudioSource != null)
@@ -100,35 +99,50 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 銃の射撃音を再生する例
-    /// </summary>
     public void PlayGunShot()
     {
         PlaySE(gunShotClip);
     }
 
-    // --- BGM関連 ---
-
-    /// <summary>
-    /// BGMを再生・変更する（ループ再生）
-    /// </summary>
-    /// <param name="bgmClip">流したいBGMのオーディオクリップ</param>
-    public void PlayBGM(AudioClip bgmClip)
+ 
+    public void PlayBGM(int bgmIndex)
     {
-        if (bgmClip == null || bgmAudioSource == null) return;
+        AudioClip targetClip = null;
 
-        // すでに同じBGMが流れている場合は何もしない
-        if (bgmAudioSource.clip == bgmClip && bgmAudioSource.isPlaying) return;
+        if (bgmIndex == 0) targetClip = bgm1;
+        else if (bgmIndex == 1) targetClip = bgm2;
 
-        bgmAudioSource.clip = bgmClip;
-        bgmAudioSource.loop = true; // BGMは基本ループ
-        bgmAudioSource.Play();
+        PlayBGMClip(targetClip);
     }
 
     /// <summary>
-    /// BGMを停止する
+    /// BGM1を再生するショートカット
     /// </summary>
+    public void PlayBGM1()
+    {
+        PlayBGMClip(bgm1);
+    }
+
+    /// <summary>
+    /// BGM2を再生するショートカット
+    /// </summary>
+    public void PlayBGM2()
+    {
+        PlayBGMClip(bgm2);
+    }
+
+
+    private void PlayBGMClip(AudioClip clip)
+    {
+        if (clip == null || bgmAudioSource == null) return;
+
+        if (bgmAudioSource.clip == clip && bgmAudioSource.isPlaying) return;
+
+        bgmAudioSource.clip = clip;
+        bgmAudioSource.loop = true;
+        bgmAudioSource.Play();
+    }
+
     public void StopBGM()
     {
         if (bgmAudioSource != null)
