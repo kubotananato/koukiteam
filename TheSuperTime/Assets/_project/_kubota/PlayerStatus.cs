@@ -2,12 +2,22 @@ using UnityEngine;
 
 public class PlayerStatus : MonoBehaviour
 {
+    private GameObject sceneManegerObj;
+    private SceneCenge sceneChangeScript;
     public float PlayerHp = 1;
     public bool isDead = false;
 
     void Start()
     {
-        
+        sceneManegerObj = GameObject.Find("SceneManeger");
+        if (sceneManegerObj != null)
+        {
+            sceneChangeScript = sceneManegerObj.GetComponent<SceneCenge>();
+        }
+        else
+        {
+            Debug.LogWarning("SceneManagerが設定されていません。");
+        }
     }
 
     void Update()
@@ -40,6 +50,7 @@ public class PlayerStatus : MonoBehaviour
             Debug.Log("敵に攻撃された");
             PlayerHp -= 1;
             PlayerHp = Mathf.Max(PlayerHp, 0);
+            sceneChangeScript.LoadResultScene();
 
             if (PlayerHp <= 0)
             {
