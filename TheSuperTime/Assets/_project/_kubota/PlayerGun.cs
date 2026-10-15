@@ -7,6 +7,7 @@ public class PlayerGun : MonoBehaviour
     public PlayerStatus playerStatus; // PlayerStatusを参照
     public PMuzzleFlashMeshEffect muzzleFlash; // PMuzzleFlashMeshEffectを参照
     public PlayerWeaponRecoil weaponRecoil; // PlayerWeaponRecoilを参照
+    public PlayerBulletEffect PbulletEffect; // PlayerBulletEffectを参照
     public PlayerControl playerControl;
     public GameObject PbulletPrefab;
     public Transform PbulletPoint;
@@ -72,6 +73,7 @@ public class PlayerGun : MonoBehaviour
         // 弾を発射する
         Instantiate(PbulletPrefab, PbulletPoint.position, PbulletPoint.rotation);
         Debug.Log("撃った! 残りの弾数:" + currentAmmo);
+
 
         // 撃った瞬間に時間を通常速度に戻す
         if (playerControl != null)
