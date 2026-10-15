@@ -4,6 +4,15 @@ public class CanvasController : MonoBehaviour
 {
     [SerializeField] private CanvasGroup targetCanvasGroup; // 操作したいCanvasのCanvasGroup
 
+    void Start()
+    {
+        if(SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayBGM1(); 
+        }
+    }
+
+
     public void ToggleCanvas()
     {
         if (targetCanvasGroup == null) return;
