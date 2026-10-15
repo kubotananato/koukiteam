@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 793d3b89420f35547ba57758813cc907
 ModelImporter:
-  serializedVersion: 22200
+  serializedVersion: 24200
   internalIDToNameTable: []
   externalObjects: {}
   materials:
@@ -203,6 +203,9 @@ ModelImporter:
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
     optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
@@ -661,28 +664,28 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: B-root
       parentName: Rig
-      position: {x: -0, y: 0, z: 0}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
+      position: {x: -0, y: 0.911211, z: 0.031414}
+      rotation: {x: -0.004949714, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: B-spineProxy
       parentName: B-root
       position: {x: -0, y: 1.092844, z: 0.029147}
-      rotation: {x: -0.012905054, y: 0, z: -0, w: 0.99991673}
+      rotation: {x: -0.012905054, y: -0.005018013, z: -0, w: 0.99991673}
       scale: {x: 1, y: 1.0000001, z: 1.0000001}
     - name: B-hips
       parentName: B-root
       position: {x: -0, y: 0.967712, z: 0.016772}
-      rotation: {x: 0.04926631, y: 0, z: -0, w: 0.9987857}
+      rotation: {x: 0.04926631, y: 0.024002068, z: -0, w: 0.9987857}
       scale: {x: 1, y: 1.0000004, z: 1.0000004}
     - name: B-spine
       parentName: B-hips
       position: {x: -0, y: 0.12574437, z: 0.00000011940791}
-      rotation: {x: -0.062152267, y: 0, z: -0, w: 0.99806666}
+      rotation: {x: -0.062152267, y: 0.5159084, z: -0, w: 0.99806666}
       scale: {x: 1, y: 0.99999976, z: 0.99999976}
     - name: B-chest
       parentName: B-spine
       position: {x: -0, y: 0.13376056, z: -0.00000077390683}
-      rotation: {x: -0.02258696, y: 0, z: -0, w: 0.9997449}
+      rotation: {x: -0.02258696, y: 0.71020496, z: -0, w: 0.9997449}
       scale: {x: 1, y: 0.9999996, z: 0.9999996}
     - name: B-shoulder.R
       parentName: B-chest
@@ -787,16 +790,16 @@ ModelImporter:
     - name: B-neck
       parentName: B-chest
       position: {x: -0, y: 0.27081212, z: 0.0000007058524}
-      rotation: {x: 0.105346866, y: 0, z: -0, w: 0.99443555}
+      rotation: {x: 0.105346866, y: -0.0000071550535, z: -0, w: 0.99443555}
       scale: {x: 1, y: 0.9999997, z: 1.0000007}
     - name: B-head
       parentName: B-neck
       position: {x: -0, y: 0.07409704, z: 0.00000025054106}
-      rotation: {x: -0.069990024, y: 0, z: -0, w: 0.9975477}
+      rotation: {x: -0.069990024, y: 0.4190806, z: -0, w: 0.9975477}
       scale: {x: 1, y: 1.0000006, z: 0.99999964}
     - name: B-jaw
       parentName: B-head
-      position: {x: -0, y: 0, z: 0}
+      position: {x: -0, y: 0.16193359, z: 0.0000003085953}
       rotation: {x: 0.70698464, y: 0.000007072379, z: -0.00000706994, w: 0.7072289}
       scale: {x: 1, y: 1, z: 1}
     - name: B-shoulder.L
@@ -951,8 +954,7 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 1841c298173cdad4db8df8602c8f1c8d,
-    type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 1841c298173cdad4db8df8602c8f1c8d, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
