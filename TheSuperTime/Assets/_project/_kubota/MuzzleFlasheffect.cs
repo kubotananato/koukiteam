@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using System.Collections;
 
@@ -9,13 +10,14 @@ public class PMuzzleFlashMeshEffect : MonoBehaviour
     public float visibleTime = 0.06f;
 
     private MeshFilter meshFilter;
+    private MeshRenderer meshRenderer;
     private Coroutine hideCoroutine;
 
     void Awake()
     {
         meshFilter = GetComponent<MeshFilter>();
+        meshRenderer = GetComponent<MeshRenderer>();
 
-        // フラッシュの形を作る
         Mesh mesh = new Mesh();
         mesh.name = "MuzzleFlashMesh";
 
@@ -23,17 +25,14 @@ public class PMuzzleFlashMeshEffect : MonoBehaviour
         Vector3[] vertices = new Vector3[points * 2 + 1];
         int[] triangles = new int[points * 6];
 
-        // 中心点
         vertices[0] = Vector3.zero;
 
-        // 外側と内側の点を交互に配置する
         for (int i = 0; i < points * 2; i++)
         {
-            float angle =
-                i * Mathf.PI / points;
-
-            float radius =
-                (i % 2 == 0) ? size : size * 0.35f;
+            float angle = i * Mathf.PI / points;
+            float radius = (i % 2 == 0)
+                ? size
+                : size * 0.35f;
 
             vertices[i + 1] = new Vector3(
                 Mathf.Cos(angle) * radius,
@@ -42,7 +41,6 @@ public class PMuzzleFlashMeshEffect : MonoBehaviour
             );
         }
 
-        // 三角形をつなげる
         for (int i = 0; i < points; i++)
         {
             int index = i * 2;
@@ -65,14 +63,21 @@ public class PMuzzleFlashMeshEffect : MonoBehaviour
 
         meshFilter.mesh = mesh;
 
-        // 最初は非表示
-        gameObject.SetActive(false);
+        // オブジェクトは有効なまま、表示だけ消す
+        meshRenderer.enabled = false;
     }
 
     public void Play()
     {
-        Debug.Log("マズルフラッシュ再生！");
-        gameObject.SetActive(true);
+        if (!gameObject.activeInHierarchy)
+        {
+            Debug.LogWarning(
+                "MuzzleFlashMeshの親オブジェクトが無効です"
+            );
+            return;
+        }
+
+        meshRenderer.enabled = true;
 
         if (hideCoroutine != null)
         {
@@ -86,6 +91,7 @@ public class PMuzzleFlashMeshEffect : MonoBehaviour
     {
         yield return new WaitForSeconds(visibleTime);
 
-        gameObject.SetActive(false);
+        meshRenderer.enabled = false;
+        hideCoroutine = null;
     }
 }

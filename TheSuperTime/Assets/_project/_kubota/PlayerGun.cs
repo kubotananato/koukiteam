@@ -30,72 +30,61 @@ public class PlayerGun : MonoBehaviour
 
     void Update()
     {
-        if (playerStatus.isDead)
-        {
+        if (playerStatus != null && playerStatus.isDead)
             return;
-        }
+
+        if (playerWeaponpick == null)
+            return;
+
+        // 銃を持っていないと撃てない
+        if (!playerWeaponpick.hasWeapon)
+            return;
+
+        // 銃を拾ったクリックでは発射しない
         if (playerWeaponpick.hasWeaponyes)
-        {
             return;
-        }
 
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current != null &&
+            Mouse.current.leftButton.wasPressedThisFrame)
         {
-            // 武器を持っていなかったら殴る
-            if (!playerWeaponpick.hasWeapon)
-            {
-                Debug.Log("素手攻撃");
-                Ppunch.punch();
-                playerWeaponpick.hasWeapon = false;
-            }
-            else
-            {
-                // 武器を持っているときだけ撃つ
-                    Debug.Log("銃");
-                    PShoot();
-                AnimationShot();
-                playerWeaponpick.hasWeapon = true;
-            }
+            PShoot();
         }
-
     }
 
     void PShoot()
     {
-     //   SoundManager.Instance.PlayGunShot();
-        // クールタイム中なら撃たない(いちばん最初に確認する)
-        if (Time.unscaledTime < nextShootTime) return;
-
         if (currentAmmo <= 0)
         {
-            Debug.Log("弾切れ!");
+            Debug.Log("弾切れ！ 右クリックで銃を投げよう");
             return;
         }
 
-        // ここまで来たら撃てるので、次に撃てる時刻を決める
-        nextShootTime = Time.unscaledTime + shootCooldown;
+        if (Time.unscaledTime < nextShootTime)
+            return;
 
+        nextShootTime = Time.unscaledTime + shootCooldown;
         currentAmmo--;
 
-        // 弾を発射する
-        Instantiate(PbulletPrefab, PbulletPoint.position, PbulletPoint.rotation);
-        Debug.Log("撃った! 残りの弾数:" + currentAmmo);
-
-
-        // 撃った瞬間に時間を通常速度に戻す
-        if (playerControl != null)
+        if (PbulletPrefab != null && PbulletPoint != null)
         {
-            playerControl.OnShoot();
+            Instantiate(
+                PbulletPrefab,
+                PbulletPoint.position,
+                PbulletPoint.rotation
+            );
         }
+
+        Debug.Log("撃った！ 残りの弾数：" + currentAmmo);
+
+        if (playerControl != null)
+            playerControl.OnShoot();
 
         if (muzzleFlash != null)
-        {
             muzzleFlash.Play();
-        }
+
         if (weaponRecoil != null)
-        {
             weaponRecoil.ShotRecoil();
-        }
+
         if (PmuzzleFlashPrefab != null && PmuzzlePoint != null)
         {
             GameObject effect = Instantiate(
@@ -104,7 +93,6 @@ public class PlayerGun : MonoBehaviour
                 PmuzzlePoint.rotation
             );
 
-            // 0.3秒後にエフェクトを削除する
             Destroy(effect, 0.3f);
         }
     }

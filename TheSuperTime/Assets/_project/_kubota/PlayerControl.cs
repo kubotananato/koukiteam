@@ -1,82 +1,81 @@
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerControl : MonoBehaviour
 {
-    // PlayerStatusを参照
     public PlayerStatus playerStatus;
-    public float PmoveSpeed = 5f; // 歩く速度
+    public float PmoveSpeed = 5f;
 
     public float NormalTimer = 0f;
     public float NormalDuration = 0.5f;
 
+    private Rigidbody rb;
+    private float horizontal;
+    private float vertical;
+
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
 
+        if (rb == null)
+        {
+            Debug.LogError("PlayerにRigidbodyがありません！");
+        }
     }
 
     void Update()
     {
-        if (playerStatus.isDead)
-        {
+        if (playerStatus != null && playerStatus.isDead)
             return;
-        }
 
-        float horizontal = 0f;
-        float vertical = 0f;
+        horizontal = 0f;
+        vertical = 0f;
 
-        // WASD移動
-        if (Keyboard.current.aKey.isPressed)
-        {
-            horizontal = -1f;
-        }
+        if (Keyboard.current == null)
+            return;
 
-        if (Keyboard.current.dKey.isPressed)
-        {
-            horizontal = 1f;
-        }
+        if (Keyboard.current.aKey.isPressed) horizontal = -1f;
+        if (Keyboard.current.dKey.isPressed) horizontal = 1f;
+        if (Keyboard.current.sKey.isPressed) vertical = -1f;
+        if (Keyboard.current.wKey.isPressed) vertical = 1f;
 
-        if (Keyboard.current.sKey.isPressed)
-        {
-            vertical = -1f;
-        }
-
-        if (Keyboard.current.wKey.isPressed)
-        {
-            vertical = 1f;
-        }
-
-        // Playerの向いている方向を基準にする
-        Vector3 move =
-            transform.forward * vertical +
-            transform.right * horizontal;
-
-        // 斜め移動が速くならないようにする
-        if (move.magnitude > 1f)
-        {
-            move.Normalize();
-        }
-
-        // 移動
-        transform.position += move * PmoveSpeed * Time.deltaTime;
-
-        // 移動している、または撃った直後なら通常速度。それ以外はスロー
-        if (move.magnitude > 0f || NormalTimer > 0f)
-        {
+        if (horizontal != 0f || vertical != 0f || NormalTimer > 0f)
             Time.timeScale = 1f;
-        }
         else
-        {
             Time.timeScale = 0.05f;
-        }
 
         if (NormalTimer > 0f)
-        {
             NormalTimer -= Time.unscaledDeltaTime;
-        }
     }
 
-    // 銃を撃ったときに PlayerGun.cs から呼ばれる
+    void FixedUpdate()
+    {
+        if (rb == null)
+            return;
+
+        if (playerStatus != null && playerStatus.isDead)
+            return;
+
+        Vector3 forward = transform.forward;
+        Vector3 right = transform.right;
+
+        forward.y = 0f;
+        right.y = 0f;
+
+        forward.Normalize();
+        right.Normalize();
+
+        Vector3 move = forward * vertical + right * horizontal;
+
+        if (move.sqrMagnitude > 1f)
+            move.Normalize();
+
+        rb.MovePosition(
+            rb.position + move * PmoveSpeed * Time.fixedDeltaTime
+        );
+    }
+
     public void OnShoot()
     {
         NormalTimer = NormalDuration;

@@ -33,7 +33,12 @@ public class PlaeyerCamera : MonoBehaviour
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
         // 左右
-        transform.parent.Rotate(Vector3.up * mouseX);
+        Transform player = transform.parent;
+
+        Vector3 rotation = player.eulerAngles;
+        rotation.y += mouseX;
+
+        player.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
 
     }

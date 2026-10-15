@@ -36,4 +36,12 @@ public class PlayerWeaponRecoil : MonoBehaviour
         // 銃口を上に向ける
         currentRotation.x = -recoilUp;
     }
+    // 拾ったとき、今の位置を「元の位置」として覚え直す
+    public void ResetOrigin()
+    {
+        startPosition = transform.localPosition;
+        startRotation = transform.localRotation;
+        currentPosition = Vector3.zero;
+        currentRotation = Vector3.zero;
+    }
 }
