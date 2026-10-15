@@ -156,3 +156,6 @@ MonoBehaviour:
   PbulletSpeed: 10
   PbulletTime: 3
   hitEffect: {fileID: 9218649197746354276, guid: c4a060d28e037be45a1e5cdf843bb3e9, type: 3}
+  trailMaterial: {fileID: 2100000, guid: 52f48fdd1542c1b4b9f512ac7a66e559, type: 2}
+  trailWidth: 0.025
+  trailDuration: 0.8
