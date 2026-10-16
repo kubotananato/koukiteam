@@ -5,44 +5,65 @@ public class PlayerWeaponpick : MonoBehaviour
 {
     public Camera PlayerCamera;
     public PlayerGun playerGun;
+    public PlayerThrow player;
 
     public float pickupDistance = 3f;
-    public bool hasWeapon = false;
+
+    public bool hasWeapon = true;
     public bool hasWeaponyes = false;
 
     private float ViewportX = 0.5f;
     private float ViewportY = 0.5f;
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         hasWeaponyes = false;
+
+        if (Mouse.current == null)
+            return;
+
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             PickupWeapon();
         }
-
     }
 
     void PickupWeapon()
     {
-        Ray ray = PlayerCamera.ViewportPointToRay(new Vector3(ViewportX, ViewportY, 0));
+        if (PlayerCamera == null || player == null)
+            return;
 
-        if(Physics.Raycast(ray, out RaycastHit hit, pickupDistance))
+        Ray ray = PlayerCamera.ViewportPointToRay(
+            new Vector3(ViewportX, ViewportY, 0)
+        );
+
+        if (!Physics.Raycast(ray, out RaycastHit hit, pickupDistance))
+            return;
+
+        WeaponPickupItem item =
+            hit.collider.GetComponentInParent<WeaponPickupItem>();
+
+        if (item == null)
+            return;
+
+        if (item.heldVisualPrefab == null ||
+            item.worldWeaponPrefab == null)
         {
-           // if(hit.collider.CompareTag("Weapon"))
-            if(hit.collider.CompareTag("Wall"))
-            {
-                hasWeapon = true;
-                hasWeaponyes = true;
-                playerGun.ReloadAmmo();
-                Debug.Log("武器を拾った!");
-            }
+            Debug.LogWarning("銃のPrefabが設定されていません");
+            return;
         }
 
+        // 銃を持っていないとき、または弾切れの銃を
+        // 持っているときに拾う
+        if (hasWeapon &&
+            playerGun != null &&
+            playerGun.currentAmmo > 0)
+        {
+            Debug.Log("まだ銃を持っているよ！");
+            return;
+        }
+
+        hasWeaponyes = true;
+        player.PickupWeapon(item);
     }
 }
