@@ -2380,7 +2380,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2547197607167977050, guid: 37823a46ff9d2be46a6a5d8063ab3034, type: 3}
       propertyPath: m_Name
-      value: Player_fuku
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7078937294862682761, guid: 37823a46ff9d2be46a6a5d8063ab3034, type: 3}
       propertyPath: m_LocalPosition.x
