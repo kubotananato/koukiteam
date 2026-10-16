@@ -212,17 +212,18 @@ using UnityEngine.InputSystem;
 
 public class PlayerThrow : MonoBehaviour
 {
-    [Header("参照")]
     public PlayerWeaponpick playerWeaponpick;
     public Transform weaponView;
 
-    [Header("最初に持つ銃")]
     public GameObject heldWeapon;
     public int initialAmmo = 10;
 
-    [Header("投げる設定")]
     public float throwForce = 15f;
     public float throwSpawnDistance = 0.8f;
+
+    [SerializeField] float speed = 5.0f;
+    [SerializeField] float ySpeed = 0.1f;
+    [SerializeField] float rotSpeed = 10.0f;
 
     private PlayerGun currentGun;
     private PlayerControl playerControl;
@@ -364,6 +365,8 @@ public class PlayerThrow : MonoBehaviour
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.AddForce(aim.forward * throwForce, ForceMode.Impulse);
+        rb.maxAngularVelocity = Mathf.Max(rb.maxAngularVelocity, rotSpeed);
+        rb.angularVelocity = Random.onUnitSphere * rotSpeed;
 
         // 投げた直後は時間を通常速度に戻す
         if (playerControl != null)

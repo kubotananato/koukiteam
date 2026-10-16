@@ -800,8 +800,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -910,6 +910,11 @@ Transform:
   - {fileID: 726586977}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &1066878301 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 860412721246910095, guid: efe0ef9bb8246194b8c070f8bf6c238b, type: 3}
+  m_PrefabInstance: {fileID: 3837324463247548079}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1117813417
 GameObject:
   m_ObjectHideFlags: 0
@@ -6761,6 +6766,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8847386222926619516, guid: efe0ef9bb8246194b8c070f8bf6c238b, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 1066878301}
+    - target: {fileID: 8847386222926619516, guid: efe0ef9bb8246194b8c070f8bf6c238b, type: 3}
+      propertyPath: playerWeaponpick
+      value: 
+      objectReference: {fileID: 696231174}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
