@@ -9,6 +9,7 @@ TagManager:
   - Wall
   - Enemy
   - Weapon
+  - PlayerPunch
   layers:
   - Default
   - TransparentFX

@@ -12,14 +12,12 @@ public class EnemyHP : MonoBehaviour
     int frame = 0;
     bool setOnece = false;
     [SerializeField] GameObject proxy;
-    ClearCheck clearC;
 
     void Start()
     {
         hp = maxHp;
         anim = this.GetComponent<EnemyAnimation>();
         config = this.GetComponent<EnemyConfig>();
-        clearC = GameObject.Find("ReplayManager").GetComponent<ClearCheck>();
         proxy.SetActive(true);
     }
 
@@ -33,7 +31,6 @@ public class EnemyHP : MonoBehaviour
                 proxy.SetActive(false);
                 anim.SetDead(true, frame % 2 == 0);
                 //GameManeger.Instance.downEnemy++;
-                clearC.SetDeadEne();
                 setOnece = true;
             }
         }

@@ -9,8 +9,10 @@ public class DropItem : MonoBehaviour
     [SerializeField]float speed = 5.0f;
     [SerializeField] float ySpeed = 0.1f;
     [SerializeField] float rotSpeed = 10.0f;
+    ReplayTimer repT;
     void Start()
     {
+        repT = GameObject.Find("ReplayManager").GetComponent<ReplayTimer>();
         player = GameObject.Find("Player");
         dropDirXZ = player.transform.position - transform.position;
         dropDirXZ.y = 0.0f;
@@ -24,9 +26,12 @@ public class DropItem : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        //transform.position += dropDirXZ * speed;
+        if(repT.IsStartReplay())
+        {
+            Destroy(gameObject);
+        }
     }
 
 }

@@ -237,7 +237,7 @@ public class EnemyMove : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // 殴られたときに変更する
-        if (collision.gameObject.CompareTag("PlayerBullet"))
+        if (collision.gameObject.CompareTag("PlayerPunch"))
         {
             if(config.isGun)
             {
