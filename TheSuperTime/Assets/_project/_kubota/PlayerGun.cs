@@ -33,11 +33,13 @@ public class PlayerGun : MonoBehaviour
 
     void Update()
     {
+        
         if(lastReplayVersion != input.replayVersion)
         {
             currentAmmo = maxAmmo;
             lastReplayVersion = input.replayVersion;
         }
+        
 
         if (playerStatus != null && playerStatus.isDead)
             return;
@@ -87,6 +89,9 @@ public class PlayerGun : MonoBehaviour
 
         if (playerControl != null)
             playerControl.OnShoot();
+
+        if (PshotAnimation != null)
+            PshotAnimation.SetTrigger("PlayerShot");
 
         if (muzzleFlash != null)
             muzzleFlash.Play();

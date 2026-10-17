@@ -220,6 +220,7 @@ public class PlayerThrow : MonoBehaviour
 
     public float throwForce = 15f;
     public float throwSpawnDistance = 0.8f;
+    public Animator PlayerThrowAnimator;
 
     [SerializeField] float speed = 5.0f;
     [SerializeField] float ySpeed = 0.1f;
@@ -277,6 +278,13 @@ public class PlayerThrow : MonoBehaviour
             }
 
             SetHeld(heldWeapon, true);
+
+            // 最初から武器を持っている状態にするときのアニメーション
+/*            if (PlayerThrowAnimator != null)
+            {
+                PlayerThrowAnimator.SetBool("HasWeapon", true);
+            }
+*/
         }
 
         if (playerWeaponpick != null)
@@ -338,6 +346,12 @@ public class PlayerThrow : MonoBehaviour
             playerWeaponpick.hasWeapon = true;
         }
 
+        if (PlayerThrowAnimator != null)
+        {
+            PlayerThrowAnimator.SetTrigger("Pickup");
+            PlayerThrowAnimator.SetBool("HasWeapon", true);
+        }
+
         Debug.Log("銃を拾った! 残り弾数:" + currentGun.currentAmmo);
     }
 
@@ -383,6 +397,12 @@ public class PlayerThrow : MonoBehaviour
         playerWeaponpick.playerGun = null;
         playerWeaponpick.hasWeapon = false;
 
+        if (PlayerThrowAnimator != null)
+        {
+            PlayerThrowAnimator.SetTrigger("Throw");
+            PlayerThrowAnimator.SetBool("HasWeapon", false);
+        }
+
         Debug.Log("銃を投げた!");
     }
 
@@ -392,6 +412,7 @@ public class PlayerThrow : MonoBehaviour
         gun.playerWeaponpick = playerWeaponpick;
         gun.playerControl = playerControl;
         gun.playerStatus = playerStatus;
+        gun.PshotAnimation = PlayerThrowAnimator;
     }
 
     // true = 手に持つ状態、false = 床に置く・投げる状態
