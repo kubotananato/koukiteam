@@ -48,4 +48,5 @@ public class CanvasController : MonoBehaviour
         targetCanvasGroup.interactable = false;   // 操作無効化
         targetCanvasGroup.blocksRaycasts = false; // 入力を通さないように
     }
+
 }
