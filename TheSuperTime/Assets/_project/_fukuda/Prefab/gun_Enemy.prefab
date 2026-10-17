@@ -771,6 +771,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c209cdab66d773d49b5f2c96882ff0ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyConfig
+  damageType: 0
   isStayPosition: 0
   targetPosition: {x: 11.41, y: 0.82, z: 6.15}
   moveSpeed: 5
@@ -782,7 +783,7 @@ MonoBehaviour:
   shotSpanFrame: 50
   isGun: 0
   gunObj: {fileID: 6401728020494075282}
-  dropItemPrefab: {fileID: 6637052122941244926, guid: 25ec6cea413c4bf4588f0b527c94273f, type: 3}
+  dropItemPrefab: {fileID: 6637052122941244926, guid: 31fa1c98d20db3b408b6f86e493aea15, type: 3}
 --- !u!114 &7591577485293565611
 MonoBehaviour:
   m_ObjectHideFlags: 0
