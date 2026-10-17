@@ -46,7 +46,7 @@ public class PlayerPunch : MonoBehaviour
 
         Debug.Log("パンチ！");
         if (PpunchAnimation == null) return;
-        PpunchAnimation.SetTrigger("PlayerPunching");
+        PpunchAnimation.SetTrigger("PlayerPunch");
 
         // カメラの正面にRaycastを飛ばす
         Ray ray = new Ray(

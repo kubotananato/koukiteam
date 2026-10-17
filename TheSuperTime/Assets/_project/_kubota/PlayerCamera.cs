@@ -6,8 +6,8 @@ public class PlaeyerCamera : MonoBehaviour
     public float mouseSens = 2f;
     private float xRotation = 0f;
 
-    public GameObject HandReticle;
-    public GameObject WeaponReticle;
+ //   public GameObject HandReticle;
+//    public GameObject WeaponReticle;
     public Input input;
     float initialXRotation;
     int lastReplayVersion;
@@ -33,6 +33,7 @@ public class PlaeyerCamera : MonoBehaviour
 
     void Update()
     {
+        
         // 再生開始時カメラを初期角度に戻す
         if (lastReplayVersion != input.replayVersion)
         {
@@ -54,6 +55,7 @@ public class PlaeyerCamera : MonoBehaviour
         {
             ApplyMouseDelta(input.mouseDelta);
         }
+        
 
         transform.localRotation =
         Quaternion.Euler(xRotation, 0f, 0f);
