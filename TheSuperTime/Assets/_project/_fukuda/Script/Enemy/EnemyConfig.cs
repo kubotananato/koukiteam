@@ -1,8 +1,16 @@
 using UnityEngine;
 using UnityEngine.AI;
-
+public enum EneType
+    {
+        Gun,
+        Throw,
+        Punch
+    };
 public class EnemyConfig : MonoBehaviour
 {
+    [Header("タイプ")]
+    
+    [SerializeField]public EneType damageType = EneType.Gun;
 
     [Header("移動")]
     [SerializeField] public bool isStayPosition = false;

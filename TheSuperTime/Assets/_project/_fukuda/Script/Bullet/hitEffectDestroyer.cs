@@ -7,6 +7,6 @@ public class hitEffectDestroyer : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (++frame > 600) Destroy(gameObject);
+        if (++frame > 120) Destroy(gameObject);
     }
 }
