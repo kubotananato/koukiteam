@@ -8,7 +8,6 @@ public class PlayerPunch : MonoBehaviour
     public ReticleHit reticleHit;
 
     public float punchDistance = 2f;
-    public int punchDamage = 1;
     public float punchCooldown = 0.5f;
     public Animator PpunchAnimation;
     public string enemyTag = "Enemy";
@@ -29,11 +28,46 @@ public class PlayerPunch : MonoBehaviour
         {
             return;
         }
-
         if (input.inputs["shot"])
         {
+            // Rayの先に Weapon タグの物があるときは、パンチしない
+            if (IsLookingAtWeapon())
+            {
+                return;
+            }
+
             Punch();
         }
+    }
+    // 画面中央のRayの先に、Weapon タグの物があるか調べる
+    bool IsLookingAtWeapon()
+    {
+        if (playerCamera == null)
+        {
+            return false;
+        }
+
+        Ray ray = new Ray(
+            playerCamera.transform.position,
+            playerCamera.transform.forward
+        );
+
+        if (Physics.Raycast(ray, out RaycastHit hit, punchDistance))
+        {
+            // 当たった物か、その親に Weapon タグが付いているか調べる
+            Transform t = hit.collider.transform;
+
+            while (t != null)
+            {
+                if (t.CompareTag("Weapon"))
+                {
+                    return true;
+                }
+                t = t.parent;
+            }
+        }
+
+        return false;
     }
 
     void Punch()
@@ -48,7 +82,6 @@ public class PlayerPunch : MonoBehaviour
 
         Debug.Log("パンチ！");
 
-        // アニメーションがあれば再生する
         if (PpunchAnimation != null)
         {
             PpunchAnimation.SetTrigger("PlayerPunch");

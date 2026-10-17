@@ -1,212 +1,4 @@
-/*using UnityEngine;
-using UnityEngine.InputSystem;
-
-public class PlayerThrow : MonoBehaviour
-{
-    [Header("参照")]
-    public PlayerWeaponpick playerWeaponpick;
-    public Transform weaponView;
-
-    [Header("最初に持つ銃")]
-    public GameObject heldWeapon;
-    public GameObject initialWorldWeaponPrefab;
-    public int initialAmmo = 10;
-
-    [Header("投げる設定")]
-    public float throwForce = 15f;
-
-    private GameObject currentWorldWeaponPrefab;
-    private PlayerGun currentGun;
-    private Vector3 heldLocalPosition;
-    private Quaternion heldLocalRotation;
-    private Vector3 heldLocalScale;
-
-    void Start()
-    {
-        Debug.Log("PlayerThrowのStartが実行された");
-        // 最初から銃を持ってスタート
-        if (heldWeapon != null)
-        {
-            heldWeapon.SetActive(true);
-            heldLocalPosition = heldWeapon.transform.localPosition;
-            heldLocalRotation = heldWeapon.transform.localRotation;
-            heldLocalScale = heldWeapon.transform.localScale;
-            currentGun = heldWeapon.GetComponentInChildren<PlayerGun>(true);
-
-            if (currentGun != null)
-            {
-                currentGun.currentAmmo = initialAmmo;
-                currentGun.enabled = true;
-            }
-        }
-
-        currentWorldWeaponPrefab = initialWorldWeaponPrefab;
-
-        if (playerWeaponpick != null)
-        {
-            playerWeaponpick.player = this;
-            playerWeaponpick.hasWeapon = heldWeapon != null;
-            playerWeaponpick.playerGun = currentGun;
-        }
-    }
-
-    void Update()
-    {
-        Debug.Log("PlayerThrowのUpdateが動いている");
-
-        if (Mouse.current != null &&
-            Mouse.current.rightButton.wasPressedThisFrame)
-        {
-            Debug.Log("右クリックを検知！");
-            ThrowWeapon();
-        }
-    }
-    void OnDisable()
-    {
-        Debug.Log("PlayerThrow が無効になった");
-    }
-
-    void OnDestroy()
-    {
-        Debug.Log("PlayerThrow が破棄された");
-    }
-
-    // 床の銃を拾う
-    public void PickupWeapon(WeaponPickupItem item)
-    {
-        if (item == null || weaponView == null)
-            return;
-
-        // 前の手元の銃を非表示にする
-        if (heldWeapon != null)
-        {
-            heldWeapon.SetActive(false);
-        }
-
-        // 別モデルが登録されていれば、そのモデルを手元に生成
-        if (item.heldVisualPrefab != null)
-        {
-            heldWeapon = Instantiate(item.heldVisualPrefab, weaponView);
-
-            heldWeapon.transform.localPosition = heldLocalPosition;
-            heldWeapon.transform.localRotation = heldLocalRotation;
-            heldWeapon.transform.localScale = heldLocalScale;
-
-            heldWeapon.SetActive(true);
-        }
-        else
-        {
-            Debug.LogError("heldVisualPrefabが設定されていません");
-            return;
-        }
-
-        currentGun = heldWeapon.GetComponentInChildren<PlayerGun>(true);
-
-        if (currentGun == null)
-        {
-            Debug.LogError("手持ち銃のPrefabにPlayerGunがありません");
-            heldWeapon.SetActive(false);
-            return;
-        }
-
-        currentGun.playerWeaponpick = playerWeaponpick;
-        currentGun.enabled = true;
-        currentGun.currentAmmo = item.ammo;
-        currentWorldWeaponPrefab = item.worldWeaponPrefab;
-
-        Debug.Log("投げるPrefab：" +
-            (currentWorldWeaponPrefab != null
-                ? currentWorldWeaponPrefab.name
-                : "設定されていません"));
-
-        if (playerWeaponpick != null)
-        {
-            playerWeaponpick.playerGun = currentGun;
-            playerWeaponpick.hasWeapon = true;
-        }
-
-        // 拾った床の銃を消す
-        Destroy(item.gameObject);
-
-        Debug.Log("銃を拾った！ 残り弾数：" + currentGun.currentAmmo);
-    }
-
-    // 右クリックで銃を投げる
-
-    public void ThrowWeapon()
-    {
-        Debug.Log("ThrowWeaponが呼ばれた！");
-
-        if (heldWeapon == null ||
-            !heldWeapon.activeSelf ||
-            playerWeaponpick == null ||
-            !playerWeaponpick.hasWeapon)
-        {
-            return;
-        }
-
-        if (currentWorldWeaponPrefab == null)
-        {
-            Debug.LogWarning("投げる銃のPrefabが設定されていません");
-            return;
-        }
-
-        // 投げる銃を生成する
-        Vector3 spawnPosition = heldWeapon.transform.position;
-        Quaternion spawnRotation = heldWeapon.transform.rotation;
-
-        GameObject thrownWeapon = Instantiate(
-            currentWorldWeaponPrefab,
-            spawnPosition,
-            spawnRotation
-        );
-
-        // Rigidbodyは、できればPrefabのルートに付ける
-        Rigidbody rb = thrownWeapon.GetComponent<Rigidbody>();
-
-        if (rb == null)
-        {
-            Debug.LogError(
-                "投げる銃のPrefabのルートにRigidbodyを追加してください"
-            );
-
-            Destroy(thrownWeapon);
-            return;
-        }
-
-        rb.isKinematic = false;
-        rb.useGravity = true;
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-
-        // カメラが向いている方向へ投げる
-        Transform aimTransform = Camera.main != null
-            ? Camera.main.transform
-            : transform;
-
-        rb.AddForce(
-            aimTransform.forward * throwForce,
-            ForceMode.Impulse
-        );
-
-        // 手元の銃をしまう
-        heldWeapon.SetActive(false);
-
-        if (currentGun != null)
-        {
-            currentGun.enabled = false;
-        }
-
-        currentGun = null;
-        playerWeaponpick.playerGun = null;
-        playerWeaponpick.hasWeapon = false;
-        currentWorldWeaponPrefab = null;
-
-        Debug.Log("銃を投げた！");
-    }
-
-}
-*/
+/*
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -461,5 +253,194 @@ public class PlayerThrow : MonoBehaviour
             rb.isKinematic = false;
             rb.useGravity = true;
         }
+    }
+}
+*/
+
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PlayerThrow : MonoBehaviour
+{
+    public PlayerWeaponpick playerWeaponpick;
+    public Animator armsAnimator;
+
+    public GameObject heldWeapon;
+    public int initialAmmo = 10;
+
+    public GameObject worldWeaponPrefab;
+    public float throwForce = 15f;
+    public float throwSpawnDistance = 0.8f;
+    public float throwScale = 0.5f;
+
+    private PlayerGun currentGun;
+    private PlayerControl playerControl;
+    private PlayerStatus playerStatus;
+
+    void Start()
+    {
+        playerControl = GetComponent<PlayerControl>();
+        playerStatus = GetComponent<PlayerStatus>();
+
+        if (heldWeapon != null)
+        {
+            currentGun = heldWeapon.GetComponentInChildren<PlayerGun>(true);
+
+            if (currentGun != null)
+            {
+                LinkGun(currentGun);
+                currentGun.currentAmmo = initialAmmo;
+                currentGun.enabled = true;
+            }
+
+            heldWeapon.SetActive(true);
+
+            if (armsAnimator != null)
+            {
+                armsAnimator.SetBool("HasWeapon", true);
+            }
+        }
+
+        if (playerWeaponpick != null)
+        {
+            playerWeaponpick.player = this;
+            playerWeaponpick.hasWeapon = heldWeapon != null;
+            playerWeaponpick.playerGun = currentGun;
+        }
+    }
+
+    void Update()
+    {
+        if (Mouse.current != null &&
+            Mouse.current.rightButton.wasPressedThisFrame)
+        {
+            ThrowWeapon();
+        }
+    }
+
+    // 床の銃を拾う(PlayerWeaponpick.cs から呼ばれる)
+    public void PickupWeapon(WeaponPickupItem item)
+    {
+        if (item == null || heldWeapon == null || currentGun == null)
+        {
+            return;
+        }
+
+        // すでに銃を持っているときは拾わない
+        if (heldWeapon.activeSelf)
+        {
+            Debug.Log("すでに銃を持っています");
+            return;
+        }
+
+        // 床の銃の弾数を引き継ぐ
+        currentGun.currentAmmo = item.ammo;
+        currentGun.enabled = true;
+
+        // 手持ちの銃を再び表示する
+        heldWeapon.SetActive(true);
+
+        if (playerWeaponpick != null)
+        {
+            playerWeaponpick.playerGun = currentGun;
+            playerWeaponpick.hasWeapon = true;
+        }
+
+        if (armsAnimator != null)
+        {
+            armsAnimator.SetTrigger("Pickup");
+            armsAnimator.SetBool("HasWeapon", true);
+        }
+
+        // 床の銃を消す
+        Destroy(item.gameObject);
+
+        Debug.Log("銃を拾った! 残り弾数:" + currentGun.currentAmmo);
+    }
+
+    // 右クリックで銃を投げる
+    public void ThrowWeapon()
+    {
+        if (heldWeapon == null ||
+            !heldWeapon.activeSelf ||
+            playerWeaponpick == null ||
+            !playerWeaponpick.hasWeapon)
+        {
+            return;
+        }
+
+        if (worldWeaponPrefab == null)
+        {
+            Debug.LogWarning("World Weapon Prefab が設定されていません");
+            return;
+        }
+
+        Transform aim = Camera.main != null
+            ? Camera.main.transform
+            : transform;
+
+        // カメラの少し前に、投げる銃を新しく作る
+        GameObject thrown = Instantiate(
+            worldWeaponPrefab,
+            aim.position + aim.forward * throwSpawnDistance,
+            heldWeapon.transform.rotation
+        );
+
+        // 投げる銃を小さくする
+        thrown.transform.localScale = worldWeaponPrefab.transform.localScale * throwScale;
+
+        // 今の弾数を、投げた銃に持たせる
+        WeaponPickupItem item = thrown.GetComponent<WeaponPickupItem>();
+        if (item != null && currentGun != null)
+        {
+            item.ammo = currentGun.currentAmmo;
+        }
+
+        Rigidbody rb = thrown.GetComponent<Rigidbody>();
+        if (rb == null)
+        {
+            Debug.LogError("投げる銃のPrefabのルートに Rigidbody を付けてください");
+            Destroy(thrown);
+            return;
+        }
+
+        rb.isKinematic = false;
+        rb.useGravity = true;
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.AddForce(aim.forward * throwForce, ForceMode.Impulse);
+
+        // 手持ちの銃は消さずに、非表示にするだけ
+        if (currentGun != null)
+        {
+            currentGun.enabled = false;
+        }
+        heldWeapon.SetActive(false);
+
+        playerWeaponpick.playerGun = null;
+        playerWeaponpick.hasWeapon = false;
+
+        if (armsAnimator != null)
+        {
+            armsAnimator.SetTrigger("Throw");
+            armsAnimator.SetBool("HasWeapon", false);
+        }
+
+        // 投げた直後は時間を通常速度に戻す
+        if (playerControl != null)
+        {
+            playerControl.OnShoot();
+        }
+
+        Debug.Log("銃を投げた!");
+    }
+
+    // 銃にプレイヤーの情報を渡す
+    void LinkGun(PlayerGun gun)
+    {
+        gun.playerWeaponpick = playerWeaponpick;
+        gun.playerControl = playerControl;
+        gun.playerStatus = playerStatus;
+        gun.PshotAnimation = armsAnimator;
     }
 }

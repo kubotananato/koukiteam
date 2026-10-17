@@ -3,10 +3,10 @@ using UnityEngine.UI;
 
 public class ReticleHit : MonoBehaviour
 {
-    public Image[] reticleImages;            // レティクルの Image(4つ全部)
-    public Color normalColor = Color.white;  // 通常の色
-    public Color hitColor = Color.red;       // 当たったときの色
-    public float hitDuration = 0.15f;        // 赤くしている時間(秒)
+    public Image[] reticleImages;
+    public Color normalColor = Color.white;
+    public Color hitColor = Color.red;
+    public float hitDuration = 0.15f;
 
     private float hitTimer = 0f;
 
@@ -24,7 +24,6 @@ public class ReticleHit : MonoBehaviour
         }
     }
 
-    // 4つの Image をまとめて同じ色にする
     void SetColor(Color color)
     {
         foreach (Image img in reticleImages)
