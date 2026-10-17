@@ -1028,32 +1028,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2721651677240210880, guid: efe0ef9bb8246194b8c070f8bf6c238b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 833520710}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efe0ef9bb8246194b8c070f8bf6c238b, type: 3}
---- !u!1 &833520709 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2721651677240210880, guid: efe0ef9bb8246194b8c070f8bf6c238b, type: 3}
-  m_PrefabInstance: {fileID: 833520708}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &833520710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 833520709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d42f0795e745c443a4574ec565dd531, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Input
-  mouseDelta: {x: 0, y: 0}
-  moveAxis: {x: 0, y: 0}
-  gameDeltaTime: 0
-  replaySpeed: 1
 --- !u!1 &929936142
 GameObject:
   m_ObjectHideFlags: 0

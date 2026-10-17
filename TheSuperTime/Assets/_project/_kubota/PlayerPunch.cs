@@ -13,6 +13,7 @@ public class PlayerPunch : MonoBehaviour
     public Animator PpunchAnimation;
 
     private float nextPunchTime = 0f;
+    [SerializeField]Input input;
 
     void Update()
     {
@@ -28,7 +29,7 @@ public class PlayerPunch : MonoBehaviour
             return;
         }
 
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (input.inputs["shot"])
         {
             Punch();
         }
@@ -59,7 +60,6 @@ public class PlayerPunch : MonoBehaviour
             punchDistance))
         {
             Debug.Log("パンチが当たった：" + hit.collider.name);
-
         }
     }
     public void punch()

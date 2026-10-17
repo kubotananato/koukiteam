@@ -1,4 +1,5 @@
 
+using System.Data.SqlTypes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +14,8 @@ public class PlayerControl : MonoBehaviour
     private Rigidbody rb;
     private float horizontal;
     private float vertical;
+    Input input;
+    Vector3 move;
 
     void Start()
     {
@@ -22,10 +25,16 @@ public class PlayerControl : MonoBehaviour
         {
             Debug.LogError("PlayerにRigidbodyがありません！");
         }
+
+        input = GetComponent<Input>();
     }
 
     void Update()
     {
+        if(input.IsReplay)
+        {
+            Time.timeScale = 1.0f;
+        }
         if (playerStatus != null && playerStatus.isDead)
             return;
 
@@ -35,12 +44,33 @@ public class PlayerControl : MonoBehaviour
         if (Keyboard.current == null)
             return;
 
-        if (Keyboard.current.aKey.isPressed) horizontal = -1f;
+        /*if (input.inputs["left"]) horizontal = -1f;
         if (Keyboard.current.dKey.isPressed) horizontal = 1f;
         if (Keyboard.current.sKey.isPressed) vertical = -1f;
-        if (Keyboard.current.wKey.isPressed) vertical = 1f;
+        if (Keyboard.current.wKey.isPressed) vertical = 1f;*/
+        move = transform.forward * input.moveAxis.y + transform.right * input.moveAxis.x;
 
-        if (horizontal != 0f || vertical != 0f || NormalTimer > 0f)
+        if (rb == null)
+            return;
+
+        if (playerStatus != null && playerStatus.isDead)
+            return;
+
+        if (move.sqrMagnitude > 1f)
+            move.Normalize();
+
+        rb.MovePosition(
+            rb.position + move * PmoveSpeed * input.gameDeltaTime
+        );
+
+        //transform.position += move;
+        if(input.IsReplay)
+        {
+            // リプレイ中は時間の調整を行わない
+            return;
+        }
+
+        if (move.sqrMagnitude > 0f|| NormalTimer > 0f)
             Time.timeScale = 1f;
         else
             Time.timeScale = 0.05f;
@@ -51,33 +81,12 @@ public class PlayerControl : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (rb == null)
-            return;
-
-        if (playerStatus != null && playerStatus.isDead)
-            return;
-
-        Vector3 forward = transform.forward;
-        Vector3 right = transform.right;
-
-        forward.y = 0f;
-        right.y = 0f;
-
-        forward.Normalize();
-        right.Normalize();
-
-        Vector3 move = forward * vertical + right * horizontal;
-
-        if (move.sqrMagnitude > 1f)
-            move.Normalize();
-
-        rb.MovePosition(
-            rb.position + move * PmoveSpeed * Time.fixedDeltaTime
-        );
+        
     }
 
     public void OnShoot()
     {
+        if(input.IsReplay) return;
         NormalTimer = NormalDuration;
         Time.timeScale = 1f;
     }

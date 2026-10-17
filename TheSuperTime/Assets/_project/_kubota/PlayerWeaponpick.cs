@@ -14,7 +14,11 @@ public class PlayerWeaponpick : MonoBehaviour
 
     private float ViewportX = 0.5f;
     private float ViewportY = 0.5f;
-
+    Input input;
+    void Start()
+    {
+        input = GetComponent<Input>();
+    }
     void Update()
     {
         hasWeaponyes = false;
@@ -22,7 +26,7 @@ public class PlayerWeaponpick : MonoBehaviour
         if (Mouse.current == null)
             return;
 
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (input.inputs["pick"])
         {
             PickupWeapon();
         }

@@ -16,7 +16,8 @@ public class Input : MonoBehaviour
             { "forward", false },
             { "back", false },
             { "shot", false },
-            { "pick", false }
+            { "pick", false },
+            {"throw", false}
         };
 
     public Vector2 mouseDelta;
@@ -36,6 +37,7 @@ public class Input : MonoBehaviour
     // 現在の記録を何秒分再生したか
     float usedTime;
     public float replaySpeed = 1.0f;
+    public List<Vector2> replayMouseSteps = new List<Vector2>();
 
     void Start()
     {
@@ -111,6 +113,7 @@ public class Input : MonoBehaviour
 
         inputs["shot"] = pressed;
         inputs["pick"] = pressed;
+        inputs["throw"] = mouse.rightButton.wasPressedThisFrame;
 
         moveAxis = GetMoveAxis(inputs);
 
@@ -154,6 +157,7 @@ public class Input : MonoBehaviour
             {
                 inputs["shot"] |= recorded["shot"];
                 inputs["pick"] |= recorded["pick"];
+                inputs["throw"] |= recorded["throw"];
             }
 
             // 最後に読み込んだキー状態
@@ -165,9 +169,14 @@ public class Input : MonoBehaviour
             // 移動方向を時間に応じて合算
             totalMovement += GetMoveAxis(recorded) * step;
 
-            // マウス移動量を読み込んだ割合に応じて合算
-            mouseDelta +=
-                replay.GetMouse(replayFrame) * (step / duration);
+            Vector2 mouseStep =
+            replay.GetMouse(replayFrame) * (step / duration);
+
+            // カメラで順番に適用するために保持する
+            replayMouseSteps.Add(mouseStep);
+
+            // 他の処理が参照する合計値も残す
+            mouseDelta += mouseStep;
 
             gameDeltaTime += step;
             remaining -= step;
@@ -217,9 +226,10 @@ public class Input : MonoBehaviour
         inputs["back"] = false;
         inputs["shot"] = false;
         inputs["pick"] = false;
-
+        inputs["throw"] = false;
         moveAxis = Vector2.zero;
         mouseDelta = Vector2.zero;
         gameDeltaTime = 0f;
+        replayMouseSteps.Clear();
     }
 }

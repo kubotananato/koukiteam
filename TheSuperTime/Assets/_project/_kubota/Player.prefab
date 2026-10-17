@@ -470,7 +470,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949f20e349eb07644a1ae11a5dae1160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPunch
+  playerCamera: {fileID: 860412721246910095}
+  playerWeaponpick: {fileID: 1259354110148065391}
+  punchDistance: 2
+  punchDamage: 1
+  punchCooldown: 0.5
   PpunchAnimation: {fileID: 6669357633874667902}
+  input: {fileID: 7207268470252747373}
 --- !u!1 &935829376340932154
 GameObject:
   m_ObjectHideFlags: 0
@@ -1028,6 +1034,7 @@ GameObject:
   - component: {fileID: 2095412843313595684}
   - component: {fileID: 4264204104769933491}
   - component: {fileID: 6669357633874667902}
+  - component: {fileID: 7207268470252747373}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -1116,9 +1123,12 @@ MonoBehaviour:
   playerWeaponpick: {fileID: 1259354110148065391}
   weaponView: {fileID: 1069773461599693702}
   heldWeapon: {fileID: 9141503622211412876}
-  initialWorldWeaponPrefab: {fileID: 6802832237823401508, guid: 966d297401ab1f541930948219ddce26, type: 3}
   initialAmmo: 10
   throwForce: 15
+  throwSpawnDistance: 0.8
+  speed: 5
+  ySpeed: 0.1
+  rotSpeed: 10
 --- !u!114 &3104381656777765222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1227,6 +1237,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7207268470252747373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2721651677240210880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d42f0795e745c443a4574ec565dd531, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Input
+  mouseDelta: {x: 0, y: 0}
+  moveAxis: {x: 0, y: 0}
+  gameDeltaTime: 0
+  replaySpeed: 1
+  replayMouseSteps: []
 --- !u!1 &2954330754681087894
 GameObject:
   m_ObjectHideFlags: 0
@@ -2429,6 +2456,8 @@ MonoBehaviour:
   mouseSens: 0.5
   HandReticle: {fileID: 0}
   WeaponReticle: {fileID: 0}
+  input: {fileID: 7207268470252747373}
+  player: {fileID: 3354882016529084282}
 --- !u!1 &5210831931412459167
 GameObject:
   m_ObjectHideFlags: 0
@@ -4466,6 +4495,7 @@ MonoBehaviour:
   shootCooldown: 0.5
   maxAmmo: 10
   currentAmmo: 0
+  input: {fileID: 7207268470252747373}
 --- !u!54 &4706197231764644660
 Rigidbody:
   m_ObjectHideFlags: 0

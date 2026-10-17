@@ -22,14 +22,23 @@ public class PlayerGun : MonoBehaviour
 
     public int maxAmmo = 10;
     public int currentAmmo;
+    public Input input;
+    int lastReplayVersion;
 
     void Start()
     {
         currentAmmo = maxAmmo;
+        lastReplayVersion = input.replayVersion;
     }
 
     void Update()
     {
+        if(lastReplayVersion != input.replayVersion)
+        {
+            currentAmmo = maxAmmo;
+            lastReplayVersion = input.replayVersion;
+        }
+
         if (playerStatus != null && playerStatus.isDead)
             return;
 
@@ -45,7 +54,7 @@ public class PlayerGun : MonoBehaviour
             return;
 
         if (Mouse.current != null &&
-            Mouse.current.leftButton.wasPressedThisFrame)
+            input.inputs["shot"])
         {
             PShoot();
         }
