@@ -29,6 +29,7 @@ public class EnemyMove : MonoBehaviour
     EnemyConfig config;
     EnemyHP hp;
     EnemyAnimation anim;
+    
 
     
     void Start()
@@ -79,7 +80,9 @@ public class EnemyMove : MonoBehaviour
         if(!config.isGun)
         {
             anim.SetIsNotGun();
+            config.gunObj.SetActive(false);
         }
+        else config.gunObj.SetActive(true);
     }
 
     void SetMoveDir()
@@ -236,8 +239,33 @@ public class EnemyMove : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // 殴られたときに変更する
-        if (collision.gameObject.CompareTag("PlayerPunch"))
+        Dictionary<EneType, string> types = new Dictionary<EneType, string>()
+        {
+          {EneType.Gun, "PlayerBullet"},
+            {EneType.Punch, "PlayerPunch"},
+            {EneType.Throw, "PlayerThrow"}
+        };
+        string damageTag = types[config.damageType];
+
+        // ダメージを受けるとき
+        if (collision.gameObject.CompareTag(damageTag))
+        {
+            hp.Damaged();
+        }
+
+        // ダメージを受けたとき、武器を落とす
+        for(int i = 0; i < 3; ++i)
+        {
+            EneType tmp = (EneType)i;
+            if (collision.gameObject.CompareTag(types[tmp]) && config.isGun)
+            {
+                DropItem();
+            }
+        }
+
+        
+
+        /*if (collision.gameObject.CompareTag("PlayerPunch"))
         {
             if(config.isGun)
             {
@@ -245,13 +273,10 @@ public class EnemyMove : MonoBehaviour
                 return;
             }
             else hp.Damaged();
-        }
+        }*/
+        
 
-        // 銃に撃たれたとき
-        if (collision.gameObject.CompareTag("PlayerBullet"))
-        {
-            hp.Damaged();
-        }
+        
 
     }
 

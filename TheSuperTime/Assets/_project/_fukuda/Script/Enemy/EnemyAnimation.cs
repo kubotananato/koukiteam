@@ -5,7 +5,7 @@ public class EnemyAnimation : MonoBehaviour
 {
     EnemyConfig config;
     Animator animator;
-    void Start()
+    void Awake()
     {
         config = GetComponent<EnemyConfig>();
         animator = GetComponent<Animator>();

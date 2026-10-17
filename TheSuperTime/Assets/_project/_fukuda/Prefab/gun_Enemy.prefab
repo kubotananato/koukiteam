@@ -1,58 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5892824497946912117
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1460155415938216101}
-  - component: {fileID: 7907135924216181514}
-  m_Layer: 8
-  m_Name: punchCollision
-  m_TagString: EnemyBullet
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1460155415938216101
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5892824497946912117}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.077, z: 0.405}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6867482588077077695}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &7907135924216181514
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5892824497946912117}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &963144459815884066
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -735,9 +682,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1460155415938216101}
     - targetCorrespondingSourceObject: {fileID: -1873722300314729536, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4394527888299948428}
@@ -835,7 +779,7 @@ MonoBehaviour:
     m_Bits: 129
   punchReach: 5
   shotReach: 15
-  shotSpanFrame: 30
+  shotSpanFrame: 50
   isGun: 0
   gunObj: {fileID: 6401728020494075282}
   dropItemPrefab: {fileID: 6637052122941244926, guid: 25ec6cea413c4bf4588f0b527c94273f, type: 3}
@@ -880,7 +824,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShot
   bulletPrefab: {fileID: 4625731010963317820, guid: 4b62ae7b6bec9a6449bb5528f96aafa9, type: 3}
   gunObj: {fileID: 6401728020494075282}
-  punchColObj: {fileID: 5892824497946912117}
+  punchColPrefab: {fileID: 3446187262513487483, guid: 7f88cf12f86c8054f92dbd9d0f7a0fe5, type: 3}
   canShot: 0
 --- !u!195 &8920685318861022389
 NavMeshAgent:
@@ -966,11 +910,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef486170a1970bf488e5a2019353df25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimation
---- !u!4 &6867482588077077695 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
-  m_PrefabInstance: {fileID: 6396389628391117652}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8936787110970133562 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -6574882734343921810, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}

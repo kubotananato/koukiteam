@@ -6,7 +6,8 @@ public class EnemyShot : MonoBehaviour
 {
     [SerializeField]GameObject bulletPrefab;
     [SerializeField]GameObject gunObj;
-    [SerializeField]GameObject punchColObj;
+    [SerializeField]GameObject punchColPrefab;
+    GameObject tempPunch;
     int frameTimer = 0;
     const int SHOT_SPAN = 50;
     const int PUNCH_SPAN = 50;
@@ -25,7 +26,6 @@ public class EnemyShot : MonoBehaviour
         frameTimer = 30;
         config = this.GetComponent<EnemyConfig>();
         anim = this.GetComponent<EnemyAnimation>();
-        punchColObj.SetActive(false);
     }
 
     void FixedUpdate()
@@ -50,6 +50,10 @@ public class EnemyShot : MonoBehaviour
             }      
             break;
             case false:
+            if(tempPunch != null)
+                {
+                    tempPunch.transform.position = transform.position + transform.forward * 0.8f;
+                }
             // 銃を持っていないときの攻撃
                 if(frameTimer >= PUNCH_SPAN)
                 {
@@ -80,13 +84,14 @@ public class EnemyShot : MonoBehaviour
         obj.transform.rotation = transform.rotation;
     }
 
-    void ActivePunchCol()
+    public void ActivePunchCol()
     {
-        punchColObj.SetActive(true);
+        tempPunch = Instantiate(punchColPrefab);
+        tempPunch.transform.position = transform.position + transform.forward * 0.8f;
     }
 
-    void DeActiveAttackCol()
+    public void DeActivePunchCol()
     {
-        punchColObj.SetActive(false);
+        Destroy(tempPunch);
     }
 }
