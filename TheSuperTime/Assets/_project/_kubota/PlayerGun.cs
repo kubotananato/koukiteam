@@ -2,83 +2,113 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerGun : MonoBehaviour
 {
+
     public PlayerWeaponpick playerWeaponpick; // PlayerWeapnpickのスクリプトを参照
     public PlayerStatus playerStatus; // PlayerStatusを参照
+    public PMuzzleFlashMeshEffect muzzleFlash; // PMuzzleFlashMeshEffectを参照
+    public PlayerWeaponRecoil weaponRecoil; // PlayerWeaponRecoilを参照
+    public PlayerBulletEffect PbulletEffect; // PlayerBulletEffectを参照
+    public PlayerPunch Ppunch;
+    public PlayerControl playerControl;
     public GameObject PbulletPrefab;
     public Transform PbulletPoint;
+    public GameObject PmuzzleFlashPrefab;
+    public Transform PmuzzlePoint;
+    public Animator PshotAnimation;
     //    public Camera playerCamera;
 
-    public float PlayerGunCoolDown = 1f;
+    public float shootCooldown = 0.5f;   // 次に撃てるまでの秒数
+    private float nextShootTime = 0f;    // 次に撃てる時刻
 
     public int maxAmmo = 10;
     public int currentAmmo;
+    public Input input;
+    int lastReplayVersion;
 
     void Start()
     {
         currentAmmo = maxAmmo;
+        lastReplayVersion = input.replayVersion;
     }
 
     void Update()
     {
-        if (playerStatus.isDead)
+        if(lastReplayVersion != input.replayVersion)
         {
-            return;
+            currentAmmo = maxAmmo;
+            lastReplayVersion = input.replayVersion;
         }
+
+        if (playerStatus != null && playerStatus.isDead)
+            return;
+
+        if (playerWeaponpick == null)
+            return;
+
+        // 銃を持っていないと撃てない
+        if (!playerWeaponpick.hasWeapon)
+            return;
+
+        // 銃を拾ったクリックでは発射しない
         if (playerWeaponpick.hasWeaponyes)
-        {
             return;
-        }
 
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current != null &&
+            input.inputs["shot"])
         {
-            // 武器を持っていなかったら殴る
-            if (!playerWeaponpick.hasWeapon)
-            {
-                Debug.Log("素手攻撃");
-            }
-            else
-            {
-                // 武器を持っているときだけ撃つ
-                    Debug.Log("銃");
-                    PShoot();
-            }
+            PShoot();
         }
-
     }
 
     void PShoot()
     {
-        if(currentAmmo <= 0)
+        if (currentAmmo <= 0)
         {
-            Debug.Log("弾切れ!");
+            Debug.Log("弾切れ！ 右クリックで銃を投げよう");
             return;
         }
 
+        if (Time.unscaledTime < nextShootTime)
+            return;
+
+        nextShootTime = Time.unscaledTime + shootCooldown;
         currentAmmo--;
 
-        // 弾を発射する
-        Instantiate(PbulletPrefab, PbulletPoint.position, PbulletPoint.rotation);
-        Debug.Log("撃った! 残りの弾数:" + currentAmmo);
-
-        /*
-        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-
-       RaycastHit hit;
-
-        Vector3 targetPoint;
-        if (Physics.Raycast(ray, out hit))
+        if (PbulletPrefab != null && PbulletPoint != null)
         {
-            targetPoint = hit.point;
-        }
-        else
-        {
-            targetPoint = ray.origin + ray.direction * 100;
+            Instantiate(
+                PbulletPrefab,
+                PbulletPoint.position,
+                PbulletPoint.rotation
+            );
         }
 
-        Vector3 direction = targetPoint - PbulletPoint.position;
+        Debug.Log("撃った！ 残りの弾数：" + currentAmmo);
 
-        GameObject bullet = Instantiate(PbulletPrefab, PbulletPoint.position, Quaternion.LookRotation(direction));
-        */
+        if (playerControl != null)
+            playerControl.OnShoot();
+
+        if (muzzleFlash != null)
+            muzzleFlash.Play();
+
+        if (weaponRecoil != null)
+            weaponRecoil.ShotRecoil();
+
+        if (PmuzzleFlashPrefab != null && PmuzzlePoint != null)
+        {
+            GameObject effect = Instantiate(
+                PmuzzleFlashPrefab,
+                PmuzzlePoint.position,
+                PmuzzlePoint.rotation
+            );
+
+            Destroy(effect, 0.3f);
+        }
+    }
+    void AnimationShot()
+    {
+        if (PshotAnimation == null) return;
+        PshotAnimation.SetTrigger("PlayerShot");
     }
     public void ReloadAmmo()
     {

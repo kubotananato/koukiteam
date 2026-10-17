@@ -8,6 +8,8 @@ TagManager:
   - PlayerBullet
   - Wall
   - Enemy
+  - Weapon
+  - PlayerPunch
   layers:
   - Default
   - TransparentFX

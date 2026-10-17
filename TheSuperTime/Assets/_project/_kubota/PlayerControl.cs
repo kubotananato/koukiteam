@@ -1,104 +1,93 @@
+
+using System.Data.SqlTypes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerControl : MonoBehaviour
 {
-    // PlayerStatusを参照
     public PlayerStatus playerStatus;
-    public float PmoveSpeed = 5f; // 歩く速度
+    public float PmoveSpeed = 5f;
 
     public float NormalTimer = 0f;
-    public float NormalDuration = 0.2f;
-    /*
-    public float RunSpeed = 10f;　// 走る速度
+    public float NormalDuration = 0.5f;
 
-    private float currentSpeed = 0f;
-    */
+    private Rigidbody rb;
+    private float horizontal;
+    private float vertical;
+    Input input;
+    Vector3 move;
+
     void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+
+        if (rb == null)
+        {
+            Debug.LogError("PlayerにRigidbodyがありません！");
+        }
+
+        input = GetComponent<Input>();
+    }
+
+    void Update()
+    {
+        if(input.IsReplay)
+        {
+            Time.timeScale = 1.0f;
+        }
+        if (playerStatus != null && playerStatus.isDead)
+            return;
+
+        horizontal = 0f;
+        vertical = 0f;
+
+        if (Keyboard.current == null)
+            return;
+
+        /*if (input.inputs["left"]) horizontal = -1f;
+        if (Keyboard.current.dKey.isPressed) horizontal = 1f;
+        if (Keyboard.current.sKey.isPressed) vertical = -1f;
+        if (Keyboard.current.wKey.isPressed) vertical = 1f;*/
+        move = transform.forward * input.moveAxis.y + transform.right * input.moveAxis.x;
+
+        if (rb == null)
+            return;
+
+        if (playerStatus != null && playerStatus.isDead)
+            return;
+
+        if (move.sqrMagnitude > 1f)
+            move.Normalize();
+
+        rb.MovePosition(
+            rb.position + move * PmoveSpeed * input.gameDeltaTime
+        );
+
+        //transform.position += move;
+        if(input.IsReplay)
+        {
+            // リプレイ中は時間の調整を行わない
+            return;
+        }
+
+        if (move.sqrMagnitude > 0f|| NormalTimer > 0f)
+            Time.timeScale = 1f;
+        else
+            Time.timeScale = 0.05f;
+
+        if (NormalTimer > 0f)
+            NormalTimer -= Time.unscaledDeltaTime;
+    }
+
+    void FixedUpdate()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnShoot()
     {
-
-        if (playerStatus.isDead)
-        {
-            return;
-        }
-        float horizontal = 0f;
-        float vertical = 0f;
-
-
-        // WASD移動
-        if (Keyboard.current.aKey.isPressed)
-        {
-            horizontal = -1f;
-        }
-
-        if (Keyboard.current.dKey.isPressed)
-        {
-            horizontal = 1f;
-        }
-
-        if (Keyboard.current.sKey.isPressed)
-        {
-            vertical = -1f;
-        }
-
-        if (Keyboard.current.wKey.isPressed)
-        {
-            vertical = 1f;
-        }
-
-        /*
-        // Shiftを押したら走る
-        if(Keyboard.current.shiftKey.isPressed)
-        {
-            currentSpeed = RunSpeed;
-        }
-        else
-        {
-
-            currentSpeed = MoveSpeed;
-        }
-        */
-
-        // Playerの向いている方向を基準にする
-        Vector3 move =
-            transform.forward * vertical +
-            transform.right * horizontal;
-
-        // 斜め移動が速くならないようにする
-        if (move.magnitude > 1f)
-        {
-            move.Normalize();
-        }
-
-        // 移動
-        transform.position += move * PmoveSpeed * Time.deltaTime;
-        
-
-        if(Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            NormalTimer = NormalDuration;
-        }
-
-        // 移動しているかまたは左クリックを押している間を判定して時間を遅くする
-        if (move.magnitude > 0f || NormalTimer > 0f)
-        {
-            Time.timeScale = 1f;
-        }
-        else
-        {
-            Time.timeScale = 0.05f;
-        }
-
-        if (NormalTimer > 0f)
-        {
-            NormalTimer -= Time.unscaledDeltaTime;
-        }
-
+        if(input.IsReplay) return;
+        NormalTimer = NormalDuration;
+        Time.timeScale = 1f;
     }
 }
