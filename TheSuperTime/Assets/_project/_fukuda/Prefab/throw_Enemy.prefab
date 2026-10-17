@@ -771,6 +771,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c209cdab66d773d49b5f2c96882ff0ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyConfig
+  damageType: 1
   isStayPosition: 0
   targetPosition: {x: 11.41, y: 0.82, z: 6.15}
   moveSpeed: 5

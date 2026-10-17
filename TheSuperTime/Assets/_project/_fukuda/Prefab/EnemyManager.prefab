@@ -45,3 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyManagerKari
   enemyPrefab: {fileID: 7691463899290554163, guid: 45ec3700f25e668438413fac2c071975, type: 3}
+  isFinishAllWave: 0
+  enemys: []
+  gunEne: {fileID: 6054495601292471813, guid: 11434b0ef53c1cb4f98c59e715a259f3, type: 3}
+  punchEne: {fileID: 6054495601292471813, guid: 43002b8e3a38c774a9d5b45164bd84a4, type: 3}
+  throwEne: {fileID: 6054495601292471813, guid: 89522f9ad518f63418885ccf3123d2b2, type: 3}

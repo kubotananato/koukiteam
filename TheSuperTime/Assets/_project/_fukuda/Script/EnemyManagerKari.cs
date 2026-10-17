@@ -16,6 +16,7 @@ public class EnemyManagerKari : MonoBehaviour
          
         public bool _isStayPos; 
         public bool _isGun;
+        public EneType type;
         public int wave;
     }
     int currentWave = 0;
@@ -23,6 +24,9 @@ public class EnemyManagerKari : MonoBehaviour
     public bool isFinishAllWave;
     int[] waveMaxEnemyNum;
     [SerializeField] List<eneConfig> enemys;
+    [SerializeField] GameObject gunEne;
+    [SerializeField] GameObject punchEne;
+    [SerializeField]GameObject throwEne;
     EnemyConfig config;
     ReplayTimer repT;
     List<GameObject> enemyList = new List<GameObject>();
@@ -108,7 +112,10 @@ public class EnemyManagerKari : MonoBehaviour
 
     void SpawnOneEne(eneConfig _config)
     {
-        enemyList.Add(Instantiate(enemyPrefab));
+        GameObject geneType = gunEne;
+        if(_config.type == EneType.Punch) geneType = punchEne;
+        else if(_config.type == EneType.Throw) geneType = throwEne;
+        enemyList.Add(Instantiate(geneType));
         // 初期値の設定
         enemyList.Last().transform.position = _config._initPos;
         config = enemyList.Last().GetComponent<EnemyConfig>();
