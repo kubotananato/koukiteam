@@ -35,8 +35,7 @@ public class PlayerWeaponpickKari : MonoBehaviour
 
         if(Physics.Raycast(ray, out RaycastHit hit, pickupDistance))
         {
-           // if(hit.collider.CompareTag("Weapon"))
-            if(hit.collider.CompareTag("Wall"))
+           if(hit.collider.CompareTag("Wall"))
             {
                 hasWeapon = true;
                 hasWeaponyes = true;

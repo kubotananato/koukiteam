@@ -7,11 +7,14 @@ public class PlayerGunKari : MonoBehaviour
     public PlayerStatus playerStatus; // PlayerStatusを参照
     public PMuzzleFlashMeshEffect muzzleFlash; // PMuzzleFlashMeshEffectを参照
     public PlayerWeaponRecoil weaponRecoil; // PlayerWeaponRecoilを参照
-    public PlayerControl playerControl;
+    public PlayerBulletEffect PbulletEffect; // PlayerBulletEffectを参照
+    public PlayerPunch Ppunch;
+    public PlayerControlKari playerControl;
     public GameObject PbulletPrefab;
     public Transform PbulletPoint;
     public GameObject PmuzzleFlashPrefab;
     public Transform PmuzzlePoint;
+    public Animator PshotAnimation;
     //    public Camera playerCamera;
 
     public float shootCooldown = 0.5f;   // 次に撃てるまでの秒数
@@ -26,6 +29,7 @@ public class PlayerGunKari : MonoBehaviour
         currentAmmo = maxAmmo;
         GameObject p = transform.root.gameObject;
         input = p.GetComponent<Input>();
+
     }
 
     void Update()
@@ -45,12 +49,14 @@ public class PlayerGunKari : MonoBehaviour
             if (!playerWeaponpick.hasWeapon)
             {
                 Debug.Log("素手攻撃");
+                Ppunch.punch();
             }
             else
             {
                 // 武器を持っているときだけ撃つ
-                    Debug.Log("銃");
-                    PShoot();
+                Debug.Log("銃");
+                PShoot();
+                AnimationShot();
             }
         }
 
@@ -58,6 +64,7 @@ public class PlayerGunKari : MonoBehaviour
 
     void PShoot()
     {
+        //   SoundManager.Instance.PlayGunShot();
         // クールタイム中なら撃たない(いちばん最初に確認する)
         if (Time.unscaledTime < nextShootTime) return;
 
@@ -75,6 +82,7 @@ public class PlayerGunKari : MonoBehaviour
         // 弾を発射する
         Instantiate(PbulletPrefab, PbulletPoint.position, PbulletPoint.rotation);
         Debug.Log("撃った! 残りの弾数:" + currentAmmo);
+
 
         // 撃った瞬間に時間を通常速度に戻す
         if (playerControl != null)
@@ -101,6 +109,11 @@ public class PlayerGunKari : MonoBehaviour
             // 0.3秒後にエフェクトを削除する
             Destroy(effect, 0.3f);
         }
+    }
+    void AnimationShot()
+    {
+        if (PshotAnimation == null) return;
+        PshotAnimation.SetTrigger("PlayerShot");
     }
     public void ReloadAmmo()
     {

@@ -25,6 +25,12 @@ public class SaveReplay : MonoBehaviour
         inputs.Add(new Dictionary<string,bool>(input.inputs));
         mouseDeltas.Add(input.mouseDelta);
         deltaTimes.Add(Time.deltaTime);
+        
+    }
+
+    void FixedUpdate()
+    {
+        
     }
 
     // ここからゲッター

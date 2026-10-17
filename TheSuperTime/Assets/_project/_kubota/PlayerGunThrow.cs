@@ -233,9 +233,12 @@ public class PlayerThrow : MonoBehaviour
     private Vector3 heldLocalPosition = Vector3.zero;
     private Quaternion heldLocalRotation = Quaternion.identity;
     private Vector3 heldLocalScale = Vector3.one;
+    Input input;
 
     void Start()
     {
+        input = GetComponent<Input>();
+
         playerControl = GetComponent<PlayerControl>();
         playerStatus = GetComponent<PlayerStatus>();
 
@@ -287,7 +290,7 @@ public class PlayerThrow : MonoBehaviour
     void Update()
     {
         if (Mouse.current != null &&
-            Mouse.current.rightButton.wasPressedThisFrame)
+            input.inputs["throw"])
         {
             ThrowWeapon();
         }
