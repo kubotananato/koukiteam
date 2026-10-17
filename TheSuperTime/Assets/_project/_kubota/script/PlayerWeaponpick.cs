@@ -50,12 +50,6 @@ public class PlayerWeaponpick : MonoBehaviour
         if (item == null)
             return;
 
-        if (item.heldVisualPrefab == null ||
-            item.worldWeaponPrefab == null)
-        {
-            Debug.LogWarning("銃のPrefabが設定されていません");
-            return;
-        }
 
         // 銃を持っていないとき、または弾切れの銃を
         // 持っているときに拾う

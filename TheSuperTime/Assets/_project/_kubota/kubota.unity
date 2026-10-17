@@ -6727,6 +6727,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 850349069371815083, guid: 8acafc16eae1b1948bcef3e64f65fd6e, type: 3}
+      propertyPath: armsAnimator
+      value: 
+      objectReference: {fileID: 5419028230761549459}
+    - target: {fileID: 850349069371815083, guid: 8acafc16eae1b1948bcef3e64f65fd6e, type: 3}
+      propertyPath: worldWeaponPrefab
+      value: 
+      objectReference: {fileID: 3084840242613330313, guid: 722f378af1778d6489f8a8ded5baedc4, type: 3}
     - target: {fileID: 7146064458496660283, guid: 8acafc16eae1b1948bcef3e64f65fd6e, type: 3}
       propertyPath: m_Name
       value: Player
