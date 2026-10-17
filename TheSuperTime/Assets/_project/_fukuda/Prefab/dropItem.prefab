@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3685624787967552026}
   m_Layer: 0
   m_Name: dropItem
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3aea4cd4aa32d674e807c721100c7dce, type: 2}
+  - {fileID: 2100000, guid: 1c2aca1a0c06b104897054b8f029f2eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
