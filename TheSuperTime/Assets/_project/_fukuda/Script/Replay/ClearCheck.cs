@@ -3,24 +3,19 @@ using UnityEngine;
 public class ClearCheck : MonoBehaviour
 {
     [SerializeField] int enemyMax = 1;
-    int deadEnemyNum = 0;
+    EnemyManagerKari ene;
     public bool isClear;
     void Start()
     {
-        
+        ene = GameObject.Find("EnemyManager").GetComponent<EnemyManagerKari>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(deadEnemyNum >= enemyMax)
+        if(ene.isFinishAllWave)
         {
             isClear = true;
         }
-    }
-
-    public void SetDeadEne()
-    {
-        deadEnemyNum++;
     }
 }

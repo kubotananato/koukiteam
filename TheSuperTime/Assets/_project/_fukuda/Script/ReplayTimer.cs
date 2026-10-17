@@ -36,4 +36,9 @@ public class ReplayTimer : MonoBehaviour
             playerInput.RestartReplay();
         }
     }
+    // リプレイが開始したフレームのみでたつフラグ
+    public bool IsStartReplay()
+    {
+        return frame == 0 && isReplay;
+    }
 }
