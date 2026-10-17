@@ -33,7 +33,7 @@ public class SoundManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-       
+
         if (seAudioSource == null)
         {
             seAudioSource = GetComponent<AudioSource>();
@@ -69,10 +69,14 @@ public class SoundManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        // ★追加：シーンが変わった瞬間にBGMを止めたい場合はここでStopBGM()を呼ぶ
+        // （※もし特定のシーン以外でBGMを止めたい場合は条件分岐を入れることも可能です）
+        StopBGM();
+
         RegisterButtonsInScene();
     }
 
-  
+
     public void RegisterButtonsInScene()
     {
         Button[] buttons = FindObjectsByType<Button>(FindObjectsSortMode.None);
@@ -84,7 +88,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
- 
+
 
     public void PlayButtonSE()
     {
@@ -104,7 +108,7 @@ public class SoundManager : MonoBehaviour
         PlaySE(gunShotClip);
     }
 
- 
+
     public void PlayBGM(int bgmIndex)
     {
         AudioClip targetClip = null;
