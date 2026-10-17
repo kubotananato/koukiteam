@@ -2809,8 +2809,16 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3185341575983512064, guid: 26437125419689a43bf179f1d191d8b2, type: 3}
+      propertyPath: enemys.Array.data[1].type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3185341575983512064, guid: 26437125419689a43bf179f1d191d8b2, type: 3}
       propertyPath: enemys.Array.data[1].wave
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3185341575983512064, guid: 26437125419689a43bf179f1d191d8b2, type: 3}
+      propertyPath: enemys.Array.data[2].type
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3185341575983512064, guid: 26437125419689a43bf179f1d191d8b2, type: 3}
       propertyPath: enemys.Array.data[2].wave
