@@ -125,9 +125,15 @@ public class PlayerPunch : MonoBehaviour
     {
         Debug.Log("パンチが当たった：" + enemy.name);
 
-        if (reticleHit != null)
+        ReticleHit target = reticleHit != null ? reticleHit : ReticleHit.Instance;
+
+        if (target != null)
         {
-            reticleHit.Hit();
+            target.Hit();
+        }
+        else
+        {
+            Debug.LogWarning("ReticleHit が見つかりません");
         }
     }
 

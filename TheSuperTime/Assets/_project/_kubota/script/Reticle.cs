@@ -3,12 +3,19 @@ using UnityEngine.UI;
 
 public class ReticleHit : MonoBehaviour
 {
+    public static ReticleHit Instance; // そのスクリプトからでもこのスクリプトを呼べるようにする
+
     public Image[] reticleImages;
     public Color normalColor = Color.white;
     public Color hitColor = Color.red;
     public float hitDuration = 0.15f;
 
     private float hitTimer = 0f;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Update()
     {
@@ -38,6 +45,7 @@ public class ReticleHit : MonoBehaviour
     // 攻撃が当たったときに呼ぶ
     public void Hit()
     {
+        Debug.Log("ReticleHit.Hit が呼ばれた / Imageの数 = " + reticleImages.Length);
         hitTimer = hitDuration;
     }
 }
