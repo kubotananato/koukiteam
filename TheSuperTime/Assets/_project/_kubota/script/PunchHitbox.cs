@@ -4,11 +4,11 @@ using System.Collections.Generic;
 public class PunchHitbox : MonoBehaviour
 {
     private float lifeTime;
-    private System.Action<EnemyHP> onHitEnemy;
+    private System.Action<EnemyHP, Vector3> onHitEnemy;
 
     private HashSet<EnemyHP> hitEnemies = new HashSet<EnemyHP>();
 
-    public void Init(float life, System.Action<EnemyHP> callback)
+    public void Init(float life, System.Action<EnemyHP, Vector3> callback)
     {
         lifeTime = life;
         onHitEnemy = callback;
@@ -39,10 +39,11 @@ public class PunchHitbox : MonoBehaviour
             return;
         }
 
-        // 当たったので、レティクルを赤くする
+        Vector3 hitPoint = collision.GetContact(0).point;
+
         if (onHitEnemy != null)
         {
-            onHitEnemy(enemy);
+            onHitEnemy(enemy, hitPoint);
         }
     }
 }

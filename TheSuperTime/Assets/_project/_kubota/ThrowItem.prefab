@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9076762659775648202}
   - component: {fileID: 3685624787967552026}
   - component: {fileID: -3784477865538423842}
+  - component: {fileID: 6484061815460136647}
   m_Layer: 0
   m_Name: ThrowItem
   m_TagString: PlayerThrow
@@ -156,3 +157,20 @@ MonoBehaviour:
   heldVisualPrefab: {fileID: 0}
   worldWeaponPrefab: {fileID: 0}
   ammo: 10
+--- !u!114 &6484061815460136647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6637052122941244926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 225d90742ba3a984597f134b6c3c5e5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThrownBreak
+  breakEffect: {fileID: 9218649197746354276, guid: e0bc6d4f1c1380a478543928cbfd7434, type: 3}
+  noBreakTime: 0
+  maxBreakTime: 0
+  spawnTime: 0
+  broken: 0

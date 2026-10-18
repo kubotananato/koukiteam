@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerPunch : MonoBehaviour
 {
+    public GameObject hitEffect;
+    public float hitEffecttime = 1f;
     public Camera playerCamera;
     public PlayerWeaponpick playerWeaponpick;
     public ReticleHit reticleHit;
@@ -18,6 +20,7 @@ public class PlayerPunch : MonoBehaviour
     public float hitboxLifetime = 0.2f;
 
     private float nextPunchTime = 0f;
+
     [SerializeField] Input input;
 
     void Update()
@@ -130,9 +133,15 @@ public class PlayerPunch : MonoBehaviour
         hitbox.Init(hitboxLifetime, OnPunchHit);
     }
 
-    void OnPunchHit(EnemyHP enemy)
+    void OnPunchHit(EnemyHP enemy, Vector3 hitPoint)
     {
         Debug.Log("パンチが当たった：" + enemy.name);
+
+        if(hitEffect != null)
+        {
+            GameObject effect = Instantiate(hitEffect, hitPoint, Quaternion.identity);
+            Destroy(effect, hitEffecttime);
+        }
 
         ReticleHit target = reticleHit != null ? reticleHit : ReticleHit.Instance;
 
@@ -144,6 +153,7 @@ public class PlayerPunch : MonoBehaviour
         {
             Debug.LogWarning("ReticleHit が見つかりません");
         }
+
     }
 
     bool IsEnemy(Collider col)
