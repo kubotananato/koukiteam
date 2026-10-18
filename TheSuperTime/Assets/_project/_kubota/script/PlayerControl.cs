@@ -16,6 +16,7 @@ public class PlayerControl : MonoBehaviour
     private float vertical;
     Input input;
     Vector3 move;
+    PlayerStatus status;
 
     void Start()
     {
@@ -27,11 +28,12 @@ public class PlayerControl : MonoBehaviour
         }
 
         input = GetComponent<Input>();
+        status = GetComponent<PlayerStatus>();
     }
 
     void Update()
     {
-        if(input.IsReplay)
+        if(input.IsReplay || status.isDead)
         {
             Time.timeScale = 1.0f;
         }
@@ -64,7 +66,7 @@ public class PlayerControl : MonoBehaviour
         );
 
         //transform.position += move;
-        if(input.IsReplay)
+        if(input.IsReplay || status.isDead)
         {
             // リプレイ中は時間の調整を行わない
             return;

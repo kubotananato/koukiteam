@@ -21,10 +21,12 @@ public class ReplayUI : MonoBehaviour
     float maxH = 1080;
     NextScene nextScene;
     int startFrame = 50;
+    PlayerStatus status;
     void Start()
     {
         repT = GameObject.Find("ReplayManager").GetComponent<ReplayTimer>();
         nextScene = GameObject.Find("ReplayManager").GetComponent<NextScene>();
+        status = GameObject.Find("Player").GetComponent<PlayerStatus>();
         titlesImage = titlesObj.GetComponent<Image>();
         rect = titlesImage.rectTransform;
         titlesImage.sprite = titles[idx];
@@ -43,6 +45,10 @@ public class ReplayUI : MonoBehaviour
             titlesObj.SetActive(true);
             start = true;
             frame = 0;
+        }
+        if(status.isDead)
+        {
+            black.SetActive(true);
         }
         if(nextScene.next)
         {
