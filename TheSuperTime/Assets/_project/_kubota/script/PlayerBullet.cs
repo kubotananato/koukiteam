@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using System.Collections;
 
@@ -91,6 +90,17 @@ public class PlayerBullet : MonoBehaviour
                     transform.position,
                     Quaternion.identity
                 );
+            }
+        }
+
+        // 敵にあたったから、レティクルを赤くする
+        EnemyHP enemy = collision.collider.GetComponentInParent<EnemyHP>();
+
+        if(enemy != null && !enemy.isDead)
+        {
+            if (ReticleHit.Instance != null)
+            {
+                ReticleHit.Instance.Hit();
             }
         }
 

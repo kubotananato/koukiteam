@@ -12,6 +12,11 @@ public class PlayerPunch : MonoBehaviour
     public Animator PpunchAnimation;
     public string enemyTag = "Enemy";
 
+    public PlayerControl playerControl;
+    public Vector3 hitboxSize = new Vector3(1f, 1f, 1.5f);
+    public float hitboxDistance = 1f;
+    public float hitboxLifetime = 0.2f;
+
     private float nextPunchTime = 0f;
     [SerializeField] Input input;
 
@@ -22,7 +27,7 @@ public class PlayerPunch : MonoBehaviour
             return;
         }
 
-        // 銃を持っている場合はパンチしない
+       
         if (playerWeaponpick != null &&
             playerWeaponpick.hasWeapon)
         {
@@ -30,7 +35,6 @@ public class PlayerPunch : MonoBehaviour
         }
         if (input.inputs["shot"])
         {
-            // Rayの先に Weapon タグの物があるときは、パンチしない
             if (IsLookingAtWeapon())
             {
                 return;
@@ -39,7 +43,7 @@ public class PlayerPunch : MonoBehaviour
             Punch();
         }
     }
-    // 画面中央のRayの先に、Weapon タグの物があるか調べる
+
     bool IsLookingAtWeapon()
     {
         if (playerCamera == null)
@@ -54,7 +58,6 @@ public class PlayerPunch : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, punchDistance))
         {
-            // 当たった物か、その親に Weapon タグが付いているか調べる
             Transform t = hit.collider.transform;
 
             while (t != null)
@@ -87,31 +90,50 @@ public class PlayerPunch : MonoBehaviour
             PpunchAnimation.SetTrigger("PlayerPunch");
         }
 
-        // カメラの正面にRaycastを飛ばして、当たったか調べる
-        Ray ray = new Ray(
-            playerCamera.transform.position,
-            playerCamera.transform.forward
-        );
-
-        if (Physics.Raycast(
-            ray,
-            out RaycastHit hit,
-            punchDistance,
-            ~0,
-            QueryTriggerInteraction.Ignore))
+        if (playerControl != null)
         {
-            if (IsEnemy(hit.collider))
-            {
-                Debug.Log("パンチが当たった：" + hit.collider.name);
+            playerControl.OnShoot();
+        }
 
-                // レティクルを赤くする
-                if (reticleHit != null)
-                {
-                    reticleHit.Hit();
-                }
+        SpawnHitbox();
+    }
 
-                
-            }
+    // カメラの前に、見えない当たり判定の箱を生み出す
+    void SpawnHitbox()
+    {
+        GameObject go = new GameObject("PunchHitbox");
+
+        go.transform.SetParent(playerCamera.transform);
+        go.transform.localPosition = new Vector3(0f, 0f, hitboxDistance);
+        go.transform.localRotation = Quaternion.identity;
+
+        // 当たり判定
+        BoxCollider box = go.AddComponent<BoxCollider>();
+        box.isTrigger = true;
+        box.size = hitboxSize;
+
+        Rigidbody rb = go.AddComponent<Rigidbody>();
+        rb.isKinematic = true;
+        rb.useGravity = false;
+
+        // 敵に当たったときの処理を渡す
+        PunchHitbox hitbox = go.AddComponent<PunchHitbox>();
+        hitbox.Init(hitboxLifetime, OnPunchHit);
+    }
+
+    void OnPunchHit(EnemyHP enemy)
+    {
+        Debug.Log("パンチが当たった：" + enemy.name);
+
+        ReticleHit target = reticleHit != null ? reticleHit : ReticleHit.Instance;
+
+        if (target != null)
+        {
+            target.Hit();
+        }
+        else
+        {
+            Debug.LogWarning("ReticleHit が見つかりません");
         }
     }
 

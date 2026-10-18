@@ -272,6 +272,7 @@ public class PlayerThrow : MonoBehaviour
     public float throwForce = 15f;
     public float throwSpawnDistance = 0.8f;
     public float throwScale = 0.5f;
+    public float throwSpinSpeed = 15f;
 
     private PlayerGun currentGun;
     private PlayerControl playerControl;
@@ -409,6 +410,8 @@ public class PlayerThrow : MonoBehaviour
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.AddForce(aim.forward * throwForce, ForceMode.Impulse);
+        Vector3 spinAxis = aim.right + Random.insideUnitSphere * 0.2f;
+        rb.angularVelocity = spinAxis.normalized * throwSpinSpeed;
 
         // 手持ちの銃は消さずに、非表示にするだけ
         if (currentGun != null)
