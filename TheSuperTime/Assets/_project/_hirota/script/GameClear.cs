@@ -8,8 +8,6 @@ public class GameClear : MonoBehaviour
     private SceneCenge sceneChangeScript;
     // Update is called once per frame
 
-    private bool isGameClear = false;
-
     [SerializeField] private CanvasGroup targetCanvasGroup; // 操作したいCanvasのCanvasGroup
 
     void Start()

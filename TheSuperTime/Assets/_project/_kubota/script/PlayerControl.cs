@@ -12,10 +12,9 @@ public class PlayerControl : MonoBehaviour
     public float NormalDuration = 0.5f;
 
     private Rigidbody rb;
-    private float horizontal;
-    private float vertical;
     Input input;
     Vector3 move;
+    PlayerStatus status;
 
     void Start()
     {
@@ -27,20 +26,17 @@ public class PlayerControl : MonoBehaviour
         }
 
         input = GetComponent<Input>();
+        status = GetComponent<PlayerStatus>();
     }
 
     void Update()
     {
-        if(input.IsReplay)
+        if(input.IsReplay || status.isDead)
         {
             Time.timeScale = 1.0f;
         }
         if (playerStatus != null && playerStatus.isDead)
             return;
-
-        horizontal = 0f;
-        vertical = 0f;
-
         if (Keyboard.current == null)
             return;
 
@@ -64,7 +60,7 @@ public class PlayerControl : MonoBehaviour
         );
 
         //transform.position += move;
-        if(input.IsReplay)
+        if(input.IsReplay || status.isDead)
         {
             // リプレイ中は時間の調整を行わない
             return;
