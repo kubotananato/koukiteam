@@ -44,15 +44,15 @@ public class PlayerWeaponpick : MonoBehaviour
         if (!Physics.Raycast(ray, out RaycastHit hit, pickupDistance))
             return;
 
-        WeaponPickupItem item =
-            hit.collider.GetComponentInParent<WeaponPickupItem>();
+        GameObject weaponObject = FindWeaponTag(hit.collider.transform);
 
-        if (item == null)
+        if (weaponObject == null)
             return;
 
+        // 自分が持っている銃は拾わない
+        if (weaponObject.transform.IsChildOf(transform))
+            return;
 
-        // 銃を持っていないとき、または弾切れの銃を
-        // 持っているときに拾う
         if (hasWeapon &&
             playerGun != null &&
             playerGun.currentAmmo > 0)
@@ -62,6 +62,20 @@ public class PlayerWeaponpick : MonoBehaviour
         }
 
         hasWeaponyes = true;
-        player.PickupWeapon(item);
+        player.PickupWeapon(weaponObject);
+    }
+
+    GameObject FindWeaponTag(Transform t)
+    {
+        while (t != null)
+        {
+            if (t.CompareTag("Weapon"))
+            {
+                return t.gameObject;
+            }
+            t = t.parent;
+        }
+
+        return null;
     }
 }

@@ -31,6 +31,7 @@ public class GameClear : MonoBehaviour
 
     void Update()
     {
+        /*
         if (GameManeger.Instance.downEnemy >= 4)
         {
             if (!isGameClear)
@@ -40,6 +41,7 @@ public class GameClear : MonoBehaviour
             isGameClear = true;
 
         }
+        */
     }
     public void ToggleCanvas()
     {
