@@ -728,7 +728,6 @@ GameObject:
   - component: {fileID: 8895263737988390121}
   - component: {fileID: 4686704866154429303}
   - component: {fileID: 8338688174222959484}
-  - component: {fileID: 4645796848674002405}
   - component: {fileID: 4296137043586855277}
   - component: {fileID: 2047142767362141973}
   m_Layer: 0
@@ -871,27 +870,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &4645796848674002405
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2818174456895658440}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.1033445, y: 0.5640956, z: 0.96528363}
-  m_Center: {x: 0.005118614, y: 0.27314138, z: 0.35428149}
 --- !u!114 &4296137043586855277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1855,10 +1833,13 @@ MonoBehaviour:
   playerWeaponpick: {fileID: 2100628510206968329}
   reticleHit: {fileID: 0}
   punchDistance: 2
-  punchDamage: 1
   punchCooldown: 0.5
   PpunchAnimation: {fileID: 6146715859154777246}
   enemyTag: Enemy
+  playerControl: {fileID: 0}
+  hitboxSize: {x: 1, y: 1, z: 1.5}
+  hitboxDistance: 1
+  hitboxLifetime: 0.2
   input: {fileID: 8203270337516692020}
 --- !u!1 &6502246821529753435
 GameObject:
@@ -2309,15 +2290,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   playerWeaponpick: {fileID: 2100628510206968329}
-  weaponView: {fileID: 4238344096754240229}
+  armsAnimator: {fileID: 0}
   heldWeapon: {fileID: 2818174456895658440}
   initialAmmo: 10
+  worldWeaponPrefab: {fileID: 0}
   throwForce: 15
   throwSpawnDistance: 0.8
-  PlayerThrowAnimator: {fileID: 6146715859154777246}
-  speed: 5
-  ySpeed: 0.1
-  rotSpeed: 10
+  throwScale: 0.5
+  throwSpinSpeed: 15
 --- !u!114 &866111809574237721
 MonoBehaviour:
   m_ObjectHideFlags: 0
