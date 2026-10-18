@@ -13,6 +13,9 @@ public class PlaeyerCamera : MonoBehaviour
     int lastReplayVersion;
     private float yRotation;
     private float initialYRotation;
+    private int frameToSkip = 2;
+    private bool skipFirstFrame = true; // 最初のフレームのマウスの動きを無視
+
     [SerializeField]Transform player;
 
     void Start()
@@ -21,9 +24,7 @@ public class PlaeyerCamera : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         // マウスカーソルを画面上に表示しない
         Cursor.visible = false;
-        initialXRotation = Mathf.DeltaAngle(
-            0f, transform.localEulerAngles.x
-        );
+        initialXRotation = 0f;
         xRotation = initialXRotation;
         lastReplayVersion = input.replayVersion;
 
@@ -53,7 +54,14 @@ public class PlaeyerCamera : MonoBehaviour
         }
         else
         {
-            ApplyMouseDelta(input.mouseDelta);
+            if (frameToSkip > 0)
+            {
+                frameToSkip--;
+            }
+            else
+            {
+                ApplyMouseDelta(input.mouseDelta);
+            }
         }
         
 
@@ -66,6 +74,8 @@ public class PlaeyerCamera : MonoBehaviour
 
     void ApplyMouseDelta(Vector2 delta)
     {
+        delta = Vector2.ClampMagnitude(delta, 50f);
+
         float mouseX = delta.x * mouseSens;
         float mouseY = delta.y * mouseSens;
 

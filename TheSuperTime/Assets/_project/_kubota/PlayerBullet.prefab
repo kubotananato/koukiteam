@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6667516625769792863}
   m_Layer: 8
   m_Name: PlayerBullet
-  m_TagString: EnemyBullet
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -217,10 +217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBullet
   PbulletSpeed: 10
   PbulletTime: 3
-  hitEffect: {fileID: 0}
-  trailMaterial: {fileID: 0}
-  trailWidth: 0.025
-  trailDuration: 0.8
+  hitEffect: {fileID: 9218649197746354276, guid: e0bc6d4f1c1380a478543928cbfd7434, type: 3}
 --- !u!1 &5730960111670205415
 GameObject:
   m_ObjectHideFlags: 0

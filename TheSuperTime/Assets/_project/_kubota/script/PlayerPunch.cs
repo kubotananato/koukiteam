@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerPunch : MonoBehaviour
 {
+    public GameObject hitEffect;
+    public float hitEffecttime = 1f;
     public Camera playerCamera;
     public PlayerWeaponpick playerWeaponpick;
     public ReticleHit reticleHit;
@@ -18,6 +20,7 @@ public class PlayerPunch : MonoBehaviour
     public float hitboxLifetime = 0.2f;
 
     private float nextPunchTime = 0f;
+
     [SerializeField] Input input;
 
     void Update()
@@ -102,28 +105,43 @@ public class PlayerPunch : MonoBehaviour
     void SpawnHitbox()
     {
         GameObject go = new GameObject("PunchHitbox");
+        go.tag = "PlayerPunch";
 
-        go.transform.SetParent(playerCamera.transform);
-        go.transform.localPosition = new Vector3(0f, 0f, hitboxDistance);
-        go.transform.localRotation = Quaternion.identity;
+        go.transform.position =
+            playerCamera.transform.position +
+            playerCamera.transform.forward * hitboxDistance;
+        go.transform.rotation = playerCamera.transform.rotation;
 
-        // 当たり判定
         BoxCollider box = go.AddComponent<BoxCollider>();
-        box.isTrigger = true;
+        box.isTrigger = false;
         box.size = hitboxSize;
 
         Rigidbody rb = go.AddComponent<Rigidbody>();
-        rb.isKinematic = true;
+        rb.isKinematic = false;
         rb.useGravity = false;
+        rb.mass = 0.01f;
+        rb.linearDamping = 100f;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
 
-        // 敵に当たったときの処理を渡す
+        foreach (Collider c in
+                 playerCamera.transform.root.GetComponentsInChildren<Collider>())
+        {
+            Physics.IgnoreCollision(box, c);
+        }
+
         PunchHitbox hitbox = go.AddComponent<PunchHitbox>();
         hitbox.Init(hitboxLifetime, OnPunchHit);
     }
 
-    void OnPunchHit(EnemyHP enemy)
+    void OnPunchHit(EnemyHP enemy, Vector3 hitPoint)
     {
         Debug.Log("パンチが当たった：" + enemy.name);
+
+        if(hitEffect != null)
+        {
+            GameObject effect = Instantiate(hitEffect, hitPoint, Quaternion.identity);
+            Destroy(effect, hitEffecttime);
+        }
 
         ReticleHit target = reticleHit != null ? reticleHit : ReticleHit.Instance;
 
@@ -135,6 +153,7 @@ public class PlayerPunch : MonoBehaviour
         {
             Debug.LogWarning("ReticleHit が見つかりません");
         }
+
     }
 
     bool IsEnemy(Collider col)
