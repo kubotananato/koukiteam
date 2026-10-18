@@ -5,7 +5,8 @@ using UnityEngine.UI;
 public class ReplayUI : MonoBehaviour
 {
     [SerializeField]Material mat;
-    ReplayTimer repT;
+    Input input;
+    int lastReplayVersion;
     [SerializeField] GameObject black;
     [SerializeField] GameObject titlesObj;
     [SerializeField] Sprite[] titles;
@@ -24,9 +25,10 @@ public class ReplayUI : MonoBehaviour
     PlayerStatus status;
     void Start()
     {
-        repT = GameObject.Find("ReplayManager").GetComponent<ReplayTimer>();
         nextScene = GameObject.Find("ReplayManager").GetComponent<NextScene>();
         status = GameObject.Find("Player").GetComponent<PlayerStatus>();
+        input = status.GetComponent<Input>();
+        lastReplayVersion = input.replayVersion;
         titlesImage = titlesObj.GetComponent<Image>();
         rect = titlesImage.rectTransform;
         titlesImage.sprite = titles[idx];
@@ -39,8 +41,9 @@ public class ReplayUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(repT.IsStartReplay())
+        if(lastReplayVersion != input.replayVersion)
         {
+            lastReplayVersion = input.replayVersion;
             black.SetActive(true);
             titlesObj.SetActive(true);
             start = true;

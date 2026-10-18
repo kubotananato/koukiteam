@@ -15,19 +15,20 @@ public class PlayerWeaponpick : MonoBehaviour
     private float ViewportX = 0.5f;
     private float ViewportY = 0.5f;
     Input input;
-    ReplayTimer repT;
+    int lastReplayVersion;
     [SerializeField] GameObject gunObj;
     void Start()
     { 
         input = GetComponent<Input>();
-        repT = GameObject.Find("ReplayManager").GetComponent<ReplayTimer>();
+        lastReplayVersion = input.replayVersion;
         hasWeapon = initHasWeapon;
     }
     void Update()
     {
         hasWeaponyes = false;
-        if(repT.IsStartReplay())
+        if(lastReplayVersion != input.replayVersion)
         {
+            lastReplayVersion = input.replayVersion;
             if(initHasWeapon && !hasWeapon)
             {
                 hasWeapon = true;

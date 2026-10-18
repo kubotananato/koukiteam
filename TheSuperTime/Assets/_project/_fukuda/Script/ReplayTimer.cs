@@ -9,7 +9,7 @@ public class ReplayTimer : MonoBehaviour
     public int frame = 0;
     public bool isReplay = false;
 
-    void Start()
+    void Awake()
     {
         clear = GetComponent<ClearCheck>();
 
@@ -17,7 +17,7 @@ public class ReplayTimer : MonoBehaviour
             .GetComponent<Input>();
     }
 
-    void LateUpdate()
+    void Update()
     {
         // クリアしたらリプレイ開始
         if (clear.isClear && !isReplay)
@@ -35,10 +35,5 @@ public class ReplayTimer : MonoBehaviour
         {
             playerInput.RestartReplay();
         }
-    }
-    // リプレイが開始したフレームのみでたつフラグ
-    public bool IsStartReplay()
-    {
-        return frame == 0 && isReplay;
     }
 }
