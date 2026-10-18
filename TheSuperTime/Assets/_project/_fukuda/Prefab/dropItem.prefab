@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 9076762659775648202}
   - component: {fileID: 4607060027514333060}
   - component: {fileID: 3685624787967552026}
+  - component: {fileID: 7852113230682835275}
   m_Layer: 0
   m_Name: dropItem
-  m_TagString: Weapon
+  m_TagString: PlayerThrow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -156,3 +157,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7852113230682835275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6637052122941244926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08cb5fa8bb5074544a2f5d5dddd7344c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponPickupItem
+  heldVisualPrefab: {fileID: 0}
+  worldWeaponPrefab: {fileID: 0}
+  ammo: 10

@@ -4,6 +4,7 @@ using UnityEngine.Rendering;
 using UnityEngine.UI;
 public class ReplayUI : MonoBehaviour
 {
+    [SerializeField]Material mat;
     ReplayTimer repT;
     [SerializeField] GameObject black;
     [SerializeField] GameObject titlesObj;
@@ -14,19 +15,23 @@ public class ReplayUI : MonoBehaviour
     bool start = false;
     int frame = 0;
     int idx = 0;
-    float minW = 1980 * 0.1f;
-    float minH = 1080 * 0.1f;
+    float minW = 1980 * 0.3f;
+    float minH = 1080 * 0.3f;
     float maxW = 1980;
     float maxH = 1080;
+    NextScene nextScene;
+    int startFrame = 50;
     void Start()
     {
         repT = GameObject.Find("ReplayManager").GetComponent<ReplayTimer>();
+        nextScene = GameObject.Find("ReplayManager").GetComponent<NextScene>();
         titlesImage = titlesObj.GetComponent<Image>();
         rect = titlesImage.rectTransform;
         titlesImage.sprite = titles[idx];
 
         black.SetActive(false);
         titlesObj.SetActive(false);
+        mat.SetFloat("_Intensity",1.0f);
     }
 
     // Update is called once per frame
@@ -37,13 +42,26 @@ public class ReplayUI : MonoBehaviour
             black.SetActive(true);
             titlesObj.SetActive(true);
             start = true;
+            frame = 0;
         }
-
+        if(nextScene.next)
+        {
+            mat.SetFloat("_Intensity",1.0f);
+        }
     }
 
     void FixedUpdate()
     {
-        if(!start) return;
+        if(!start)
+        {
+            frame += 10;
+            if(frame < startFrame)
+            {
+                mat.SetFloat("_Intensity",1.0f);
+            }
+            else mat.SetFloat("_Intensity",0.0f);
+            return;
+        } 
         ++frame;
         if(frame >= changeFrame)
         {

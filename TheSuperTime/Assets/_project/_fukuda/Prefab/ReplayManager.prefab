@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5140472318735292146}
   - component: {fileID: 3083759867477761048}
   - component: {fileID: 2573880225457411438}
+  - component: {fileID: -7599795349543891050}
   m_Layer: 0
   m_Name: ReplayManager
   m_TagString: Untagged
@@ -75,3 +76,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ReplayTimer
   frame: 0
   isReplay: 0
+--- !u!114 &-7599795349543891050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431007673915361828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10c36262fb79f834ab11de023904e10f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NextScene
