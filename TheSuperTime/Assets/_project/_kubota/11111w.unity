@@ -2018,6 +2018,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 850349069371815083, guid: 8acafc16eae1b1948bcef3e64f65fd6e, type: 3}
+      propertyPath: throwForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 850349069371815083, guid: 8acafc16eae1b1948bcef3e64f65fd6e, type: 3}
       propertyPath: armsAnimator
       value: 
       objectReference: {fileID: 1571204332}
@@ -2076,6 +2080,14 @@ PrefabInstance:
     - target: {fileID: 7863186440589534088, guid: 8acafc16eae1b1948bcef3e64f65fd6e, type: 3}
       propertyPath: isDead
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827094910870200090, guid: 8acafc16eae1b1948bcef3e64f65fd6e, type: 3}
+      propertyPath: m_Height
+      value: 1.5795451
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827094910870200090, guid: 8acafc16eae1b1948bcef3e64f65fd6e, type: 3}
+      propertyPath: m_Center.y
+      value: 0.7658152
       objectReference: {fileID: 0}
     - target: {fileID: 8950437364671525950, guid: 8acafc16eae1b1948bcef3e64f65fd6e, type: 3}
       propertyPath: reticleHit
@@ -2248,6 +2260,14 @@ PrefabInstance:
     - target: {fileID: 3185341575983512064, guid: 26437125419689a43bf179f1d191d8b2, type: 3}
       propertyPath: enemys.Array.size
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3185341575983512064, guid: 26437125419689a43bf179f1d191d8b2, type: 3}
+      propertyPath: enemys.Array.data[0].type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3185341575983512064, guid: 26437125419689a43bf179f1d191d8b2, type: 3}
+      propertyPath: enemys.Array.data[1].type
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3185341575983512064, guid: 26437125419689a43bf179f1d191d8b2, type: 3}
       propertyPath: enemys.Array.data[1].wave
