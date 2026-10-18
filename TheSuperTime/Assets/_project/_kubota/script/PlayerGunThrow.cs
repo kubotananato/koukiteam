@@ -277,11 +277,13 @@ public class PlayerThrow : MonoBehaviour
     private PlayerGun currentGun;
     private PlayerControl playerControl;
     private PlayerStatus playerStatus;
+    Input input;
 
     void Start()
     {
         playerControl = GetComponent<PlayerControl>();
         playerStatus = GetComponent<PlayerStatus>();
+        input = GetComponent<Input>();
 
         if (heldWeapon != null)
         {
@@ -295,11 +297,6 @@ public class PlayerThrow : MonoBehaviour
             }
 
             heldWeapon.SetActive(true);
-
-            if (armsAnimator != null)
-            {
-                armsAnimator.SetBool("HasWeapon", true);
-            }
         }
 
         if (playerWeaponpick != null)
@@ -313,7 +310,7 @@ public class PlayerThrow : MonoBehaviour
     void Update()
     {
         if (Mouse.current != null &&
-            Mouse.current.rightButton.wasPressedThisFrame)
+            input.inputs["throw"])
         {
             ThrowWeapon();
         }
@@ -345,12 +342,6 @@ public class PlayerThrow : MonoBehaviour
         {
             playerWeaponpick.playerGun = currentGun;
             playerWeaponpick.hasWeapon = true;
-        }
-
-        if (armsAnimator != null)
-        {
-            armsAnimator.SetTrigger("Pickup");
-            armsAnimator.SetBool("HasWeapon", true);
         }
 
         // 拾った床の銃を消す
@@ -422,12 +413,6 @@ public class PlayerThrow : MonoBehaviour
 
         playerWeaponpick.playerGun = null;
         playerWeaponpick.hasWeapon = false;
-
-        if (armsAnimator != null)
-        {
-            armsAnimator.SetTrigger("Throw");
-            armsAnimator.SetBool("HasWeapon", false);
-        }
 
         // 投げた直後は時間を通常速度に戻す
         if (playerControl != null)

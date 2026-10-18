@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class ClearCheck : MonoBehaviour
 {
-    [SerializeField] int enemyMax = 1;
     EnemyManagerKari ene;
     public bool isClear;
     void Start()

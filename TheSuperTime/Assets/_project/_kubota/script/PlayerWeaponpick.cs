@@ -8,20 +8,33 @@ public class PlayerWeaponpick : MonoBehaviour
     public PlayerThrow player;
 
     public float pickupDistance = 3f;
-
+    public bool initHasWeapon = true;
     public bool hasWeapon = true;
     public bool hasWeaponyes = false;
 
     private float ViewportX = 0.5f;
     private float ViewportY = 0.5f;
     Input input;
+    ReplayTimer repT;
+    [SerializeField] GameObject gunObj;
     void Start()
-    {
+    { 
         input = GetComponent<Input>();
+        repT = GameObject.Find("ReplayManager").GetComponent<ReplayTimer>();
+        hasWeapon = initHasWeapon;
     }
     void Update()
     {
         hasWeaponyes = false;
+        if(repT.IsStartReplay())
+        {
+            if(initHasWeapon && !hasWeapon)
+            {
+                hasWeapon = true;
+                gunObj.SetActive(true);
+                gunObj.GetComponent<PlayerGun>().enabled = true;
+            }
+        }
 
         if (Mouse.current == null)
             return;

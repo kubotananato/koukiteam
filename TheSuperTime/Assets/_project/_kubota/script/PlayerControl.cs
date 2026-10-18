@@ -12,8 +12,6 @@ public class PlayerControl : MonoBehaviour
     public float NormalDuration = 0.5f;
 
     private Rigidbody rb;
-    private float horizontal;
-    private float vertical;
     Input input;
     Vector3 move;
     PlayerStatus status;
@@ -39,10 +37,6 @@ public class PlayerControl : MonoBehaviour
         }
         if (playerStatus != null && playerStatus.isDead)
             return;
-
-        horizontal = 0f;
-        vertical = 0f;
-
         if (Keyboard.current == null)
             return;
 
