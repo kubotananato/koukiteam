@@ -69,7 +69,7 @@ public class PlayerWeaponpick : MonoBehaviour
     {
         while (t != null)
         {
-            if (t.CompareTag("Weapon"))
+            if (t.CompareTag("PlayerThrow"))
             {
                 return t.gameObject;
             }

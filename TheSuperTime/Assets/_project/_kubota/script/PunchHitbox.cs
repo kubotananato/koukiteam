@@ -16,24 +16,33 @@ public class PunchHitbox : MonoBehaviour
 
     void Update()
     {
+        // スローの影響を受けない時間で、消えるまでを数える
         lifeTime -= Time.unscaledDeltaTime;
 
-        if(lifeTime <= 0f)
+        if (lifeTime <= 0f)
         {
             Destroy(gameObject);
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision collision)
     {
-        EnemyHP enemy = other.GetComponent<EnemyHP>();
+        EnemyHP enemy = collision.collider.GetComponentInParent<EnemyHP>();
 
-        if(enemy == null || enemy.isDead) return;
+        if (enemy == null || enemy.isDead)
+        {
+            return;
+        }
 
-        if (!hitEnemies.Add(enemy)) return;
+        if (!hitEnemies.Add(enemy))
+        {
+            return;
+        }
 
-        enemy.Damaged();
-
-        if (onHitEnemy != null) onHitEnemy(enemy);
+        // 当たったので、レティクルを赤くする
+        if (onHitEnemy != null)
+        {
+            onHitEnemy(enemy);
+        }
     }
 }

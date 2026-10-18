@@ -102,21 +102,30 @@ public class PlayerPunch : MonoBehaviour
     void SpawnHitbox()
     {
         GameObject go = new GameObject("PunchHitbox");
+        go.tag = "PlayerPunch";
 
-        go.transform.SetParent(playerCamera.transform);
-        go.transform.localPosition = new Vector3(0f, 0f, hitboxDistance);
-        go.transform.localRotation = Quaternion.identity;
+        go.transform.position =
+            playerCamera.transform.position +
+            playerCamera.transform.forward * hitboxDistance;
+        go.transform.rotation = playerCamera.transform.rotation;
 
-        // 当たり判定
         BoxCollider box = go.AddComponent<BoxCollider>();
-        box.isTrigger = true;
+        box.isTrigger = false;
         box.size = hitboxSize;
 
         Rigidbody rb = go.AddComponent<Rigidbody>();
-        rb.isKinematic = true;
+        rb.isKinematic = false;
         rb.useGravity = false;
+        rb.mass = 0.01f;
+        rb.linearDamping = 100f;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
 
-        // 敵に当たったときの処理を渡す
+        foreach (Collider c in
+                 playerCamera.transform.root.GetComponentsInChildren<Collider>())
+        {
+            Physics.IgnoreCollision(box, c);
+        }
+
         PunchHitbox hitbox = go.AddComponent<PunchHitbox>();
         hitbox.Init(hitboxLifetime, OnPunchHit);
     }
