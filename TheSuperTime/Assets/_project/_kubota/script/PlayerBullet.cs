@@ -29,6 +29,7 @@ public class PlayerBullet : MonoBehaviour
         trailLine.positionCount = 1;
         trailLine.SetPosition(0, transform.position);
 
+
         trailLine.startWidth = trailWidth;
         trailLine.endWidth = trailWidth;
 

@@ -2025,6 +2025,10 @@ PrefabInstance:
       propertyPath: worldWeaponPrefab
       value: 
       objectReference: {fileID: 6637052122941244926, guid: 31fa1c98d20db3b408b6f86e493aea15, type: 3}
+    - target: {fileID: 4686704866154429303, guid: 8acafc16eae1b1948bcef3e64f65fd6e, type: 3}
+      propertyPath: PbulletPrefab
+      value: 
+      objectReference: {fileID: 4625731010963317820, guid: 26a8f0cfd05d7544f8608089ca70f015, type: 3}
     - target: {fileID: 7146064458496660283, guid: 8acafc16eae1b1948bcef3e64f65fd6e, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2067,6 +2071,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7274034506856651210, guid: 8acafc16eae1b1948bcef3e64f65fd6e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7863186440589534088, guid: 8acafc16eae1b1948bcef3e64f65fd6e, type: 3}
+      propertyPath: isDead
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8950437364671525950, guid: 8acafc16eae1b1948bcef3e64f65fd6e, type: 3}
