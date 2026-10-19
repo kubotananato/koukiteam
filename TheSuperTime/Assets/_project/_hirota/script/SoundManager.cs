@@ -117,6 +117,15 @@ public class SoundManager : MonoBehaviour
     }
 
 
+    public void RegisterButton(Button button)
+    {
+        if (button != null)
+        {
+            button.onClick.RemoveListener(PlayButtonSE);
+            button.onClick.AddListener(PlayButtonSE);
+        }
+    }
+
     public void PlayerMoveSE() // 足音
     {
         PlayMove(PlayerMoveClip);
