@@ -11,7 +11,7 @@ public class ReplayUI : MonoBehaviour
     [SerializeField] GameObject titlesObj;
     [SerializeField] Sprite[] titles;
     Image titlesImage;
-    [SerializeField] int changeFrame = 50;
+    int changeFrame = 70;
     RectTransform rect;
     bool start = false;
     int frame = 0;
@@ -23,6 +23,9 @@ public class ReplayUI : MonoBehaviour
     NextScene nextScene;
     int startFrame = 50;
     PlayerStatus status;
+    int fadeFrame = 25;
+    int fadeFrameTimer = 0;
+    bool startFadeIn = false;
     void Start()
     {
         nextScene = GameObject.Find("ReplayManager").GetComponent<NextScene>();
@@ -36,6 +39,8 @@ public class ReplayUI : MonoBehaviour
         black.SetActive(false);
         titlesObj.SetActive(false);
         mat.SetFloat("_Intensity",1.0f);
+        fadeFrameTimer = startFrame;
+       
     }
 
     // Update is called once per frame
@@ -48,6 +53,7 @@ public class ReplayUI : MonoBehaviour
             titlesObj.SetActive(true);
             start = true;
             frame = 0;
+            fadeFrameTimer = 0;
         }
         if(status.isDead)
         {
@@ -56,6 +62,7 @@ public class ReplayUI : MonoBehaviour
         if(nextScene.next)
         {
             mat.SetFloat("_Intensity",1.0f);
+            startFadeIn = true;
         }
     }
 
@@ -63,31 +70,42 @@ public class ReplayUI : MonoBehaviour
     {
         if(!start)
         {
-            frame += 10;
-            if(frame < startFrame)
+            fadeFrameTimer --;
+            
+            if (fadeFrameTimer > 0)
             {
-                mat.SetFloat("_Intensity",1.0f);
+                mat.SetFloat("_Intensity", 1.0f);
             }
-            else mat.SetFloat("_Intensity",0.0f);
-            return;
-        } 
-        ++frame;
-        if(frame >= changeFrame)
+            else mat.SetFloat("_Intensity", 0.0f);
+        }
+        else
         {
-            frame = 0;
-            idx++;
-            if(idx >= titles.Length)
+            ++frame;
+            if (frame >= changeFrame)
             {
-                idx = 0;
+                frame = 0;
+                idx++;
+                if (idx >= titles.Length)
+                {
+                    idx = 0;
+                }
+                titlesImage.sprite = titles[idx];
             }
-            titlesImage.sprite = titles[idx];
+
+            float rate = (float)frame / (float)changeFrame;
+            float w = (maxW - minW) * rate + minW;
+            float h = (maxH - minH) * rate + minH;
+
+            rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, w);
+            rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, h);
         }
 
-        float rate = (float)frame / (float)changeFrame;
-        float w = (maxW-minW) * rate+minW;
-        float h = (maxH-minH) * rate + minH;
+        if(startFadeIn)
+        {
+            fadeFrameTimer++;
+        }
+        float fadeRate = Mathf.Clamp(((float)fadeFrameTimer / (float)fadeFrame) * 0.075f, 0.0f, 0.075f);
+        mat.SetFloat("_Curvature", fadeRate);
 
-        rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, w);
-        rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, h);
     }
 }
