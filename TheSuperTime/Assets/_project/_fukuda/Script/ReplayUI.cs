@@ -11,7 +11,7 @@ public class ReplayUI : MonoBehaviour
     [SerializeField] GameObject titlesObj;
     [SerializeField] Sprite[] titles;
     Image titlesImage;
-    [SerializeField] int changeFrame = 50;
+    int changeFrame = 70;
     RectTransform rect;
     bool start = false;
     int frame = 0;
@@ -21,9 +21,11 @@ public class ReplayUI : MonoBehaviour
     float maxW = 1980;
     float maxH = 1080;
     NextScene nextScene;
-    int startFrame = 50;
+    int startFrame = 70;
     PlayerStatus status;
     int fadeFrame = 25;
+    int fadeFrameTimer = 0;
+    bool startFadeIn = false;
     void Start()
     {
         nextScene = GameObject.Find("ReplayManager").GetComponent<NextScene>();
@@ -37,7 +39,8 @@ public class ReplayUI : MonoBehaviour
         black.SetActive(false);
         titlesObj.SetActive(false);
         mat.SetFloat("_Intensity",1.0f);
-        frame = startFrame;
+        fadeFrameTimer = startFrame;
+       
     }
 
     // Update is called once per frame
@@ -50,6 +53,7 @@ public class ReplayUI : MonoBehaviour
             titlesObj.SetActive(true);
             start = true;
             frame = 0;
+            fadeFrameTimer = 0;
         }
         if(status.isDead)
         {
@@ -58,6 +62,7 @@ public class ReplayUI : MonoBehaviour
         if(nextScene.next)
         {
             mat.SetFloat("_Intensity",1.0f);
+            startFadeIn = true;
         }
     }
 
@@ -65,7 +70,13 @@ public class ReplayUI : MonoBehaviour
     {
         if(!start)
         {
-            frame --;
+            fadeFrameTimer --;
+            
+            if (fadeFrameTimer > 0)
+            {
+                mat.SetFloat("_Intensity", 1.0f);
+            }
+            else mat.SetFloat("_Intensity", 0.0f);
         }
         else
         {
@@ -88,13 +99,13 @@ public class ReplayUI : MonoBehaviour
             rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, w);
             rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, h);
         }
-        float fadeRate = Mathf.Clamp(((float)frame / (float)fadeFrame)*0.075f, 0.0f, 0.075f);
-        mat.SetFloat("_Curvature", fadeRate);
-        if (frame > 0)
+
+        if(startFadeIn)
         {
-            mat.SetFloat("_Intensity", 1.0f);
+            fadeFrameTimer++;
         }
-        else mat.SetFloat("_Intensity", 0.0f);
+        float fadeRate = Mathf.Clamp(((float)fadeFrameTimer / (float)fadeFrame) * 0.075f, 0.0f, 0.075f);
+        mat.SetFloat("_Curvature", fadeRate);
 
     }
 }
