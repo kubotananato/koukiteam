@@ -8,6 +8,8 @@ public class ReplayUI : MonoBehaviour
     Input input;
     int lastReplayVersion;
     [SerializeField] GameObject black;
+    [SerializeField] GameObject Result;
+    [SerializeField] GameObject Select;
     [SerializeField] GameObject titlesObj;
     [SerializeField] Sprite[] titles;
     Image titlesImage;
@@ -44,6 +46,8 @@ public class ReplayUI : MonoBehaviour
         fadeFrameTimer = startFrame;
         getAudio = true;
         SoundManager.Instance.PlaySEManaged(1, true);
+        Result.SetActive(false);
+        Select.SetActive(false);
     }
 
     // Update is called once per frame
@@ -54,6 +58,7 @@ public class ReplayUI : MonoBehaviour
             once = true;
             lastReplayVersion = input.replayVersion;
             black.SetActive(true);
+            Result.SetActive(true);
             titlesObj.SetActive(true);
             start = true;
             frame = 0;
@@ -63,6 +68,7 @@ public class ReplayUI : MonoBehaviour
         if(status.isDead)
         {
             black.SetActive(true);
+            Select.SetActive(true);
             mat.SetFloat("_Curvature", 0.075f);
         }
         if(nextScene.next)
