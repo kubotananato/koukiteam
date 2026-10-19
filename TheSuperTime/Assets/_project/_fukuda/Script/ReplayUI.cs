@@ -5,12 +5,13 @@ using UnityEngine.UI;
 public class ReplayUI : MonoBehaviour
 {
     [SerializeField]Material mat;
-    ReplayTimer repT;
+    Input input;
+    int lastReplayVersion;
     [SerializeField] GameObject black;
     [SerializeField] GameObject titlesObj;
     [SerializeField] Sprite[] titles;
     Image titlesImage;
-    [SerializeField] int changeFrame = 50;
+    int changeFrame = 70;
     RectTransform rect;
     bool start = false;
     int frame = 0;
@@ -22,11 +23,16 @@ public class ReplayUI : MonoBehaviour
     NextScene nextScene;
     int startFrame = 50;
     PlayerStatus status;
+    int fadeFrame = 25;
+    int fadeFrameTimer = 0;
+    bool startFadeIn = false;
+    bool once = false;
     void Start()
     {
-        repT = GameObject.Find("ReplayManager").GetComponent<ReplayTimer>();
         nextScene = GameObject.Find("ReplayManager").GetComponent<NextScene>();
         status = GameObject.Find("Player").GetComponent<PlayerStatus>();
+        input = status.GetComponent<Input>();
+        lastReplayVersion = input.replayVersion;
         titlesImage = titlesObj.GetComponent<Image>();
         rect = titlesImage.rectTransform;
         titlesImage.sprite = titles[idx];
@@ -34,57 +40,76 @@ public class ReplayUI : MonoBehaviour
         black.SetActive(false);
         titlesObj.SetActive(false);
         mat.SetFloat("_Intensity",1.0f);
+        fadeFrameTimer = startFrame;
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(repT.IsStartReplay())
+        if(lastReplayVersion != input.replayVersion && !once)
         {
+            once = true;
+            lastReplayVersion = input.replayVersion;
             black.SetActive(true);
             titlesObj.SetActive(true);
             start = true;
             frame = 0;
+            fadeFrameTimer = 0;
         }
         if(status.isDead)
         {
             black.SetActive(true);
+            mat.SetFloat("_Curvature", 0.075f);
         }
         if(nextScene.next)
         {
             mat.SetFloat("_Intensity",1.0f);
+            fadeFrameTimer = 0;
+            startFadeIn = true;
         }
     }
 
     void FixedUpdate()
     {
-        if(!start)
+        if(!start && !status.isDead)
         {
-            frame += 10;
-            if(frame < startFrame)
+            fadeFrameTimer --;
+            
+            if (fadeFrameTimer > 0)
             {
-                mat.SetFloat("_Intensity",1.0f);
+                mat.SetFloat("_Intensity", 1.0f);
             }
-            else mat.SetFloat("_Intensity",0.0f);
-            return;
-        } 
-        ++frame;
-        if(frame >= changeFrame)
+            else mat.SetFloat("_Intensity", 0.0f);
+        }
+        if(start)
         {
-            frame = 0;
-            idx++;
-            if(idx >= titles.Length)
+            ++frame;
+            if (frame >= changeFrame)
             {
-                idx = 0;
+                frame = 0;
+                idx++;
+                if (idx >= titles.Length)
+                {
+                    idx = 0;
+                }
+                titlesImage.sprite = titles[idx];
             }
-            titlesImage.sprite = titles[idx];
+
+            float rate = (float)frame / (float)changeFrame;
+            float w = (maxW - minW) * rate + minW;
+            float h = (maxH - minH) * rate + minH;
+
+            rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, w);
+            rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, h);
         }
 
-        float rate = (float)frame / (float)changeFrame;
-        float w = (maxW-minW) * rate+minW;
-        float h = (maxH-minH) * rate + minH;
+        if(startFadeIn)
+        {
+            fadeFrameTimer++;
+        }
+        float fadeRate = Mathf.Clamp(((float)fadeFrameTimer / (float)fadeFrame) * 0.075f, 0.0f, 0.075f);
+        mat.SetFloat("_Curvature", fadeRate);
 
-        rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, w);
-        rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, h);
     }
 }

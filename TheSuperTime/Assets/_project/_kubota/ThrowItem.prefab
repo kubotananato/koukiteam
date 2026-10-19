@@ -156,7 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponPickupItem
   heldVisualPrefab: {fileID: 0}
   worldWeaponPrefab: {fileID: 0}
-  ammo: 10
+  ammo: 3
 --- !u!114 &6484061815460136647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,7 +170,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThrownBreak
   breakEffect: {fileID: 9218649197746354276, guid: e0bc6d4f1c1380a478543928cbfd7434, type: 3}
-  noBreakTime: 0
-  maxBreakTime: 0
-  spawnTime: 0
-  broken: 0
+  safeTime: 0.05
+  maxLifeTime: 3

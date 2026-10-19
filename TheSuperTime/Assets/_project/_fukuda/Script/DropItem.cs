@@ -1,4 +1,4 @@
-using UnityEditor.Callbacks;
+
 using UnityEngine;
 
 public class DropItem : MonoBehaviour
@@ -9,11 +9,13 @@ public class DropItem : MonoBehaviour
     [SerializeField]float speed = 5.0f;
     [SerializeField] float ySpeed = 0.1f;
     [SerializeField] float rotSpeed = 10.0f;
-    ReplayTimer repT;
+    Input input;
+    int lastReplayVersion;
     void Start()
     {
-        repT = GameObject.Find("ReplayManager").GetComponent<ReplayTimer>();
         player = GameObject.Find("Player");
+        input = player.GetComponent<Input>();
+        lastReplayVersion = input.replayVersion;
         dropDirXZ = player.transform.position - transform.position;
         dropDirXZ.y = 0.0f;
         dropDirXZ.Normalize();
@@ -22,14 +24,16 @@ public class DropItem : MonoBehaviour
 
         // 回転させる
         rigid.maxAngularVelocity = Mathf.Max(rigid.maxAngularVelocity, rotSpeed);
-        rigid.angularVelocity = Random.onUnitSphere * rotSpeed;
+        Vector3 rotationAxis = new Vector3(1f, 0.7f, 0.4f).normalized;
+        rigid.angularVelocity = rotationAxis * rotSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(repT.IsStartReplay())
+        if(lastReplayVersion != input.replayVersion)
         {
+            lastReplayVersion = input.replayVersion;
             Destroy(gameObject);
         }
     }

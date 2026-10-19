@@ -6,9 +6,11 @@ public class PlayerStatus : MonoBehaviour
     private GameClear gameClearScript;
     public float PlayerHp = 1;
     public bool isDead = false;
+    ClearCheck check;
 
     void Start()
     {
+        check = GameObject.Find("ReplayManager").GetComponent<ClearCheck>();
         sceneManegerObj = GameObject.Find("GameClear");
         if (sceneManegerObj != null)
         {
@@ -50,10 +52,11 @@ public class PlayerStatus : MonoBehaviour
             Debug.Log("敵に攻撃された");
             PlayerHp -= 1;
             PlayerHp = Mathf.Max(PlayerHp, 0);
-        //    gameClearScript.ToggleCanvas();
+            gameClearScript.ToggleCanvas();
 
             if (PlayerHp <= 0)
             {
+                if (check.isClear) return;
                 isDead = true;
                 Debug.Log("プレイヤー死亡！");
             }
