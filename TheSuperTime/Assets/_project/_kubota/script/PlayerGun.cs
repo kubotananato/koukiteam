@@ -15,7 +15,6 @@ public class PlayerGun : MonoBehaviour
     public GameObject PmuzzleFlashPrefab;
     public Transform PmuzzlePoint;
     public Animator PshotAnimation;
-    //    public Camera playerCamera;
 
     public float shootCooldown = 0.5f;   // 次に撃てるまでの秒数
     private float nextShootTime = 0f;    // 次に撃てる時刻
