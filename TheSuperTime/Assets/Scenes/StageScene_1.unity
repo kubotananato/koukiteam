@@ -1135,6 +1135,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &561837479 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5915730890228360024, guid: 7bf173456121d4c44be6ea619200695b, type: 3}
+  m_PrefabInstance: {fileID: 1122424713}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &617249616
 GameObject:
   m_ObjectHideFlags: 0
@@ -1206,7 +1211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BulletUI
   ammo: {fileID: 1280987901}
   maxAmmo: {fileID: 1176298751}
-  gunObj: {fileID: 0}
+  gunObj: {fileID: 561837479}
   weapon: {fileID: 297824144}
   gunImg: {fileID: 21300000, guid: 2590743c604314a49aca7f53e5240eaa, type: 3}
   punchImg: {fileID: 21300000, guid: cd24dac3ef6e68e44af6d7639e7e3ecd, type: 3}
@@ -1227,6 +1232,7 @@ MonoBehaviour:
   throwing: {fileID: 21300000, guid: e9e44ab4bbe7c2946abb315127c9c507, type: 3}
   punch: {fileID: 21300000, guid: cd24dac3ef6e68e44af6d7639e7e3ecd, type: 3}
   typeObj: {fileID: 1352038796}
+  weaponObj: {fileID: 1917330674}
 --- !u!1 &638740928
 GameObject:
   m_ObjectHideFlags: 0
@@ -2439,6 +2445,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4127498776042917291, guid: 7bf173456121d4c44be6ea619200695b, type: 3}
+      propertyPath: mouseSens
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5708450874054023680, guid: 7bf173456121d4c44be6ea619200695b, type: 3}
       propertyPath: m_Name
       value: Player
@@ -3015,7 +3025,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1352038797
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3463,7 +3473,7 @@ GameObject:
   - component: {fileID: 1917330677}
   - component: {fileID: 1917330676}
   m_Layer: 5
-  m_Name: eneType (1)
+  m_Name: weaponGetMoji
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
