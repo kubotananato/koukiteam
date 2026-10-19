@@ -9,7 +9,11 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance { get; private set; }
 
     [Header("Audio Clips (SE)")]
-    [SerializeField] private AudioClip buttonSeClip;
+    [SerializeField] private AudioClip buttonSeClip; // 銃
+    [SerializeField] private AudioClip PlayerMoveClip; // 足音
+    [SerializeField] private AudioClip PlayerThrowClip; // 投げた時の音
+    [SerializeField] private AudioClip PlayerPickupClip; // 銃を拾った時の音
+    [SerializeField] private AudioClip PlayerPunchClip; // パンチの打撃音
     [Tooltip("インデックス（番号）で指定・管理するSEの配列")]
     [SerializeField] private AudioClip[] seClips;
 
@@ -22,9 +26,18 @@ public class SoundManager : MonoBehaviour
     [Header("Audio Sources")]
     [SerializeField] private AudioSource seAudioSource;
     [SerializeField] private AudioSource bgmAudioSource;
+    [Header("SE Volume")]
+    [SerializeField, Range(0f, 1f)] private float buttonSEVolume = 1f;
+    [SerializeField, Range(0f, 1f)] private float throwSEVolume = 1f;
+    [SerializeField, Range(0f, 1f)] private float pickupSEVolume = 1f;
+    [SerializeField, Range(0f, 1f)] private float punchSEVolume = 1f;
+    [SerializeField, Range(0f, 1f)] private float moveSEVolume = 0.3f;
+
 
     // SE管理用：ループ再生や個別の停止・一時停止に使うAudioSourceのリスト
     private List<AudioSource> activeSeSources = new List<AudioSource>();
+
+    private AudioSource moveAudioSource;
 
     void Awake()
     {
@@ -58,6 +71,11 @@ public class SoundManager : MonoBehaviour
                 bgmAudioSource = gameObject.AddComponent<AudioSource>();
             }
         }
+
+        // 足音専用の AudioSource を作る(銃などの音と分けるため)
+        moveAudioSource = gameObject.AddComponent<AudioSource>();
+        moveAudioSource.playOnAwake = false;
+        moveAudioSource.volume = moveSEVolume;
     }
 
     private void OnEnable()
@@ -74,6 +92,7 @@ public class SoundManager : MonoBehaviour
     {
         StopBGM();
         StopAllSE(); // シーン遷移時に制御中のSEをリセット
+        StopMoveSE();
         RegisterButtonsInScene();
     }
 
@@ -94,28 +113,80 @@ public class SoundManager : MonoBehaviour
 
     public void PlayButtonSE()
     {
-        PlaySE(buttonSeClip);
+        PlaySE(buttonSeClip, buttonSEVolume);
+    }
+
+
+    public void RegisterButton(Button button)
+    {
+        if (button != null)
+        {
+            button.onClick.RemoveListener(PlayButtonSE);
+            button.onClick.AddListener(PlayButtonSE);
+        }
+    }
+
+    public void PlayerMoveSE() // 足音
+    {
+        PlayMove(PlayerMoveClip);
+    }
+
+    public void PlayerThrowSE()
+    {
+        PlaySE(PlayerThrowClip, throwSEVolume);
+    }
+
+    public void PlayerPickupSE()
+    {
+        PlaySE(PlayerPickupClip, pickupSEVolume);
+    }
+
+    public void PlayerPunchSE()
+    {
+        PlaySE(PlayerPunchClip, punchSEVolume);
     }
 
     /// <summary>
     /// 単発SE再生（重ねて鳴らすだけで制御不要な場合）
     /// </summary>
-    public void PlaySE(AudioClip clip)
+    public void PlaySE(AudioClip clip, float volume)
     {
         if (clip != null && seAudioSource != null)
         {
-            seAudioSource.PlayOneShot(clip);
+            seAudioSource.PlayOneShot(clip, volume);
+        }
+    }
+
+    // 足音
+    public void PlayMove(AudioClip clip)
+    {
+        if (clip == null || moveAudioSource == null) return;
+
+        // すでに鳴っているときは、重ねない
+        if (moveAudioSource.isPlaying) return;
+
+        moveAudioSource.clip = clip;
+        moveAudioSource.loop = false;
+        moveAudioSource.Play();
+    }
+
+    // 足音を止める
+    public void StopMoveSE()
+    {
+        if (moveAudioSource != null)
+        {
+            moveAudioSource.Stop();
         }
     }
 
     /// <summary>
     /// 配列のインデックス指定で単発SE再生
     /// </summary>
-    public void PlaySENum(int clipIndex)
+    public void PlaySENum(int clipIndex, float volume = 1f)
     {
         if (IsValidSeIndex(clipIndex))
         {
-            PlaySE(seClips[clipIndex]);
+            PlaySE(seClips[clipIndex], volume);
         }
     }
 

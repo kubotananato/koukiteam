@@ -65,7 +65,7 @@ public class PlayerPunch : MonoBehaviour
 
             while (t != null)
             {
-                if (t.CompareTag("Weapon"))
+                if (t.CompareTag("PlayerThrow"))
                 {
                     return true;
                 }
@@ -87,7 +87,11 @@ public class PlayerPunch : MonoBehaviour
         nextPunchTime = Time.unscaledTime + punchCooldown;
 
         Debug.Log("パンチ！");
-
+        // パンチの音を鳴らす
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayerPunchSE();
+        }
         if (PpunchAnimation != null)
         {
             PpunchAnimation.SetTrigger("PlayerPunch");

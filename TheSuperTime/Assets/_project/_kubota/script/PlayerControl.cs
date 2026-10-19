@@ -36,7 +36,17 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
-        if(input.IsReplay || status.isDead)
+
+        if (playerStatus.isDead)
+        {
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.StopMoveSE();
+            }
+
+            return;
+        }
+        if (input.IsReplay || status.isDead)
         {
             Time.timeScale = 1.0f;
         }
@@ -77,15 +87,29 @@ public class PlayerControl : MonoBehaviour
         }
 
         // 足音の処理
-        if(move.sqrMagnitude > 0f)
+        if (move.sqrMagnitude > 0.01f)
         {
-        //    SoundManager.Instance.PlayerMoveSE();
             SEMoveTimer -= Time.deltaTime;
+
+            if (SEMoveTimer <= 0f)
+            {
+                if (SoundManager.Instance != null)
+                {
+                    SoundManager.Instance.PlayerMoveSE();
+                }
+
+                SEMoveTimer = SEMoveInterval;
+            }
         }
         else
         {
-            // 止まったら次の足音までの時間をリセット
+            // 止まったら、タイマーをリセットして、鳴っている足音も止める
             SEMoveTimer = 0f;
+
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.StopMoveSE();
+            }
         }
 
         if (NormalTimer > 0f)
