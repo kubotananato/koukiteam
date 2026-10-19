@@ -36,7 +36,17 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
-        if(input.IsReplay || status.isDead)
+
+        if (playerStatus.isDead)
+        {
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.StopMoveSE();
+            }
+
+            return;
+        }
+        if (input.IsReplay || status.isDead)
         {
             Time.timeScale = 1.0f;
         }
