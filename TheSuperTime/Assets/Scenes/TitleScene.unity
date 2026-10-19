@@ -166,12 +166,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   buttonSeClip: {fileID: 8300000, guid: 522fa1e5d31b34a4bab27d810b428976, type: 3}
+  PlayerMoveClip: {fileID: 8300000, guid: b8c836b615548584699891f806c3eac7, type: 3}
+  PlayerThrowClip: {fileID: 8300000, guid: c0b7da7b8a23c9a47988a6dc45d47b04, type: 3}
+  PlayerPickupClip: {fileID: 8300000, guid: 2d9eaee8d6ae69f489903700bbaafaa9, type: 3}
+  PlayerPunchClip: {fileID: 8300000, guid: 9c09e5133a90fbf458cc66bfd75702c5, type: 3}
   seClips:
   - {fileID: 8300000, guid: a7ef75fce0e796f4b993ad3a5b6f9922, type: 3}
   bgm1: {fileID: 8300000, guid: 1bd792b645bd10647b74931017ea3c8d, type: 3}
   bgm2: {fileID: 8300000, guid: 7d3818bd1559db84286d731bf8c77a53, type: 3}
   seAudioSource: {fileID: 145859021}
   bgmAudioSource: {fileID: 145859020}
+  buttonSEVolume: 1
+  throwSEVolume: 1
+  pickupSEVolume: 1
+  punchSEVolume: 1
+  moveSEVolume: 0.3
 --- !u!82 &145859020
 AudioSource:
   m_ObjectHideFlags: 0
