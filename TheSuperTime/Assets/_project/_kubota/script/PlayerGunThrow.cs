@@ -266,7 +266,7 @@ public class PlayerThrow : MonoBehaviour
     public Animator armsAnimator;
 
     public GameObject heldWeapon;
-    public int initialAmmo = 10;
+    public int initialAmmo = 3;
 
     public GameObject worldWeaponPrefab;
     public float throwForce = 15f;

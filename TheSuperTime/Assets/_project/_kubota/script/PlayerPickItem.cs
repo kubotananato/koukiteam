@@ -11,5 +11,5 @@ public class WeaponPickupItem : MonoBehaviour
     public GameObject worldWeaponPrefab;
 
     // 拾ったときの弾数
-    public int ammo = 10;
+    public int ammo = 3;
 }
