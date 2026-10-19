@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class ClearCheck : MonoBehaviour
 {
-    [SerializeField] int enemyMax = 1;
     EnemyManagerKari ene;
     public bool isClear;
     void Start()
@@ -16,6 +15,14 @@ public class ClearCheck : MonoBehaviour
         if(ene.isFinishAllWave)
         {
             isClear = true;
+        }
+
+        if(isClear)
+        {
+            Cursor.visible = true;
+
+        // マウスカーソルのロックを解除する（画面中央に固定されていたものを自由にする）
+        Cursor.lockState = CursorLockMode.None;
         }
     }
 }

@@ -1,5 +1,4 @@
-using System.Collections;
-using Unity.VisualScripting;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +13,11 @@ public class SceneCenge : MonoBehaviour
 
         // フェードアウトを挟んでからシーンを読み込む
         StartFadeAndLoad("ResultScene");
+    }
+    
+    public void ReLoadThisScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void LoadPreviousScene()

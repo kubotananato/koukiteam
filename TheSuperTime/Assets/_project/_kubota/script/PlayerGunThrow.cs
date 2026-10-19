@@ -277,11 +277,13 @@ public class PlayerThrow : MonoBehaviour
     private PlayerGun currentGun;
     private PlayerControl playerControl;
     private PlayerStatus playerStatus;
+    Input input;
 
     void Start()
     {
         playerControl = GetComponent<PlayerControl>();
         playerStatus = GetComponent<PlayerStatus>();
+        input = GetComponent<Input>();
 
         if (heldWeapon != null)
         {
@@ -295,11 +297,6 @@ public class PlayerThrow : MonoBehaviour
             }
 
             heldWeapon.SetActive(true);
-
-            if (armsAnimator != null)
-            {
-                armsAnimator.SetBool("HasWeapon", true);
-            }
         }
 
         if (playerWeaponpick != null)
@@ -313,16 +310,16 @@ public class PlayerThrow : MonoBehaviour
     void Update()
     {
         if (Mouse.current != null &&
-            Mouse.current.rightButton.wasPressedThisFrame)
+            input.inputs["throw"])
         {
             ThrowWeapon();
         }
     }
 
-    // 床の銃を拾う(PlayerWeaponpick.cs から呼ばれる)
-    public void PickupWeapon(WeaponPickupItem item)
+    // 床の銃を拾う
+    public void PickupWeapon(GameObject weaponObject)
     {
-        if (item == null || heldWeapon == null || currentGun == null)
+        if (weaponObject == null || heldWeapon == null || currentGun == null)
         {
             return;
         }
@@ -334,8 +331,8 @@ public class PlayerThrow : MonoBehaviour
             return;
         }
 
-        // 床の銃の弾数を引き継ぐ
-        currentGun.currentAmmo = item.ammo;
+        WeaponPickupItem item = weaponObject.GetComponentInParent<WeaponPickupItem>();
+        currentGun.currentAmmo = item != null ? item.ammo : currentGun.maxAmmo;
         currentGun.enabled = true;
 
         // 手持ちの銃を再び表示する
@@ -347,14 +344,8 @@ public class PlayerThrow : MonoBehaviour
             playerWeaponpick.hasWeapon = true;
         }
 
-        if (armsAnimator != null)
-        {
-            armsAnimator.SetTrigger("Pickup");
-            armsAnimator.SetBool("HasWeapon", true);
-        }
-
-        // 床の銃を消す
-        Destroy(item.gameObject);
+        // 拾った床の銃を消す
+        Destroy(weaponObject);
 
         Debug.Log("銃を拾った! 残り弾数:" + currentGun.currentAmmo);
     }
@@ -422,12 +413,6 @@ public class PlayerThrow : MonoBehaviour
 
         playerWeaponpick.playerGun = null;
         playerWeaponpick.hasWeapon = false;
-
-        if (armsAnimator != null)
-        {
-            armsAnimator.SetTrigger("Throw");
-            armsAnimator.SetBool("HasWeapon", false);
-        }
 
         // 投げた直後は時間を通常速度に戻す
         if (playerControl != null)

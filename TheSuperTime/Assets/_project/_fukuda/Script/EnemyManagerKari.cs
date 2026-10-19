@@ -1,9 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
-using UnityEditor.Rendering.Universal;
 using UnityEngine;
 
 public class EnemyManagerKari : MonoBehaviour
@@ -28,11 +24,13 @@ public class EnemyManagerKari : MonoBehaviour
     [SerializeField] GameObject punchEne;
     [SerializeField]GameObject throwEne;
     EnemyConfig config;
-    ReplayTimer repT;
+    Input input;
+    int lastReplayVersion;
     List<GameObject> enemyList = new List<GameObject>();
-    void Start()
+    void Awake()
     {
-        repT = GameObject.Find("ReplayManager").GetComponent<ReplayTimer>();
+        input = GameObject.Find("Player").GetComponent<Input>();
+        lastReplayVersion = input.replayVersion;
         SpawnEnemy();
         currentWave = 0;
         for(int i = 0; i < enemys.Count(); ++i)
@@ -53,10 +51,12 @@ public class EnemyManagerKari : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (repT.IsStartReplay())
+        if (lastReplayVersion != input.replayVersion)
         {
+            lastReplayVersion = input.replayVersion;
             DestroyEnemy();
             currentWave = 0;
+            isFinishAllWave = false;
             SpawnEnemy();
         }
 

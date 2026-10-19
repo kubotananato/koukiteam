@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameClear : MonoBehaviour
 {
@@ -7,8 +6,6 @@ public class GameClear : MonoBehaviour
     private GameObject sceneManegerObj;
     private SceneCenge sceneChangeScript;
     // Update is called once per frame
-
-    private bool isGameClear = false;
 
     [SerializeField] private CanvasGroup targetCanvasGroup; // 操作したいCanvasのCanvasGroup
 
@@ -31,6 +28,7 @@ public class GameClear : MonoBehaviour
 
     void Update()
     {
+        /*
         if (GameManeger.Instance.downEnemy >= 4)
         {
             if (!isGameClear)
@@ -40,6 +38,7 @@ public class GameClear : MonoBehaviour
             isGameClear = true;
 
         }
+        */
     }
     public void ToggleCanvas()
     {

@@ -59,6 +59,7 @@ public class PlayerGun : MonoBehaviour
             input.inputs["shot"])
         {
             PShoot();
+        //    SoundManager.Instance.PlayGunShot();
         }
     }
 
