@@ -472,7 +472,7 @@ MonoBehaviour:
   PlayerPunchClip: {fileID: 8300000, guid: 9c09e5133a90fbf458cc66bfd75702c5, type: 3}
   seClips:
   - {fileID: 8300000, guid: a7ef75fce0e796f4b993ad3a5b6f9922, type: 3}
-  - {fileID: 8300000, guid: 69214eee96d34944eb8dcd6ae28713d1, type: 3}
+  - {fileID: 8300000, guid: 71ca17b22526d8f49941552a68f693eb, type: 3}
   - {fileID: 8300000, guid: 161bd4401e41303438de194e4aafd371, type: 3}
   - {fileID: 8300000, guid: afa244092782bcb4b80031f25f051c91, type: 3}
   - {fileID: 8300000, guid: ff102238bf3c1b24cb497e8dfa674f7f, type: 3}
