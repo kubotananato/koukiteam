@@ -466,12 +466,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   buttonSeClip: {fileID: 8300000, guid: 522fa1e5d31b34a4bab27d810b428976, type: 3}
-  PlayerMoveClip: {fileID: 8300000, guid: b8c836b615548584699891f806c3eac7, type: 3}
+  PlayerMoveClip: {fileID: 8300000, guid: 820ff0b1b34fb574e8807788e81525f5, type: 3}
   PlayerThrowClip: {fileID: 8300000, guid: c0b7da7b8a23c9a47988a6dc45d47b04, type: 3}
   PlayerPickupClip: {fileID: 8300000, guid: 2d9eaee8d6ae69f489903700bbaafaa9, type: 3}
   PlayerPunchClip: {fileID: 8300000, guid: 9c09e5133a90fbf458cc66bfd75702c5, type: 3}
   seClips:
   - {fileID: 8300000, guid: a7ef75fce0e796f4b993ad3a5b6f9922, type: 3}
+  - {fileID: 8300000, guid: 69214eee96d34944eb8dcd6ae28713d1, type: 3}
+  - {fileID: 8300000, guid: 161bd4401e41303438de194e4aafd371, type: 3}
+  - {fileID: 8300000, guid: afa244092782bcb4b80031f25f051c91, type: 3}
+  - {fileID: 8300000, guid: ff102238bf3c1b24cb497e8dfa674f7f, type: 3}
+  - {fileID: 8300000, guid: 81dcb944ec8b81f4189dc6de62cfec44, type: 3}
+  - {fileID: 8300000, guid: 4222b19c8f8521d4c8c757a515ad19ee, type: 3}
+  - {fileID: 8300000, guid: 517c1c4022b961a47bab157169d7841b, type: 3}
   bgm1: {fileID: 8300000, guid: 1bd792b645bd10647b74931017ea3c8d, type: 3}
   bgm2: {fileID: 8300000, guid: 7d3818bd1559db84286d731bf8c77a53, type: 3}
   seAudioSource: {fileID: 145859021}
@@ -597,7 +604,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 62
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

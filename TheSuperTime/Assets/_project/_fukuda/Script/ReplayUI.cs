@@ -11,7 +11,7 @@ public class ReplayUI : MonoBehaviour
     [SerializeField] GameObject titlesObj;
     [SerializeField] Sprite[] titles;
     Image titlesImage;
-    int changeFrame = 70;
+    int changeFrame = 60;
     RectTransform rect;
     bool start = false;
     int frame = 0;
@@ -27,6 +27,7 @@ public class ReplayUI : MonoBehaviour
     int fadeFrameTimer = 0;
     bool startFadeIn = false;
     bool once = false;
+    bool getAudio = false;
     void Start()
     {
         nextScene = GameObject.Find("ReplayManager").GetComponent<NextScene>();
@@ -41,7 +42,8 @@ public class ReplayUI : MonoBehaviour
         titlesObj.SetActive(false);
         mat.SetFloat("_Intensity",1.0f);
         fadeFrameTimer = startFrame;
-       
+        getAudio = true;
+        SoundManager.Instance.PlaySEManaged(1, true);
     }
 
     // Update is called once per frame
@@ -56,6 +58,7 @@ public class ReplayUI : MonoBehaviour
             start = true;
             frame = 0;
             fadeFrameTimer = 0;
+            SoundManager.Instance.PlaySEManaged(idx + 5, false);
         }
         if(status.isDead)
         {
@@ -80,12 +83,16 @@ public class ReplayUI : MonoBehaviour
             {
                 mat.SetFloat("_Intensity", 1.0f);
             }
-            else mat.SetFloat("_Intensity", 0.0f);
+            else 
+            {
+                mat.SetFloat("_Intensity", 0.0f);
+                SoundManager.Instance.StopSE(1);
+            }
         }
         if(start)
         {
             ++frame;
-            if (frame >= changeFrame)
+            if (frame > changeFrame)
             {
                 frame = 0;
                 idx++;
@@ -93,6 +100,7 @@ public class ReplayUI : MonoBehaviour
                 {
                     idx = 0;
                 }
+                SoundManager.Instance.PlaySEManaged(idx + 5, false);
                 titlesImage.sprite = titles[idx];
             }
 
@@ -107,6 +115,11 @@ public class ReplayUI : MonoBehaviour
         if(startFadeIn)
         {
             fadeFrameTimer++;
+            if(!getAudio)
+            {
+                getAudio = true;
+                SoundManager.Instance.PlaySEManaged(1, true);
+            }
         }
         float fadeRate = Mathf.Clamp(((float)fadeFrameTimer / (float)fadeFrame) * 0.075f, 0.0f, 0.075f);
         mat.SetFloat("_Curvature", fadeRate);

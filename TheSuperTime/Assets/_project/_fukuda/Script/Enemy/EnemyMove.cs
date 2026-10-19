@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -249,11 +250,14 @@ public class EnemyMove : MonoBehaviour
             {EneType.Throw, "PlayerThrow"}
         };
         string damageTag = types[config.damageType];
-
+        bool dropItem = false;
+        bool damage = false;
         // ダメージを受けるとき
         if (collision.gameObject.CompareTag(damageTag))
         {
             hp.Damaged();
+            SoundManager.Instance.PlaySEManaged(4, false);
+            damage = true;
         }
 
         // ダメージを受けたとき、武器を落とす
@@ -263,7 +267,14 @@ public class EnemyMove : MonoBehaviour
             if (collision.gameObject.CompareTag(types[tmp]) && config.isGun)
             {
                 DropItem();
+                SoundManager.Instance.PlaySEManaged(2, false);
+                dropItem = true;
             }
+        }
+
+        if(dropItem && !damage)
+        {
+            SoundManager.Instance.PlaySEManaged(3, false);
         }
 
         

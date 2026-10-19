@@ -43,6 +43,7 @@ public class EnemyShot : MonoBehaviour
                 frameTimer = 0;
                 ShotOneBullet();
                 anim.SetIsShot(true);
+                SoundManager.Instance.PlaySEManaged(0);
             }
             else
             {
