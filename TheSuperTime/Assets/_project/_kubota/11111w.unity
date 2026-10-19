@@ -499,17 +499,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 244152945}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &328373345 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 187693475140433908, guid: c18fae33ae9c0a1438d2064eaddd7f70, type: 3}
-  m_PrefabInstance: {fileID: 597715743}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &349723595
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,6 +687,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 396ddbbbf51e99947a2bf2b987f210e7, type: 3}
+--- !u!114 &398645761 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5140472318735292146, guid: 396ddbbbf51e99947a2bf2b987f210e7, type: 3}
+  m_PrefabInstance: {fileID: 398645760}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f346e911b05a38d448a2d570416b7ae7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SaveReplay
 --- !u!1001 &597715743
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -790,30 +790,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Reticle
       objectReference: {fileID: 0}
-    - target: {fileID: 8303175648307161589, guid: c18fae33ae9c0a1438d2064eaddd7f70, type: 3}
-      propertyPath: hitDuration
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8303175648307161589, guid: c18fae33ae9c0a1438d2064eaddd7f70, type: 3}
-      propertyPath: reticleImages.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8303175648307161589, guid: c18fae33ae9c0a1438d2064eaddd7f70, type: 3}
-      propertyPath: 'reticleImages.Array.data[0]'
-      value: 
-      objectReference: {fileID: 1941929970}
-    - target: {fileID: 8303175648307161589, guid: c18fae33ae9c0a1438d2064eaddd7f70, type: 3}
-      propertyPath: 'reticleImages.Array.data[1]'
-      value: 
-      objectReference: {fileID: 2094203862}
-    - target: {fileID: 8303175648307161589, guid: c18fae33ae9c0a1438d2064eaddd7f70, type: 3}
-      propertyPath: 'reticleImages.Array.data[2]'
-      value: 
-      objectReference: {fileID: 328373345}
-    - target: {fileID: 8303175648307161589, guid: c18fae33ae9c0a1438d2064eaddd7f70, type: 3}
-      propertyPath: 'reticleImages.Array.data[3]'
-      value: 
-      objectReference: {fileID: 1425737087}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1886,17 +1862,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1425737087 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8779528730719227824, guid: c18fae33ae9c0a1438d2064eaddd7f70, type: 3}
-  m_PrefabInstance: {fileID: 597715743}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &1490560721
 GameObject:
   m_ObjectHideFlags: 0
@@ -2009,17 +1974,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1490560721}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1941929970 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2674108198227942930, guid: c18fae33ae9c0a1438d2064eaddd7f70, type: 3}
-  m_PrefabInstance: {fileID: 597715743}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &1959294660
 GameObject:
   m_ObjectHideFlags: 0
@@ -2453,17 +2407,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2088275877}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &2094203862 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5614048585719992287, guid: c18fae33ae9c0a1438d2064eaddd7f70, type: 3}
-  m_PrefabInstance: {fileID: 597715743}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1001 &3062581499595725713
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2472,6 +2415,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2003375118441144429, guid: 7bf173456121d4c44be6ea619200695b, type: 3}
+      propertyPath: saveReplay
+      value: 
+      objectReference: {fileID: 398645761}
+    - target: {fileID: 2003375118441144429, guid: 7bf173456121d4c44be6ea619200695b, type: 3}
+      propertyPath: playerInput
+      value: 
+      objectReference: {fileID: 3062581499595725714}
+    - target: {fileID: 2003375118441144429, guid: 7bf173456121d4c44be6ea619200695b, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 3062581499595725715}
     - target: {fileID: 5708450874054023680, guid: 7bf173456121d4c44be6ea619200695b, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2525,6 +2480,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bf173456121d4c44be6ea619200695b, type: 3}
+--- !u!114 &3062581499595725714 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4677059700636428390, guid: 7bf173456121d4c44be6ea619200695b, type: 3}
+  m_PrefabInstance: {fileID: 3062581499595725713}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d42f0795e745c443a4574ec565dd531, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Input
+--- !u!4 &3062581499595725715 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7687932541470292510, guid: 7bf173456121d4c44be6ea619200695b, type: 3}
+  m_PrefabInstance: {fileID: 3062581499595725713}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

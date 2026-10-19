@@ -403,7 +403,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponPickupItem
   heldVisualPrefab: {fileID: 6802832237823401508}
   worldWeaponPrefab: {fileID: 6802832237823401508}
-  ammo: 10
+  ammo: 3
 --- !u!54 &3592666668475861912
 Rigidbody:
   m_ObjectHideFlags: 0

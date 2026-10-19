@@ -26,6 +26,7 @@ public class ReplayUI : MonoBehaviour
     int fadeFrame = 25;
     int fadeFrameTimer = 0;
     bool startFadeIn = false;
+    bool once = false;
     void Start()
     {
         nextScene = GameObject.Find("ReplayManager").GetComponent<NextScene>();
@@ -46,8 +47,9 @@ public class ReplayUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(lastReplayVersion != input.replayVersion)
+        if(lastReplayVersion != input.replayVersion && !once)
         {
+            once = true;
             lastReplayVersion = input.replayVersion;
             black.SetActive(true);
             titlesObj.SetActive(true);
@@ -58,17 +60,19 @@ public class ReplayUI : MonoBehaviour
         if(status.isDead)
         {
             black.SetActive(true);
+            mat.SetFloat("_Curvature", 0.075f);
         }
         if(nextScene.next)
         {
             mat.SetFloat("_Intensity",1.0f);
+            fadeFrameTimer = 0;
             startFadeIn = true;
         }
     }
 
     void FixedUpdate()
     {
-        if(!start)
+        if(!start && !status.isDead)
         {
             fadeFrameTimer --;
             
@@ -78,7 +82,7 @@ public class ReplayUI : MonoBehaviour
             }
             else mat.SetFloat("_Intensity", 0.0f);
         }
-        else
+        if(start)
         {
             ++frame;
             if (frame >= changeFrame)

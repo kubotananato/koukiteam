@@ -20,7 +20,7 @@ public class PlayerGun : MonoBehaviour
     public float shootCooldown = 0.5f;   // 次に撃てるまでの秒数
     private float nextShootTime = 0f;    // 次に撃てる時刻
 
-    public int maxAmmo = 10;
+    public int maxAmmo = 3;
     public int currentAmmo;
     public Input input;
     int lastReplayVersion;
@@ -59,7 +59,6 @@ public class PlayerGun : MonoBehaviour
             input.inputs["shot"])
         {
             PShoot();
-        //    SoundManager.Instance.PlayGunShot();
         }
     }
 
@@ -87,6 +86,8 @@ public class PlayerGun : MonoBehaviour
         }
 
         Debug.Log("撃った！ 残りの弾数：" + currentAmmo);
+
+        SoundManager.Instance.PlaySENum(0);
 
         if (playerControl != null)
             playerControl.OnShoot();

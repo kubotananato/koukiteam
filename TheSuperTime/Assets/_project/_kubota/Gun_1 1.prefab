@@ -391,8 +391,9 @@ MonoBehaviour:
   PmuzzlePoint: {fileID: 4340550753435853395, guid: 218479f21e5b5974aa5f7e1da63e2d93, type: 3}
   PshotAnimation: {fileID: 0}
   shootCooldown: 0.5
-  maxAmmo: 10
-  currentAmmo: 10
+  maxAmmo: 3
+  currentAmmo: 3
+  input: {fileID: 0}
 --- !u!1 &7087812283054292960
 GameObject:
   m_ObjectHideFlags: 0
