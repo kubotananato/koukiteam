@@ -3,16 +3,16 @@ using UnityEngine;
 public class PlayerStatus : MonoBehaviour
 {
     private GameObject sceneManegerObj;
-    private SceneCenge sceneChangeScript;
+    private GameClear gameClearScript;
     public float PlayerHp = 1;
     public bool isDead = false;
 
     void Start()
     {
-        sceneManegerObj = GameObject.Find("SceneManeger");
+        sceneManegerObj = GameObject.Find("GameClear");
         if (sceneManegerObj != null)
         {
-            sceneChangeScript = sceneManegerObj.GetComponent<SceneCenge>();
+            gameClearScript = sceneManegerObj.GetComponent<GameClear>();
         }
         else
         {
@@ -50,7 +50,7 @@ public class PlayerStatus : MonoBehaviour
             Debug.Log("敵に攻撃された");
             PlayerHp -= 1;
             PlayerHp = Mathf.Max(PlayerHp, 0);
-            sceneChangeScript.LoadResultScene();
+        //    gameClearScript.ToggleCanvas();
 
             if (PlayerHp <= 0)
             {

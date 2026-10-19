@@ -4,11 +4,11 @@ using System.Collections.Generic;
 public class PunchHitbox : MonoBehaviour
 {
     private float lifeTime;
-    private System.Action<EnemyHP> onHitEnemy;
+    private System.Action<EnemyHP, Vector3> onHitEnemy;
 
     private HashSet<EnemyHP> hitEnemies = new HashSet<EnemyHP>();
 
-    public void Init(float life, System.Action<EnemyHP> callback)
+    public void Init(float life, System.Action<EnemyHP, Vector3> callback)
     {
         lifeTime = life;
         onHitEnemy = callback;
@@ -16,24 +16,34 @@ public class PunchHitbox : MonoBehaviour
 
     void Update()
     {
+        // スローの影響を受けない時間で、消えるまでを数える
         lifeTime -= Time.unscaledDeltaTime;
 
-        if(lifeTime <= 0f)
+        if (lifeTime <= 0f)
         {
             Destroy(gameObject);
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision collision)
     {
-        EnemyHP enemy = other.GetComponent<EnemyHP>();
+        EnemyHP enemy = collision.collider.GetComponentInParent<EnemyHP>();
 
-        if(enemy == null || enemy.isDead) return;
+        if (enemy == null || enemy.isDead)
+        {
+            return;
+        }
 
-        if (!hitEnemies.Add(enemy)) return;
+        if (!hitEnemies.Add(enemy))
+        {
+            return;
+        }
 
-        enemy.Damaged();
+        Vector3 hitPoint = collision.GetContact(0).point;
 
-        if (onHitEnemy != null) onHitEnemy(enemy);
+        if (onHitEnemy != null)
+        {
+            onHitEnemy(enemy, hitPoint);
+        }
     }
 }

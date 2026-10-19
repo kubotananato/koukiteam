@@ -13,17 +13,18 @@ public class PlaeyerCamera : MonoBehaviour
     int lastReplayVersion;
     private float yRotation;
     private float initialYRotation;
+
     [SerializeField]Transform player;
+    ReplayTimer repT;
 
     void Start()
     {
+        repT = GameObject.Find("ReplayManager").GetComponent<ReplayTimer>();
         // マウスカーソルを画面に中央に固定
         Cursor.lockState = CursorLockMode.Locked;
         // マウスカーソルを画面上に表示しない
         Cursor.visible = false;
-        initialXRotation = Mathf.DeltaAngle(
-            0f, transform.localEulerAngles.x
-        );
+        initialXRotation = 0;
         xRotation = initialXRotation;
         lastReplayVersion = input.replayVersion;
 
@@ -35,7 +36,7 @@ public class PlaeyerCamera : MonoBehaviour
     {
         
         // 再生開始時カメラを初期角度に戻す
-        if (lastReplayVersion != input.replayVersion)
+        if (input.replayVersion != lastReplayVersion)
         {
             xRotation = initialXRotation;
             yRotation = initialYRotation;
@@ -66,6 +67,8 @@ public class PlaeyerCamera : MonoBehaviour
 
     void ApplyMouseDelta(Vector2 delta)
     {
+        /*delta = Vector2.ClampMagnitude(delta, 50f);*/
+
         float mouseX = delta.x * mouseSens;
         float mouseY = delta.y * mouseSens;
 
