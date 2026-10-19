@@ -59,7 +59,6 @@ public class PlayerGun : MonoBehaviour
             input.inputs["shot"])
         {
             PShoot();
-            SoundManager.Instance.PlayGunShot();
         }
     }
 
@@ -87,6 +86,8 @@ public class PlayerGun : MonoBehaviour
         }
 
         Debug.Log("撃った！ 残りの弾数：" + currentAmmo);
+
+        SoundManager.Instance.PlaySENum(0);
 
         if (playerControl != null)
             playerControl.OnShoot();
