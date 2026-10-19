@@ -1,11 +1,7 @@
-using NUnit.Framework;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
+
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Video;
+
 
 // 敵の動き
 // 指定の位置まで移動する
