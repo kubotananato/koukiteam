@@ -21,7 +21,7 @@ public class ReplayUI : MonoBehaviour
     float maxW = 1980;
     float maxH = 1080;
     NextScene nextScene;
-    int startFrame = 70;
+    int startFrame = 50;
     PlayerStatus status;
     int fadeFrame = 25;
     int fadeFrameTimer = 0;
