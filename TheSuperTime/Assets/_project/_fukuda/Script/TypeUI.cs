@@ -1,6 +1,6 @@
-using Microsoft.Unity.VisualStudio.Editor;
+
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class TypeUI : MonoBehaviour
 {

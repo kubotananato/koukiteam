@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 [DefaultExecutionOrder(-50)]
 public class PlaeyerCamera : MonoBehaviour
 {
