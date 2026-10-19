@@ -15,9 +15,14 @@ public class PlayerControl : MonoBehaviour
     Input input;
     Vector3 move;
     PlayerStatus status;
+    [SerializeField] SaveReplay saveReplay;
+    Transform player;
+    [SerializeField] Transform cameraTransform;
+    [SerializeField] Input playerInput;
 
     void Start()
     {
+        player = this.transform;
         rb = GetComponent<Rigidbody>();
 
         if (rb == null)
@@ -82,7 +87,7 @@ public class PlayerControl : MonoBehaviour
 
     public void OnShoot()
     {
-        if(input.IsReplay) return;
+        if (input.IsReplay) return;
         NormalTimer = NormalDuration;
         Time.timeScale = 1f;
     }

@@ -113,8 +113,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.20223999, y: 0.26851964, z: 0.49437118}
-  m_Center: {x: 0.0018801689, y: 0.067141, z: 0.045549035}
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0.07}
 --- !u!114 &4607060027514333060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,4 +171,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponPickupItem
   heldVisualPrefab: {fileID: 0}
   worldWeaponPrefab: {fileID: 0}
-  ammo: 10
+  ammo: 3

@@ -37,10 +37,7 @@ public class PlayerWeaponpick : MonoBehaviour
             }
         }
 
-        if (Mouse.current == null)
-            return;
-
-        if (input.inputs["pick"])
+        if (input.inputs["shot"])
         {
             PickupWeapon();
         }
@@ -48,8 +45,6 @@ public class PlayerWeaponpick : MonoBehaviour
 
     void PickupWeapon()
     {
-        if (PlayerCamera == null || player == null)
-            return;
 
         Ray ray = PlayerCamera.ViewportPointToRay(
             new Vector3(ViewportX, ViewportY, 0)

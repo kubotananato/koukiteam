@@ -87,6 +87,12 @@ public class EnemyMove : MonoBehaviour
         // 死んでるなら適当に値を入れておく（いちおう）
         if(hp.isDead)
         {
+            Collider col = GetComponent<Collider>();
+
+            if (col != null)
+            {
+                col.enabled = false;
+            }
             anim.SetMoveDir(10);
             return;
         }
