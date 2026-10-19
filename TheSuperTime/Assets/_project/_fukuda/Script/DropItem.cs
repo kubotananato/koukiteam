@@ -24,7 +24,8 @@ public class DropItem : MonoBehaviour
 
         // 回転させる
         rigid.maxAngularVelocity = Mathf.Max(rigid.maxAngularVelocity, rotSpeed);
-        rigid.angularVelocity = Random.onUnitSphere * rotSpeed;
+        Vector3 rotationAxis = new Vector3(1f, 0.7f, 0.4f).normalized;
+        rigid.angularVelocity = rotationAxis * rotSpeed;
     }
 
     // Update is called once per frame
