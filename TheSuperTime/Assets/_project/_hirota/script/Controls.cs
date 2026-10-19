@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class CanvasController : MonoBehaviour
 {
@@ -347,6 +348,18 @@ public class CanvasController : MonoBehaviour
         }
 
         if (haikei != null) haikei.SetActive(visible);
-        if (button != null) button.SetActive(visible);
+        if (button != null)
+        {
+            button.SetActive(visible);
+            if (visible && SoundManager.Instance != null)
+            {
+                Button[] childButtons = button.GetComponentsInChildren<Button>(true);
+                foreach (var btn in childButtons)
+                {
+                    SoundManager.Instance.RegisterButton(btn);
+                }
+            }
+
+        }
     }
 }
