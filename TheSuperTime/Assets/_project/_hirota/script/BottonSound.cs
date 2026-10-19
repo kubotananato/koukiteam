@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -7,10 +8,10 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; private set; }
 
-    [Header("Audio Clips")]
+    [Header("Audio Clips (SE)")]
     [SerializeField] private AudioClip buttonSeClip;
-    [Tooltip("テスト用の銃の射撃音")]
-    [SerializeField] private AudioClip gunShotClip;
+    [Tooltip("インデックス（番号）で指定・管理するSEの配列")]
+    [SerializeField] private AudioClip[] seClips;
 
     [Header("BGM Settings (2 Types)")]
     [Tooltip("BGM 1（例：通常ステージ・タイトル用など）")]
@@ -22,6 +23,9 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource seAudioSource;
     [SerializeField] private AudioSource bgmAudioSource;
 
+    // SE管理用：ループ再生や個別の停止・一時停止に使うAudioSourceのリスト
+    private List<AudioSource> activeSeSources = new List<AudioSource>();
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -32,7 +36,6 @@ public class SoundManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
 
         if (seAudioSource == null)
         {
@@ -69,13 +72,10 @@ public class SoundManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // ★追加：シーンが変わった瞬間にBGMを止めたい場合はここでStopBGM()を呼ぶ
-        // （※もし特定のシーン以外でBGMを止めたい場合は条件分岐を入れることも可能です）
         StopBGM();
-
+        StopAllSE(); // シーン遷移時に制御中のSEをリセット
         RegisterButtonsInScene();
     }
-
 
     public void RegisterButtonsInScene()
     {
@@ -88,13 +88,18 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-
+    // ==========================================
+    // SE 制御機能（配列対応・ループ・個別管理）
+    // ==========================================
 
     public void PlayButtonSE()
     {
         PlaySE(buttonSeClip);
     }
 
+    /// <summary>
+    /// 単発SE再生（重ねて鳴らすだけで制御不要な場合）
+    /// </summary>
     public void PlaySE(AudioClip clip)
     {
         if (clip != null && seAudioSource != null)
@@ -103,11 +108,112 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlayGunShot()
+    /// <summary>
+    /// 配列のインデックス指定で単発SE再生
+    /// </summary>
+    public void PlaySENum(int clipIndex)
     {
-        PlaySE(gunShotClip);
+        if (IsValidSeIndex(clipIndex))
+        {
+            PlaySE(seClips[clipIndex]);
+        }
     }
 
+    /// <summary>
+    /// 管理可能（ループ指定・停止・一時停止対応）なSEを配列インデックス指定で再生
+    /// </summary>
+    public AudioSource PlaySEManaged(int clipIndex, bool loop = false)
+    {
+        if (!IsValidSeIndex(clipIndex)) return null;
+        return PlaySEManaged(seClips[clipIndex], loop);
+    }
+
+    /// <summary>
+    /// 管理可能なSEをAudioClip指定で再生
+    /// </summary>
+    public AudioSource PlaySEManaged(AudioClip clip, bool loop = false)
+    {
+        if (clip == null) return null;
+
+        AudioSource source = GetFreeSeAudioSource();
+        source.clip = clip;
+        source.loop = loop;
+        source.Play();
+
+        return source;
+    }
+
+    /// <summary>
+    /// 配列インデックス指定でSEを停止
+    /// </summary>
+    public void StopSE(int clipIndex)
+    {
+        if (!IsValidSeIndex(clipIndex)) return;
+        StopSE(seClips[clipIndex]);
+    }
+
+    /// <summary>
+    /// 特定のAudioClipを指定してSEを停止
+    /// </summary>
+    public void StopSE(AudioClip clip)
+    {
+        if (clip == null) return;
+
+        foreach (var source in activeSeSources)
+        {
+            if (source.clip == clip)
+            {
+                source.Stop();
+            }
+        }
+    }
+
+    /// <summary>
+    /// 配列インデックス指定でSEを一時停止
+    /// </summary>
+    public void PauseSE(int clipIndex)
+    {
+        if (!IsValidSeIndex(clipIndex)) return;
+
+        foreach (var source in activeSeSources)
+        {
+            if (source.isPlaying && source.clip == seClips[clipIndex])
+            {
+                source.Pause();
+            }
+        }
+    }
+
+    /// <summary>
+    /// 配列インデックス指定で一時停止中のSEを再開（スタート）
+    /// </summary>
+    public void ResumeSE(int clipIndex)
+    {
+        if (!IsValidSeIndex(clipIndex)) return;
+
+        foreach (var source in activeSeSources)
+        {
+            if (source.clip == seClips[clipIndex])
+            {
+                source.UnPause();
+            }
+        }
+    }
+
+    /// <summary>
+    /// 管理中のすべてのSEを停止
+    /// </summary>
+    public void StopAllSE()
+    {
+        foreach (var source in activeSeSources)
+        {
+            source.Stop();
+        }
+    }
+
+    // ==========================================
+    // BGM 制御機能（既存の仕様を維持）
+    // ==========================================
 
     public void PlayBGM(int bgmIndex)
     {
@@ -119,22 +225,15 @@ public class SoundManager : MonoBehaviour
         PlayBGMClip(targetClip);
     }
 
-    /// <summary>
-    /// BGM1を再生するショートカット
-    /// </summary>
     public void PlayBGM1()
     {
         PlayBGMClip(bgm1);
     }
 
-    /// <summary>
-    /// BGM2を再生するショートカット
-    /// </summary>
     public void PlayBGM2()
     {
         PlayBGMClip(bgm2);
     }
-
 
     private void PlayBGMClip(AudioClip clip)
     {
@@ -153,5 +252,33 @@ public class SoundManager : MonoBehaviour
         {
             bgmAudioSource.Stop();
         }
+    }
+
+    // ==========================================
+    // 内部補助処理
+    // ==========================================
+
+    private AudioSource GetFreeSeAudioSource()
+    {
+        // 停止中のAudioSourceがあれば再利用
+        foreach (var source in activeSeSources)
+        {
+            if (!source.isPlaying) return source;
+        }
+
+        // なければ追加してリストで管理
+        AudioSource newSource = gameObject.AddComponent<AudioSource>();
+        activeSeSources.Add(newSource);
+        return newSource;
+    }
+
+    private bool IsValidSeIndex(int index)
+    {
+        if (seClips == null || index < 0 || index >= seClips.Length)
+        {
+            Debug.LogWarning($"[SoundManager] SE配列のインデックスが無効です: {index}");
+            return false;
+        }
+        return true;
     }
 }
