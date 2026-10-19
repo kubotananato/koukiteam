@@ -15,6 +15,8 @@ public class TimeDisp : MonoBehaviour
     {
         time = GameManeger.Instance.clearTime;
 
+        Debug.Log(time);
+
         dispTimeMinutes = Mathf.FloorToInt(time / 3000);
         dispTimeSeconds = Mathf.FloorToInt((time % 3000) / 50);
         dispTimeLessSeconds = Mathf.FloorToInt(time % 50);
