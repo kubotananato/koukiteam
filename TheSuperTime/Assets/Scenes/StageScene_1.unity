@@ -2385,6 +2385,14 @@ PrefabInstance:
       propertyPath: ammo
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3380614190530157807, guid: 7bf173456121d4c44be6ea619200695b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.389
+      objectReference: {fileID: 0}
+    - target: {fileID: 3380614190530157807, guid: 7bf173456121d4c44be6ea619200695b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.842
+      objectReference: {fileID: 0}
     - target: {fileID: 4127498776042917291, guid: 7bf173456121d4c44be6ea619200695b, type: 3}
       propertyPath: mouseSens
       value: 0.2
