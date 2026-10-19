@@ -50,7 +50,7 @@ public class PlayerStatus : MonoBehaviour
             Debug.Log("敵に攻撃された");
             PlayerHp -= 1;
             PlayerHp = Mathf.Max(PlayerHp, 0);
-        //    gameClearScript.ToggleCanvas();
+            gameClearScript.ToggleCanvas();
 
             if (PlayerHp <= 0)
             {
