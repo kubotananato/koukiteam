@@ -1,5 +1,3 @@
-
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -45,10 +43,6 @@ public class PlayerControl : MonoBehaviour
         if (Keyboard.current == null)
             return;
 
-        /*if (input.inputs["left"]) horizontal = -1f;
-        if (Keyboard.current.dKey.isPressed) horizontal = 1f;
-        if (Keyboard.current.sKey.isPressed) vertical = -1f;
-        if (Keyboard.current.wKey.isPressed) vertical = 1f;*/
         move = transform.forward * input.moveAxis.y + transform.right * input.moveAxis.x;
 
         if (rb == null)
