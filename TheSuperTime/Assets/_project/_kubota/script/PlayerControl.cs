@@ -8,6 +8,8 @@ public class PlayerControl : MonoBehaviour
 
     public float NormalTimer = 0f;
     public float NormalDuration = 0.5f;
+    public float SEMoveInterval = 0.4f;
+    private float SEMoveTimer = 0f;
 
     private Rigidbody rb;
     Input input;
@@ -65,10 +67,26 @@ public class PlayerControl : MonoBehaviour
             return;
         }
 
-        if (move.sqrMagnitude > 0f|| NormalTimer > 0f)
+        if (move.sqrMagnitude > 0f || NormalTimer > 0f)
+        { 
             Time.timeScale = 1f;
+        }
         else
+        {
             Time.timeScale = 0.05f;
+        }
+
+        // 足音の処理
+        if(move.sqrMagnitude > 0f)
+        {
+        //    SoundManager.Instance.PlayerMoveSE();
+            SEMoveTimer -= Time.deltaTime;
+        }
+        else
+        {
+            // 止まったら次の足音までの時間をリセット
+            SEMoveTimer = 0f;
+        }
 
         if (NormalTimer > 0f)
             NormalTimer -= Time.unscaledDeltaTime;
