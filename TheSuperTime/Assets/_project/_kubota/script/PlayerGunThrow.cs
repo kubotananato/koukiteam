@@ -88,7 +88,10 @@ public class PlayerThrow : MonoBehaviour
         // 拾った床の銃を消す
         Destroy(weaponObject);
         // 拾った時の音
-  //    SoundManager.Instance.PlayerMoveSE();
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayerPickupSE();
+        }
 
         Debug.Log("銃を拾った! 残り弾数:" + currentGun.currentAmmo);
     }
@@ -163,7 +166,10 @@ public class PlayerThrow : MonoBehaviour
             playerControl.OnShoot();
         }
         // 投げた時の音
-    //    SoundManager.Instance.PlayerThrowSE();
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayerThrowSE();
+        }
         Debug.Log("銃を投げた!");
     }
 
