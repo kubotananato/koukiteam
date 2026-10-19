@@ -6,9 +6,11 @@ public class PlayerStatus : MonoBehaviour
     private GameClear gameClearScript;
     public float PlayerHp = 1;
     public bool isDead = false;
+    ClearCheck check;
 
     void Start()
     {
+        check = GameObject.Find("ReplayManager").GetComponent<ClearCheck>();
         sceneManegerObj = GameObject.Find("GameClear");
         if (sceneManegerObj != null)
         {
@@ -54,6 +56,7 @@ public class PlayerStatus : MonoBehaviour
 
             if (PlayerHp <= 0)
             {
+                if (check.isClear) return;
                 isDead = true;
                 Debug.Log("プレイヤー死亡！");
             }
