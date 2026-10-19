@@ -9,9 +9,7 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance { get; private set; }
 
     [Header("Audio Clips (SE)")]
-    [SerializeField] private AudioClip buttonSeClip; // 銃
-    [SerializeField] private AudioClip PlayerMoveClip; // 足音
-    [SerializeField] private AudioClip PlayerThrowClip; // 投げた時の音
+    [SerializeField] private AudioClip buttonSeClip;
     [Tooltip("インデックス（番号）で指定・管理するSEの配列")]
     [SerializeField] private AudioClip[] seClips;
 
@@ -99,23 +97,10 @@ public class SoundManager : MonoBehaviour
         PlaySE(buttonSeClip);
     }
 
-    // 足音
-    public void PlayerMoveSE()
-    {
-        PlayMove(PlayerMoveClip);
-    }
-
     /// <summary>
     /// 単発SE再生（重ねて鳴らすだけで制御不要な場合）
     /// </summary>
     public void PlaySE(AudioClip clip)
-    {
-        if (clip != null && seAudioSource != null)
-        {
-            seAudioSource.PlayOneShot(clip);
-        }
-    }
-    public void PlayMove(AudioClip clip)
     {
         if (clip != null && seAudioSource != null)
         {
